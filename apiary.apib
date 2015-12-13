@@ -3,3 +3,93 @@ HOST: http://polls.apiblueprint.org/
 
 # Performance Horizon Public API
 
+# Data Structures
+
+## Address (object)
++ address1: Gardegasse 11 - 1st line of the address
++ address2: Top 7 (nullable) - 2nd line of the address
++ address3: New York (nullable) - 3rd line of the address
++ address4 (nullable) - 4th line of the address
++ country: JP - Country of the address
++ postcode: `A-101` - Postcode/Zipcode attached to the address
+
+# Group User
+
+## User [/user]
+
++ Attributes
+    + user_id: 300621 - ID of the user
+    + user_name: demomaster - Username of the user
+    + email_address: matthew.clarke@performancehorizon.com - Email address registered to the user
+    + network_id: 1 (number)
+    + network_name: PHG
+    + firstname: Pete - First name of the user
+    + lastname: CheyneWins - Surname of the user
+    + phone: 01595725007 - Primary contact telephone number
+    + phone_area (nullable) - FIXME
+    + fax: 123456 (number) - Fax number
+    + Include Address
+    + locale: en
+    + `user_api_key`: ZMEt5ca8
+    + signup_ip: 178.23.129.160
+    + created: `2011-08-20 17:56:23`
+
+### Retrieve User [GET]
+
++ Response 200 (application/json)
+    + Attributes
+        + user (User)
+
+# Group Publisher
+
+## Publisher [/user/publisher]
+
++ Attributes
+    + publisher_id: 300254 - ID of the publisher
+
+### Retreive Publisher [GET /user/publisher/{publisher_id}]
+
++ Parameters
+    + publisher_id: 300254 (number) - ID of the publisher
+    + account_name: publisherdemo
+    + status: a (enum)
+        + a
+        + p
+        + r
+
++ Response 200 (application/json)
+    + Attributes
+        + publisher (Publisher)
+
+# Group Advertiser
+
+## Advertiser [/user/advertiser]
+
++ Attributes
+    + advertiser_id: 300309 - ID of the advertiser
+    + account_name: demoadvertiser
+    + status: a (enum)
+        + a
+        + p
+        + r
+    + signup_ip: 127.0.0.1
+    + pre_payment (nullable) - FIXME
+    + current_balance (nullable) - FIXME
+    + phone: 01595725007 - Primary contact telephone number
+    + Include Address
+    + vat_number: 636136773 (number)
+    + company_name: PHG Demo Advertiser
+    + contact_email: kristin.bouveng@performancehorizon.com
+    + default_currency: EUR
+    + payment_currency: GBP
+    + budget_summary_interval (nullable) - FIXME
+    + budget_summary_start_time (nullable) - FIXME
+
+### Retreive Advertiser [GET /user/advertiser/{advertiser_id}]
+
++ Parameters
+    + advertiser_id: 300309 - ID of the advertiser
+
++ Response 200 (application/json)
+    + Attributes
+        + advertiser (Advertiser)
