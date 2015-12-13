@@ -1,15 +1,15 @@
 FORMAT: 1A
 HOST: http://polls.apiblueprint.org/
 
-# Performance Horizon Public API
+# Performance Horizon API
 
 # Data Structures
 
 ## Address (object)
 + address1: Gardegasse 11 - 1st line of the address
-+ address2: Top 7 (nullable) - 2nd line of the address
-+ address3: New York (nullable) - 3rd line of the address
-+ address4 (nullable) - 4th line of the address
++ address2: Top 7 - 2nd line of the address FIXME:null
++ address3: New York - 3rd line of the address FIXME:null
++ address4 - 4th line of the address FIXME:null
 + country: JP - Country of the address
 + postcode: `A-101` - Postcode/Zipcode attached to the address
 
@@ -17,7 +17,7 @@ HOST: http://polls.apiblueprint.org/
 
 ## User [/user]
 
-+ Attributes
++ Attributes (object)
     + user_id: 300621 - ID of the user
     + user_name: demomaster - Username of the user
     + email_address: matthew.clarke@performancehorizon.com - Email address registered to the user
@@ -26,7 +26,7 @@ HOST: http://polls.apiblueprint.org/
     + firstname: Pete - First name of the user
     + lastname: CheyneWins - Surname of the user
     + phone: 01595725007 - Primary contact telephone number
-    + phone_area (nullable) - FIXME
+    + phone_area - FIXME
     + fax: 123456 (number) - Fax number
     + Include Address
     + locale: en
@@ -46,16 +46,16 @@ HOST: http://polls.apiblueprint.org/
 
 + Attributes
     + publisher_id: 300254 - ID of the publisher
-
-### Retreive Publisher [GET /user/publisher/{publisher_id}]
-
-+ Parameters
-    + publisher_id: 300254 (number) - ID of the publisher
     + account_name: publisherdemo
     + status: a (enum)
         + a
         + p
         + r
+
+### Retreive Publisher [GET /user/publisher/{publisher_id}]
+
++ Parameters
+    + publisher_id: 300254 - ID of the publisher
 
 + Response 200 (application/json)
     + Attributes
@@ -65,7 +65,7 @@ HOST: http://polls.apiblueprint.org/
 
 ## Advertiser [/user/advertiser]
 
-+ Attributes
++ Attributes (object)
     + advertiser_id: 300309 - ID of the advertiser
     + account_name: demoadvertiser
     + status: a (enum)
@@ -73,8 +73,8 @@ HOST: http://polls.apiblueprint.org/
         + p
         + r
     + signup_ip: 127.0.0.1
-    + pre_payment (nullable) - FIXME
-    + current_balance (nullable) - FIXME
+    + pre_payment - FIXME
+    + current_balance - FIXME
     + phone: 01595725007 - Primary contact telephone number
     + Include Address
     + vat_number: 636136773 (number)
@@ -82,8 +82,8 @@ HOST: http://polls.apiblueprint.org/
     + contact_email: kristin.bouveng@performancehorizon.com
     + default_currency: EUR
     + payment_currency: GBP
-    + budget_summary_interval (nullable) - FIXME
-    + budget_summary_start_time (nullable) - FIXME
+    + `budget_summary_interval` - FIXME
+    + `budget_summary_start_time` - FIXME
 
 ### Retreive Advertiser [GET /user/advertiser/{advertiser_id}]
 
