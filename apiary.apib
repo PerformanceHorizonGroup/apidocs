@@ -3,38 +3,33 @@ HOST: http://polls.apiblueprint.org/
 
 # Performance Horizon API
 
-# Data Structures
-
-## Address (object)
-+ address1: Gardegasse 11 - 1st line of the address
-+ address2: Top 7 - 2nd line of the address FIXME:null
-+ address3: New York - 3rd line of the address FIXME:null
-+ address4 - 4th line of the address FIXME:null
-+ country: JP - Country of the address
-+ postcode: `A-101` - Postcode/Zipcode attached to the address
-
 # Group User
 
 ## User [/user]
 
+A User can have permissions against multiple Publisher and Advertiser accounts.
+
 + Attributes (object)
     + user_id: 300621 - ID of the user
-    + user_name: demomaster - Username of the user
-    + email_address: matthew.clarke@performancehorizon.com - Email address registered to the user
-    + network_id: 1 (number)
+    + Include User Base
+    + network_id: 1
     + network_name: PHG
-    + firstname: Pete - First name of the user
-    + lastname: CheyneWins - Surname of the user
-    + phone: 01595725007 - Primary contact telephone number
-    + phone_area - FIXME
-    + fax: 123456 (number) - Fax number
-    + Include Address
-    + locale: en
     + `user_api_key`: ZMEt5ca8
-    + signup_ip: 178.23.129.160
-    + created: `2011-08-20 17:56:23`
+    + Include Meta Info
 
 ### Retrieve User [GET]
+
+Retrieve the details of the authenticated user.
+
++ Response 200 (application/json)
+    + Attributes
+        + user (User)
+
+### Create an User [POST]
+
++ Request (application/json)
+    + Attributes (User Base)
+        + password: samplepass (required) - Password of the user
 
 + Response 200 (application/json)
     + Attributes
@@ -47,10 +42,7 @@ HOST: http://polls.apiblueprint.org/
 + Attributes
     + publisher_id: 300254 - ID of the publisher
     + account_name: publisherdemo
-    + status: a (enum)
-        + a
-        + p
-        + r
+    + network_status (Status)
 
 ### Retreive Publisher [GET /user/publisher/{publisher_id}]
 
@@ -68,14 +60,10 @@ HOST: http://polls.apiblueprint.org/
 + Attributes (object)
     + advertiser_id: 300309 - ID of the advertiser
     + account_name: demoadvertiser
-    + status: a (enum)
-        + a
-        + p
-        + r
-    + signup_ip: 127.0.0.1
+    + status (Status)
     + pre_payment - FIXME
     + current_balance - FIXME
-    + phone: 01595725007 - Primary contact telephone number
+    + Include Phone
     + Include Address
     + vat_number: 636136773 (number)
     + company_name: PHG Demo Advertiser
@@ -84,6 +72,7 @@ HOST: http://polls.apiblueprint.org/
     + payment_currency: GBP
     + `budget_summary_interval` - FIXME
     + `budget_summary_start_time` - FIXME
+    + Include Meta Info
 
 ### Retreive Advertiser [GET /user/advertiser/{advertiser_id}]
 
@@ -93,3 +82,73 @@ HOST: http://polls.apiblueprint.org/
 + Response 200 (application/json)
     + Attributes
         + advertiser (Advertiser)
+
+# Group Network
+
+## Network [/network]
+
++ Attributes (object)
+    + network_id: 1 - ID of the network
+    + network_name: PHG - Name of the network
+    + network_description: PHG Network - Description of the network
+    + network_notes: Internal PHG Network - Any additional notes for the network
+    + `network_application_id`: 2
+    + `auto_approve_publishers` (Yes Or No)
+    + `default_campaign_id` - FIXME:null
+    + `cm_client_id`: b4d0d85c2cff813cdce092c261b2b200
+    + `network_contact_email` - FIXME:null
+    + network_locale (Locale)
+
+### List Networks [GET]
+
++ Response 200 (application/json)
+    + Attributes
+        + networks (array[Network])
+
+# Data Structures
+
+## User Base (object)
++ user_name: demomaster (required) - Username of the user
++ email_address: matthew.clarke@performancehorizon.com (required) - Email address registered to the user
++ firstname: Pete (required) - First name of the user
++ lastname: CheyneWins (required) - Surname of the user
++ Include Phone
++ fax: 123456 (number) - Fax number
++ Include Address
++ locale (Locale)
+
+## Address (object)
++ address1: Gardegasse 11 (required) - 1st line of the address
++ address2: Top 7 - 2nd line of the address
++ address3: London - 3rd line of the address
++ address4 - 4th line of the address
++ country (Country) (required) - Country of the address
++ postcode: `A-101` (required) - Postcode/Zipcode attached to the address
+
+## Phone (object)
++ phone: 01595725007 (required) - Primary contact telephone number
++ phone_area - FIXME:null
+
+## Meta Info (object)
++ signup_ip: 178.23.129.160
++ created: `2011-08-20 17:56:23`
+
+## Yes Or No (enum)
++ y - yes
++ n - no
++ Sample: y
+
+## Status (enum)
++ a - Approved
++ p - Pending
++ r - Rejected
++ Sample: a
+
+## Country (enum)
++ GB - Great Britain
++ JP - Japan
++ Sample: GB
+
+## Locale (enum)
++ en - English
++ Sample: en
