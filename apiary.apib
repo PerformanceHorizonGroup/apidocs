@@ -160,6 +160,63 @@ Retrieve the information about the specified publisher website
 
 Update the specified publisher website
 
+# Group Publisher Database
+
+Authenticated user must have access to the publisher account
+
+## Publisher Databases [/user/publisher/{publisher_id}/database]
+
++ Parameters
+    + publisher_id: 300254 - ID of the publisher
+
+### List all Publisher Databases [GET]
+
+List all the databases attached to the given publisher account
+
++ Response 200 (application/json)
+    + Attributes
+        + databases (array[Publisher Database Wrapper])
+
+### Create Publisher Database [POST]
+
+Create and add a new database for the given publisher account
+
++ Request (application/json)
+    + Attributes (Publisher Database Base)
+
++ Response 200 (application/json)
+    + Attributes
+        + databases (array[Publisher Database Wrapper])
+
+## Publisher Database [/user/publisher/{publisher_id}/database/{database_id}]
+
++ Parameters
+    + publisher_id: 300254 - ID of the publisher
+    + database_id: 300002 - ID of the publisher database
+
++ Attributes
+    + database_id: 300002 - ID of the publisher database
+    + publisher_id: 300254 - ID of the publisher the database belongs to
+    + Include Publisher Database Base
+    + created_by: 300621 - ID of the user who created this publisher database
+    + Include Created
+    + male: 50 (number)
+    + female: 50 (number)
+    + min_age: 25 (number)
+    + max_age: 77 (number)
+
+### Retrieve a Publisher Database [GET]
+
+Retrieve the information about the specified publisher database
+
++ Response 200 (application/json)
+    + Attributes
+        + database (Publisher Database)
+
+### Update a Publisher database [POST]
+
+Update the specified publisher database
+
 # Group Advertiser
 
 ## Advertiser [/user/advertiser]
@@ -242,6 +299,11 @@ Retrieve the details of the authenticated network.
 + description: Demo Publisher website - FIXME:null
 + website_country (Country)
 + website_name - FIXME:null
+
+## Publisher Database Base (object)
++ database_name: PHG Test Database (required)
++ creation_method: Email (required)
++ size: 53000 (number, required)
 
 ## Address (object)
 + address1: Gardegasse 11 (required) - 1st line of the address
