@@ -35,23 +35,130 @@ Retrieve the details of the authenticated user.
     + Attributes
         + user (User)
 
+### Update an User [POST /user/{user_id}]
+
++ Parameters
+    + user_id: 300621 - ID of the user
+
 # Group Publisher
 
-## Publisher [/user/publisher]
+## Publishers [/user/publisher]
 
-+ Attributes
-    + publisher_id: 300254 - ID of the publisher
-    + account_name: publisherdemo
-    + network_status (Status)
+### List Publishers [GET]
 
-### Retreive Publisher [GET /user/publisher/{publisher_id}]
+List all the publishers of the network that can be accessed by the authenticated user
+
++ Response 200 (application/json)
+    + Attributes
+        + publisher (array[Publisher Wrapper])
+
+### Create a Publisher [POST]
+
++ Request (application/json)
+    + Attributes (Publisher Base)
+
++ Response 200 (application/json)
+    + Attributes (Publisher Wrapper)
+
+## Publisher [/user/publisher/{publisher_id}]
 
 + Parameters
     + publisher_id: 300254 - ID of the publisher
 
++ Attributes
+    + publisher_id: 300254 - ID of the publisher
+    + Include Publisher Base
+    + description - Description of the publisher FIXME:null
+    + company_name: Demo Publisher
+    + company_division
+    + operating_country (Country)
+    + network_status (Status)
+    + network_id: 1 - ID of the network this publisher belongs to
+    + network_notes
+    + created_by: 300621 - ID of the user who created this publisher
+    + reporting_timezone (Timezone)
+    + week_start: Monday
+    + Include Phone
+    + contact_name: Pete Cheyne
+    + contact_email: demo@performancehorizon.com
+    + contact_locale (Locale)
+    + im_provider: Skype
+    + im_username: elisangis
+    + campaign_select
+    + `is_lead_user` (YesOrNo)
+    + `is_affliate_user` (YesOrNo)
+    + `is_foreign_network` (YesOrNo)
+    + foreign_identifier
+    + reporting_identifier
+    + default_currency (Currency)
+    + vat_number
+    + `uk_vat_registered`
+    + gst_registered
+    + `us_tax_state`
+    + abn
+    + Include Meta Info
+
+### Retreive Publisher [GET]
+
 + Response 200 (application/json)
     + Attributes
         + publisher (Publisher)
+
+### Update Publisher [POST]
+
+# Group Publisher Website
+
+Authenticated user must have access to the publisher account
+
+## Publisher Websites [/user/publisher/{publisher_id}/website]
+
++ Parameters
+    + publisher_id: 300254 - ID of the publisher
+
+### List all Publisher Websites [GET]
+
+List all the websites attached to the given publisher account
+
++ Response 200 (application/json)
+    + Attributes
+        + websites (array[Publisher Website Wrapper])
+
+### Create Publisher Website [POST]
+
+Create and add a new website for the given publisher account
+
++ Request (application/json)
+    + Attributes (Publisher Website Base)
+
++ Response 200 (application/json)
+    + Attributes
+        + websites (array[Publisher Website Wrapper])
+
+## Publisher Website [/user/publisher/{publisher_id}/website/{website_id}]
+
++ Parameters
+    + publisher_id: 300254 - ID of the publisher
+    + website_id: 300029 - ID of the publisher website
+
++ Attributes
+    + website_id: 300029 - ID of the publisher website
+    + publisher_id: 300254 - ID of the publisher the website belongs to
+    + Include Publisher Website Base
+    + active (YesOrNo)
+    + created_by: 300621 - ID of the user who created this publisher website
+    + Include Created
+
+### Retrieve a Publisher Website [GET]
+
+Retrieve the information about the specified publisher website
+
++ Response 200 (application/json)
+    + Attributes
+        + website (Publisher Website)
+
+### Update a Publisher Website [POST]
+
+Update the specified publisher website
 
 # Group Advertiser
 
@@ -68,8 +175,8 @@ Retrieve the details of the authenticated user.
     + vat_number: 636136773 (number)
     + company_name: PHG Demo Advertiser
     + contact_email: kristin.bouveng@performancehorizon.com
-    + default_currency: EUR
-    + payment_currency: GBP
+    + default_currency (Currency)
+    + payment_currency (Currency)
     + `budget_summary_interval` - FIXME
     + `budget_summary_start_time` - FIXME
     + Include Meta Info
@@ -101,9 +208,11 @@ Retrieve the details of the authenticated user.
 
 ### List Networks [GET]
 
+Retrieve the details of the authenticated network.
+
 + Response 200 (application/json)
     + Attributes
-        + networks (array[Network])
+        + networks (array[Network Wrapper])
 
 # Data Structures
 
@@ -116,12 +225,29 @@ Retrieve the details of the authenticated user.
 + fax: 123456 (number) - Fax number
 + Include Address
 + locale (Locale)
++ Include Signup IP
+
+## Publisher Base (object)
++ account_name: publisherdemo (required)
++ vertical_name: Other
++ vertical: 10 (required)
++ `promotional_method_name`: Portal
++ promotional_method: 10 (required)
++ Include Signup IP
+
+## Publisher Website Base (object)
++ website_url: http://www.performancehorizon.com (required)
++ website_type: 9 (required)
++ website_vertical: 10 (required)
++ description: Demo Publisher website - FIXME:null
++ website_country (Country)
++ website_name - FIXME:null
 
 ## Address (object)
 + address1: Gardegasse 11 (required) - 1st line of the address
-+ address2: Top 7 - 2nd line of the address
-+ address3: London - 3rd line of the address
-+ address4 - 4th line of the address
++ address2: Top 7 - 2nd line of the address FIXME:null
++ address3: London - 3rd line of the address FIXME:null
++ address4 - 4th line of the address FIXME:null
 + country (Country) (required) - Country of the address
 + postcode: `A-101` (required) - Postcode/Zipcode attached to the address
 
@@ -129,9 +255,11 @@ Retrieve the details of the authenticated user.
 + phone: 01595725007 (required) - Primary contact telephone number
 + phone_area - FIXME:null
 
-## Meta Info (object)
-+ signup_ip: 178.23.129.160
-+ created: `2011-08-20 17:56:23`
+## Signup IP (object)
++ signup_ip: 178.23.129.160 (required)
+
+## Created (object)
++ created: `2011-08-20 17:56:23` (required)
 
 ## Yes Or No (enum)
 + y - yes
@@ -152,3 +280,20 @@ Retrieve the details of the authenticated user.
 ## Locale (enum)
 + en - English
 + Sample: en
+
+## Timezone (enum)
++ Australia/Sydney
++ Sample: Australia/Sydney
+
+## Currency (enum)
++ GBP - Great Britain Pounds
++ Sample: GBP
+
+## Network Wrapper (object)
++ network (Network)
+
+## Publisher Wrapper (object)
++ publisher (Publisher)
+
+## Publisher Website Wrapper (object)
++ website (Publisher Website)
