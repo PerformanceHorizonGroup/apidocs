@@ -40,6 +40,30 @@ Retrieve the details of the authenticated user.
 + Parameters
     + user_id: 300621 - ID of the user
 
+# Group Network
+
+## Network [/network]
+
++ Attributes (object)
+    + network_id: 1 - ID of the network
+    + network_name: PHG - Name of the network
+    + network_description: PHG Network - Description of the network
+    + network_notes: Internal PHG Network - Any additional notes for the network
+    + `network_application_id`: 2
+    + `auto_approve_publishers` (Yes Or No)
+    + `default_campaign_id` - FIXME:null
+    + `cm_client_id`: b4d0d85c2cff813cdce092c261b2b200
+    + `network_contact_email` - FIXME:null
+    + network_locale (Locale)
+
+### List Networks [GET]
+
+Retrieve the details of the authenticated network.
+
++ Response 200 (application/json)
+    + Attributes
+        + networks (array[Network Wrapper])
+
 # Group Publisher
 
 ## Publishers [/user/publisher]
@@ -50,7 +74,7 @@ List all the publishers of the network that can be accessed by the authenticated
 
 + Response 200 (application/json)
     + Attributes
-        + publisher (array[Publisher Wrapper])
+        + publishers (array[Publisher Wrapper])
 
 ### Create a Publisher [POST]
 
@@ -76,8 +100,7 @@ List all the publishers of the network that can be accessed by the authenticated
     + network_id: 1 - ID of the network this publisher belongs to
     + network_notes
     + created_by: 300621 - ID of the user who created this publisher
-    + reporting_timezone (Timezone)
-    + week_start: Monday
+    + Include Time Info
     + Include Phone
     + contact_name: Pete Cheyne
     + contact_email: demo@performancehorizon.com
@@ -91,18 +114,19 @@ List all the publishers of the network that can be accessed by the authenticated
     + foreign_identifier
     + reporting_identifier
     + default_currency (Currency)
-    + vat_number
+    + vat_number (number)
     + `uk_vat_registered`
     + gst_registered
     + `us_tax_state`
     + abn
-    + Include Meta Info
+    + Include Created
+    + websites (array[Publisher Website])
+    + databases (array[Publisher Database])
 
 ### Retreive Publisher [GET]
 
 + Response 200 (application/json)
-    + Attributes
-        + publisher (Publisher)
+    + Attributes (Publisher Wrapper)
 
 ### Update Publisher [POST]
 
@@ -153,8 +177,7 @@ Create and add a new website for the given publisher account
 Retrieve the information about the specified publisher website
 
 + Response 200 (application/json)
-    + Attributes
-        + website (Publisher Website)
+    + Attributes (Publisher Website Wrapper)
 
 ### Update a Publisher Website [POST]
 
@@ -210,8 +233,7 @@ Create and add a new database for the given publisher account
 Retrieve the information about the specified publisher database
 
 + Response 200 (application/json)
-    + Attributes
-        + database (Publisher Database)
+    + Attributes (Publisher Database Wrapper)
 
 ### Update a Publisher database [POST]
 
@@ -219,57 +241,147 @@ Update the specified publisher database
 
 # Group Advertiser
 
-## Advertiser [/user/advertiser]
+## Advertisers [/user/advertiser]
 
-+ Attributes (object)
-    + advertiser_id: 300309 - ID of the advertiser
-    + account_name: demoadvertiser
-    + status (Status)
-    + pre_payment - FIXME
-    + current_balance - FIXME
-    + Include Phone
-    + Include Address
-    + vat_number: 636136773 (number)
-    + company_name: PHG Demo Advertiser
-    + contact_email: kristin.bouveng@performancehorizon.com
-    + default_currency (Currency)
-    + payment_currency (Currency)
-    + `budget_summary_interval` - FIXME
-    + `budget_summary_start_time` - FIXME
-    + Include Meta Info
+### List all Advertisers [GET]
 
-### Retreive Advertiser [GET /user/advertiser/{advertiser_id}]
+List all the advertisers that can be accessed by the authenticated user
+
++ Response 200 (application/json)
+    + Attributes
+        + advertisers (array[Advertiser Wrapper])
+
+### Create Advertiser [POST]
+
+Create and add a new database for the given publisher account
+
++ Request (application/json)
+    + Attributes (Advertiser Base)
+
++ Response 200 (application/json)
+    + Attributes (Advertiser Wrapper)
+
+## Advertiser [/user/advertiser/{advertiser_id}]
 
 + Parameters
     + advertiser_id: 300309 - ID of the advertiser
 
-+ Response 200 (application/json)
-    + Attributes
-        + advertiser (Advertiser)
-
-# Group Network
-
-## Network [/network]
-
 + Attributes (object)
-    + network_id: 1 - ID of the network
-    + network_name: PHG - Name of the network
-    + network_description: PHG Network - Description of the network
-    + network_notes: Internal PHG Network - Any additional notes for the network
-    + `network_application_id`: 2
-    + `auto_approve_publishers` (Yes Or No)
-    + `default_campaign_id` - FIXME:null
-    + `cm_client_id`: b4d0d85c2cff813cdce092c261b2b200
-    + `network_contact_email` - FIXME:null
-    + network_locale (Locale)
+    + advertiser_id: 300309 - ID of the advertiser
+    + Include Advertiser Base
+    + contact_email: kristin.bouveng@performancehorizon.com
+    + status (Status)
+    + pre_payment
+    + current_balance
+    + vat_number: 636136773 (number)
+    + default_currency (Currency)
+    + payment_currency (Currency)
+    + `budget_summary_interval` (number)
+    + `budget_summary_start_time` (number)
+    + Include Created
 
-### List Networks [GET]
+### Retreive an Advertiser [GET]
 
-Retrieve the details of the authenticated network.
++ Response 200 (application/json)
+    + Attributes (Advertiser Wrapper)
+
+### Update an Advertiser [POST]
+
+# Group Campaign
+
+A Campaign is owned by an Advertiser and an Advertiser may have multiple Camapigns. A Campaign represents an entity which the Advertiser uses to represent something that they wish to allow Publishers the chance to promote. A Campaign dictates what products/events/conversions can be promoted, and lets the Publishers understand what Commission they would earn for generating sales/events/conversions. The Advertiser has complete control over their Campaigns and dictates which Publishers they accept onto the Campaign to promote their services.
+
+## Campaigns [/campaign]
+
+### List all Campaigns [GET]
 
 + Response 200 (application/json)
     + Attributes
-        + networks (array[Network Wrapper])
+        + campaigns (array[Campaign Wrapper])
+
+### Create a Campaign [POST]
+
++ Request (application/json)
+    + Attributes (Campaign Base)
+
++ Response 200 (application/json)
+    + Attributes (Campaign Wrapper)
+
+## Campaign [/campaign/{campaign_id}]
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+
++ Attributes
+    + campaign_id: 300389 - ID of the campaign
+    + Include Campaign Base
+    + campaign_logo
+    + created_by: 300621 - ID of the user who created the campaign
+    + status (Status)
+    + Include Time Info
+    + hidden_campaign (YesOrNo)
+    + conversion_type: sale
+    + default_override: 0
+    + vertical_id: 10
+    + vertical_name: Other
+    + payment_date
+    + network_fee
+    + hidden_campaign: n (YesOrNo)
+    + default_currency (Currency)
+    + tracking_method: s2s
+    + `restricted_deep_linking`: n (YesOrNo)
+    + `extra_restricted_deep_linking`
+    + `allow_deep_linking` (YesOrNo)
+    + `append_url_parameters`
+    + cookie_period
+    + cookie_status
+    + `multiple_conversions_per_click`: n (YesOrNo)
+    + `unique_conversion_refs` (YesOrNo)
+    + description
+    + `auto_rejected_ips`
+    + `ip_tracking_time`: 0 (number)
+    + associated_campaigns
+    + `conversion_hiatus_period`: 7 (number)
+    + `force_approve_period`: 0 (number)
+    + `invoice_address_1`
+    + `invoice_address_2`
+    + `invoice_address_3`
+    + `invoice_address_4`
+    + `invoice_address_country` (Country)
+    + `invoice_address_postcode`
+    + `auto_approve_publisher` (YesOrNo)
+    + `recurring_payment_setup` (YesOrNo)
+    + `prepend_url_string`
+    + test_mode: n (YesOrNo)
+    + dont_invoice: n (YesOrNo)
+    + dont_consolidate (YesOrNo)
+    + `deferred_lead_submission`
+    + invoice_contact
+    + invoice_company
+    + invoice_only
+    + `pay_publisher_directly`: n (YesOrNo)
+    + `allow_third_party_pixel`: n (YesOrNo)
+    + `budget_summary_interval`
+    + `budget_summary_start_time`
+    + `lead_confirmation_url_success`
+    + `lead_confirmation_url_fail`
+    + tracking_subdomain
+    + campaign_notes
+    + campaign_languages
+    + tq_enabled: n (YesOrNo)
+    + `tq_enabled_publishers`
+    + is_cpc (YesOrNo)
+    + secure_tracking: n (YesOrNo)
+    + `tq_auto_approve`: 60 (number)
+    + Include Created
+    + last_modified
+
+### Retrieve a Campaign [GET]
+
++ Response 200 (application/json)
+    + Attributes (Campaign Wrapper)
+
+### Update a Campaign [POST]
 
 # Data Structures
 
@@ -305,6 +417,21 @@ Retrieve the details of the authenticated network.
 + creation_method: Email (required)
 + size: 53000 (number, required)
 
+## Advertiser Base (object)
++ account_name: demoadvertiser (required)
++ company_name: PHG Demo Advertiser (required)
++ Include Address
++ Include Phone
++ Include Signup IP
+
+## Campaign Base (object)
++ advertiser_id: 300309 (required) - ID of the advertiser the campaign should belong to
++ title: PHG Aff Demo (required)
++ destination_url: http://www.performancehorizon.com (required)
++ One Of
+    + default_commission_rate: 10 (number)
+    + default_commission_value (number)
+
 ## Address (object)
 + address1: Gardegasse 11 (required) - 1st line of the address
 + address2: Top 7 - 2nd line of the address FIXME:null
@@ -323,6 +450,14 @@ Retrieve the details of the authenticated network.
 ## Created (object)
 + created: `2011-08-20 17:56:23` (required)
 
+## Meta Info (object)
++ Include Signup IP
++ Include Created
+
+## Time Info (object)
++ reporting_timezone (Timezone)
++ week_start: Monday
+
 ## Yes Or No (enum)
 + y - yes
 + n - no
@@ -332,6 +467,7 @@ Retrieve the details of the authenticated network.
 + a - Approved
 + p - Pending
 + r - Rejected
++ n
 + Sample: a
 
 ## Country (enum)
@@ -354,8 +490,17 @@ Retrieve the details of the authenticated network.
 ## Network Wrapper (object)
 + network (Network)
 
+## Advertiser Wrapper (object)
++ advertiser (Advertiser)
+
 ## Publisher Wrapper (object)
 + publisher (Publisher)
 
 ## Publisher Website Wrapper (object)
 + website (Publisher Website)
+
+## Publisher Database Wrapper (object)
++ database (Publisher Database)
+
+## Campaign Wrapper (object)
++ campaign (Campaign)
