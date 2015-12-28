@@ -383,6 +383,152 @@ A Campaign is owned by an Advertiser and an Advertiser may have multiple Camapig
 
 ### Update a Campaign [POST]
 
+# Group Commission Group
+
+A Campaign owner can organise Publishers into Groups. These Groups can be used for Reporting purposes, Communication filters, Commission offers and Voucher Code allocation.
+
+## Commission Groups [/campaign/{campaign_id}/commission_group]
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+
+### List all Commission Groups [GET]
+
++ Response 200 (application/json)
+    + Attributes
+        + commission_groups (array[Commission Group Wrapper])
+
+### Create a Commission Group [POST /commission_group]
+
++ Request (application/json)
+    + Attributes (Commission Group Base)
+        + publishers (array)
+
++ Response 200 (application/json)
+    + Attributes (Commission Group Wrapper)
+
+## Commission Group [/campaign/{campaign_id}/commission_group/{commission_group_id}]
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+    + commission_group_id: 300195 - ID of the commission group
+
++ Attributes
+    + commission_group_id: 300195 - ID of the commission group
+    + Include Commission Group Base
+    + active (YesOrNo)
+    + last_modified: `2015-04-10 01:59:54`
+    + publishers (array[Commission Group Publisher])
+
+### Retrieve a Commission Group [GET]
+
++ Response 200 (application/json)
+    + Attributes (Commission Group Wrapper)
+
+# Group Voucher Code
+
+A Voucher references a coupon code, or voucher code which the Advertiser offers to their customers to usually perform a price discount at the end of the transaction. Specific rules can be set to defined Vouchers ensuring that only valid codes can be used and can also be restricted to specific Publishers. 
+
+## Voucher Codes [/campaign/{campaign_id}/voucher_code]
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+
+### List all Voucher Codes [GET]
+
++ Response 200 (application/json)
+    + Attributes
+        + voucher_codes (array[Voucher Code Wrapper])
+
+### Create a Voucher Code [POST]
+
++ Request (application/json)
+    + Attributes (Voucher Code Base)
+
++ Response 200 (application/json)
+    + Attributes (Voucher Code Wrapper)
+
+## Voucher Code [/campaign/{campaign_id}/voucher_code/{voucher_code_id}]
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+    + voucher_code_id: 300024 - ID of the voucher code
+
++ Attributes
+    + voucher_code_id: 300024 - ID of the voucher code
+    + campaign_id: 300389 - ID of the campaign
+    + Include Voucher Code Base
+    + active (YesOrNo)
+    + on_expiry: ignore
+    + on_invalid_user: ignore
+
+### Retrieve a Voucher Code [GET]
+
++ Response 200 (application/json)
+    + Attributes (Voucher Code Wrapper)
+
+# Group Participating Publishers
+
+Before Publishers can generate conversions for a Campaign, they must be approved to do so. A Publisher can apply to be part of a Campaign, or the Advertiser can choose to add the Publisher(s) of their choice to their own Campaign. Furthermore, if an Advertiser has stipulated their own unique set of Campaign Terms and Conditions, the Publisher must explicitly agree to these if they are to be fully approved on the Campaign.
+
+## Participating Publishers [/campaign/{campaign_id}/publisher]
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+
+### List all Participating Publishers [GET]
+
+View all the publishers participating in a campaign
+
++ Response 200 (application/json)
+    + Attributes
+        + publishers (array[Participating Publisher Wrapper])
+
+### Create a Participating Publisher [POST]
+
++ Request (application/json)
+    + Attributes
+        + publishers (array)
+            + (object)
+                + publisher_id: 300254 - ID of the publisher
+                + campaign_status (Status)
+
++ Response 200 (application/json)
+    + Attributes
+        + publishers (array[Participating Publisher Wrapper])
+
+# Group Commission
+
+## Commissions [/campaign/{campaign_id}/commission]
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+
+### List all Campaign level Commissions [GET /campaign/{campaign_id}/campaign/{campaign_id}/commission]
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+
++ Response 200 (application/json)
+    + Attributes
+        + commissions (array)
+            + (object)
+                + commission (Commission)
+                    + reference_type: campaign
+
+### List all Publisher level Commissions [GET /campaign/{campaign_id}/publisher/{publisher_id}/commission]
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+    + publisher_id: 300254 - ID of the publisher
+
++ Response 200 (application/json)
+    + Attributes
+        + commissions (array)
+            + (object)
+                + commission (Commission)
+                    + reference_type: participation
+
 # Data Structures
 
 ## User Base (object)
@@ -431,6 +577,51 @@ A Campaign is owned by an Advertiser and an Advertiser may have multiple Camapig
 + One Of
     + default_commission_rate: 10 (number)
     + default_commission_value (number)
+
+## Commission Group Publisher (object)
++ publisher_id: 300252 - ID of the publisher
++ publisher_name: Bloggers
++ added: `2015-12-14 22:58:25`
+
+## Commission Group Base (object)
++ name: Fansites 3% (required)
++ campaign_id: 300389 (required) - ID of the campaign
++ description
++ Include Time Range
+
+## Voucher Code Base (object)
++ voucher_code: promocode (required)
++ description
++ Include Time Range
++ commission_groups (array) - Array of IDs of the commission groups
+
+## Commission (object)
++ commission_id: 300092
++ campaign_id: 300389
++ reference_id: 300389
++ reference_type: campaign (enum)
+    + campaign
+    + participation
++ sale_type: simple
++ sku
++ customer_type
++ category
++ country
++ vertical
++ One Of
+    + commission_rate: 4
+    + commission_value
++ override: 10
++ override_type: override
++ Include Time Range
++ active: n (YesOrNo)
++ advertiser_reference
++ customer_reference
++ conversion_type
++ default_commission: false
++ last_modified_by: 300621
++ last_modified: `2012-12-11 21:01:21`
++ update_description: Promotional Period
 
 ## Address (object)
 + address1: Gardegasse 11 (required) - 1st line of the address
@@ -483,6 +674,10 @@ A Campaign is owned by an Advertiser and an Advertiser may have multiple Camapig
 + Australia/Sydney
 + Sample: Australia/Sydney
 
+## Time Range (object)
++ start_date_time: `2013-08-31 15:00:00`
++ end_date_time: `2013-09-30 15:00:00`
+
 ## Currency (enum)
 + GBP - Great Britain Pounds
 + Sample: GBP
@@ -504,3 +699,13 @@ A Campaign is owned by an Advertiser and an Advertiser may have multiple Camapig
 
 ## Campaign Wrapper (object)
 + campaign (Campaign)
+
+## Commission Group Wrapper (object)
++ commission_group (Commission Group)
+
+## Voucher Code Wrapper (object)
++ voucher_code (Voucher Code)
+
+## Participating Publisher Wrapper (object)
++ publisher (Publisher)
+    + campaign_status (Status)
