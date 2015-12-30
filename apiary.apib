@@ -497,6 +497,36 @@ View all the publishers participating in a campaign
     + Attributes
         + publishers (array[Participating Publisher Wrapper])
 
+# Group Publisher Campaign
+
+## Publisher Campaigns [/user/publisher/{publisher_id}/campaign]
+
++ Parameters
+    + publisher_id: 300254 - ID of the publisher
+
+### List all Publisher Campaigns [GET]
+
+View all Campaigns that the Publisher is associated with, along with the status of any Participation.
+
++ Response 200 (application/json)
+    + Attributes
+        + campaigns (array[Publisher Campaign Wrapper])
+
+### Create Publisher Campaigns [POST]
+
+Request access to one or more Campaigns. If a Campaign has any custom Terms and Conditions then the Publisher must agree to these terms when requesting access. On certain Campaigns, you may find that a Publisher will be auto-approved. However some Advertisers will stipulate that they wish to review all Participations. Therefore once access is requested, the Publisher will be shown as pending until this decision is made.
+
++ Request (application/json)
+    + Attributes
+        + campaigns (array)
+            + (object)
+                + campaign_id: 300389 - ID of the campaign
+                + terms_id: 111111l8
+
++ Response 200 (application/json)
+    + Attributes
+        + campaigns (array[Publisher Campaign Wrapper])
+
 # Group Commission
 
 ## Commissions [/campaign/{campaign_id}/commission]
@@ -709,3 +739,7 @@ View all the publishers participating in a campaign
 ## Participating Publisher Wrapper (object)
 + publisher (Publisher)
     + campaign_status (Status)
+
+## Publisher Campaign Wrapper (object)
++ campaign (Campaign)
+    + publisher_status (Status)
