@@ -527,6 +527,56 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
     + Attributes
         + campaigns (array[Publisher Campaign Wrapper])
 
+# Group Invoice
+
+## Invoices [/user/advertiser/{advertiser_id}/invoice]
+
++ Parameters
+    + advertiser_id: 300309 - ID of the advertiser
+
+### List all Invoices [GET]
+
++ Response 200 (application/json)
+    + Attributes
+        + invoices (array[Invoice Wrapper])
+
+## Invoice [/user/advertiser/{advertiser_id}/invoice/{invoice_id}]
+
++ Parameters
+    + advertiser_id: 300309 - ID of the advertiser
+    + invoice_id: 300029 - ID of the invoice
+
++ Attributes
+    + invoice_id: 300029 - ID of the invoice
+    + campaign_id: 300389 - ID of the campaign
+    + merchant_invoice_id
+    + creation_date: `2015-12-14 22:58:25`
+    + payment_date
+    + status: created
+    + currency (Currency)
+    + paid_currency (Currency)
+    + invoice_net_value: 770.84 (number)
+    + invoice_vat_value: 0 (number)
+    + invoice_total_value: 770.84 (number)
+    + payment_reference
+    + publisher_commission: 700.76 (number)
+    + publisher_override: 70.08 (number)
+    + set_start_date: `2015-08-30`
+    + set_end_date: `2015-12-09`
+    + set_timezone (Timezone)
+    + invoiced: All
+    + average_conversion_age: 14 (number)
+    + invoice_reference: `I-300389-300029`
+    + vat_rate: 0 (number)
+    + `payment_due_by_date`
+    + download
+    + item_download
+
+### Retrieve an Invoice [GET]
+
++ Response 200 (application/json)
+    + Attributes (Invoice Wrapper)
+
 # Group Commission
 
 ## Commissions [/campaign/{campaign_id}/commission]
@@ -743,3 +793,6 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
 ## Publisher Campaign Wrapper (object)
 + campaign (Campaign)
     + publisher_status (Status)
+
+## Invoice Wrapper (object)
++ invoice (Invoice)
