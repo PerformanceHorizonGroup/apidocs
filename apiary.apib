@@ -50,9 +50,9 @@ Retrieve the details of the authenticated user.
     + network_description: PHG Network - Description of the network
     + network_notes: Internal PHG Network - Any additional notes for the network
     + `network_application_id`: 2
-    + `auto_approve_publishers` (Yes Or No)
+    + `auto_approve_publishers` (YesOrNo)
     + `default_campaign_id` - FIXME:null
-    + `cm_client_id`: b4d0d85c2cff813cdce092c261b2b200
+    + `cm_client_id`: b4d0d85c2cff813cdce092c261b2b200 - FIXME: null
     + `network_contact_email` - FIXME:null
     + network_locale (Locale)
 
@@ -89,7 +89,7 @@ List all the publishers of the network that can be accessed by the authenticated
 + Parameters
     + publisher_id: 300254 - ID of the publisher
 
-+ Attributes
++ Attributes (object)
     + publisher_id: 300254 - ID of the publisher
     + Include Publisher Base
     + description - Description of the publisher FIXME:null
@@ -164,7 +164,7 @@ Create and add a new website for the given publisher account
     + publisher_id: 300254 - ID of the publisher
     + website_id: 300029 - ID of the publisher website
 
-+ Attributes
++ Attributes (object)
     + website_id: 300029 - ID of the publisher website
     + publisher_id: 300254 - ID of the publisher the website belongs to
     + Include Publisher Website Base
@@ -217,7 +217,7 @@ Create and add a new database for the given publisher account
     + publisher_id: 300254 - ID of the publisher
     + database_id: 300002 - ID of the publisher database
 
-+ Attributes
++ Attributes (object)
     + database_id: 300002 - ID of the publisher database
     + publisher_id: 300254 - ID of the publisher the database belongs to
     + Include Publisher Database Base
@@ -312,7 +312,7 @@ A Campaign is owned by an Advertiser and an Advertiser may have multiple Camapig
 + Parameters
     + campaign_id: 300389 - ID of the campaign
 
-+ Attributes
++ Attributes (object)
     + campaign_id: 300389 - ID of the campaign
     + Include Campaign Base
     + campaign_logo
@@ -413,7 +413,7 @@ A Campaign owner can organise Publishers into Groups. These Groups can be used f
     + campaign_id: 300389 - ID of the campaign
     + commission_group_id: 300195 - ID of the commission group
 
-+ Attributes
++ Attributes (object)
     + commission_group_id: 300195 - ID of the commission group
     + Include Commission Group Base
     + active (YesOrNo)
@@ -454,7 +454,7 @@ A Voucher references a coupon code, or voucher code which the Advertiser offers 
     + campaign_id: 300389 - ID of the campaign
     + voucher_code_id: 300024 - ID of the voucher code
 
-+ Attributes
++ Attributes (object)
     + voucher_code_id: 300024 - ID of the voucher code
     + campaign_id: 300389 - ID of the campaign
     + Include Voucher Code Base
@@ -552,7 +552,10 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
     + merchant_invoice_id
     + creation_date: `2015-12-14 22:58:25`
     + payment_date
-    + status: created
+    + status: created (enum)
+        + created
+        + sent
+        + paid
     + currency (Currency)
     + paid_currency (Currency)
     + invoice_net_value: 770.84 (number)
@@ -708,7 +711,7 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
 + address2: Top 7 - 2nd line of the address FIXME:null
 + address3: London - 3rd line of the address FIXME:null
 + address4 - 4th line of the address FIXME:null
-+ country (Country) (required) - Country of the address
++ country (Country, required) - Country of the address
 + postcode: `A-101` (required) - Postcode/Zipcode attached to the address
 
 ## Phone (object)
@@ -729,30 +732,40 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
 + reporting_timezone (Timezone)
 + week_start: Monday
 
-## Yes Or No (enum)
+## YesOrNo (enum)
 + y - yes
 + n - no
-+ Sample: y
+
+### Sample
++ y
 
 ## Status (enum)
 + a - Approved
 + p - Pending
 + r - Rejected
 + n
-+ Sample: a
+
+### Sample
++ a
 
 ## Country (enum)
 + GB - Great Britain
 + JP - Japan
-+ Sample: GB
+
+### Sample
++ GB
 
 ## Locale (enum)
 + en - English
-+ Sample: en
+
+### Sample
++ en
 
 ## Timezone (enum)
 + Australia/Sydney
-+ Sample: Australia/Sydney
+
+### Sample
++ Australia/Sydney
 
 ## Time Range (object)
 + start_date_time: `2013-08-31 15:00:00`
@@ -760,7 +773,9 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
 
 ## Currency (enum)
 + GBP - Great Britain Pounds
-+ Sample: GBP
+
+### Sample
++ GBP
 
 ## Network Wrapper (object)
 + network (Network)
