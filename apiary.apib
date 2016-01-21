@@ -14,16 +14,15 @@ A User can have permissions against multiple Publisher and Advertiser accounts.
     + Include User Base
     + network_id: 1
     + network_name: PHG
-    + `user_api_key`: ZMEt5ca8
-    + Include Meta Info
+    + user_api_key: ZMEt5ca8
+    + Include Signup IP
 
 ### Retrieve User [GET]
 
 Retrieve the details of the authenticated user.
 
 + Response 200 (application/json)
-    + Attributes
-        + user (User)
+    + Attributes (User Wrapper)
 
 ### Create an User [POST]
 
@@ -32,13 +31,32 @@ Retrieve the details of the authenticated user.
         + password: samplepass (required) - Password of the user
 
 + Response 200 (application/json)
-    + Attributes
-        + user (User)
+    + Attributes (User Wrapper)
 
 ### Update an User [POST /user/{user_id}]
 
 + Parameters
     + user_id: 300621 - ID of the user
+
++ Request (application/json)
+    + Attributes (User Base)
+
++ Response 200 (application/json)
+    + Attributes (User Wrapper)
+
+## Account [/user/account]
+
+### Retrieve Accounts [GET]
+
++ Response 200 (application/json)
+    + Attributes
+        + user_accounts (array)
+            + (Network)
+                + Include Permissions
+            + (Publisher)
+                + Include Permissions
+            + (Advertiser)
+                + Include Permissions
 
 # Group Network
 
@@ -49,11 +67,11 @@ Retrieve the details of the authenticated user.
     + network_name: PHG - Name of the network
     + network_description: PHG Network - Description of the network
     + network_notes: Internal PHG Network - Any additional notes for the network
-    + `network_application_id`: 2
-    + `auto_approve_publishers` (YesOrNo)
-    + `default_campaign_id` - FIXME:null
-    + `cm_client_id`: b4d0d85c2cff813cdce092c261b2b200 - FIXME: null
-    + `network_contact_email` - FIXME:null
+    + network_application_id: 2
+    + auto_approve_publishers (YesOrNo)
+    + default_campaign_id - FIXME:null
+    + cm_client_id: b4d0d85c2cff813cdce092c261b2b200 - FIXME:null
+    + network_contact_email - FIXME:null
     + network_locale (Locale)
 
 ### List Networks [GET]
@@ -92,36 +110,21 @@ List all the publishers of the network that can be accessed by the authenticated
 + Attributes (object)
     + publisher_id: 300254 - ID of the publisher
     + Include Publisher Base
-    + description - Description of the publisher FIXME:null
-    + company_name: Demo Publisher
-    + company_division
-    + operating_country (Country)
     + network_status (Status)
     + network_id: 1 - ID of the network this publisher belongs to
     + network_notes
-    + created_by: 300621 - ID of the user who created this publisher
-    + Include Time Info
-    + Include Phone
-    + contact_name: Pete Cheyne
-    + contact_email: demo@performancehorizon.com
-    + contact_locale (Locale)
-    + im_provider: Skype
-    + im_username: elisangis
     + campaign_select
-    + `is_lead_user` (YesOrNo)
-    + `is_affliate_user` (YesOrNo)
-    + `is_foreign_network` (YesOrNo)
+    + is_lead_user (YesOrNo)
+    + is_affliate_user (YesOrNo)
+    + is_foreign_network (YesOrNo)
     + foreign_identifier
     + reporting_identifier
-    + default_currency (Currency)
-    + vat_number (number)
-    + `uk_vat_registered`
     + gst_registered
-    + `us_tax_state`
+    + us_tax_state
     + abn
-    + Include Created
     + websites (array[Publisher Website])
     + databases (array[Publisher Database])
+    + legal_entity (Country)
 
 ### Retreive Publisher [GET]
 
@@ -129,6 +132,12 @@ List all the publishers of the network that can be accessed by the authenticated
     + Attributes (Publisher Wrapper)
 
 ### Update Publisher [POST]
+
++ Request (application/json)
+    + Attributes (Publisher Base)
+
++ Response 200 (application/json)
+    + Attributes (Publisher Wrapper)
 
 # Group Publisher Website
 
@@ -151,12 +160,31 @@ List all the websites attached to the given publisher account
 
 Create and add a new website for the given publisher account
 
-+ Request (application/json)
++ Request Single (application/json)
     + Attributes (Publisher Website Base)
+
++ Request Multiple (application/json)
+    + Attributes
+        + websites (array[Publisher Website Base])
 
 + Response 200 (application/json)
     + Attributes
         + websites (array[Publisher Website Wrapper])
+
+### Update Publisher Websites [PATCH]
+
+Update the specified publisher website
+
++ Request (application/json)
+    + Attributes
+        + websites (array)
+            + (object)
+                + website_id: 300029 - ID of the publisher website
+                + Include Publisher Website Base
+
++ Response 200 (application/json)
+    + Attributes
+        + databases (array[Publisher Website Wrapper])
 
 ## Publisher Website [/user/publisher/{publisher_id}/website/{website_id}]
 
@@ -168,9 +196,9 @@ Create and add a new website for the given publisher account
     + website_id: 300029 - ID of the publisher website
     + publisher_id: 300254 - ID of the publisher the website belongs to
     + Include Publisher Website Base
+    + website_country (Country)
+    + website_name - FIXME:null
     + active (YesOrNo)
-    + created_by: 300621 - ID of the user who created this publisher website
-    + Include Created
 
 ### Retrieve a Publisher Website [GET]
 
@@ -178,10 +206,6 @@ Retrieve the information about the specified publisher website
 
 + Response 200 (application/json)
     + Attributes (Publisher Website Wrapper)
-
-### Update a Publisher Website [POST]
-
-Update the specified publisher website
 
 # Group Publisher Database
 
@@ -204,8 +228,27 @@ List all the databases attached to the given publisher account
 
 Create and add a new database for the given publisher account
 
-+ Request (application/json)
++ Request Single (application/json)
     + Attributes (Publisher Database Base)
+
++ Request Multiple (application/json)
+    + Attributes
+        + databases (array[Publisher Database Base])
+
++ Response 200 (application/json)
+    + Attributes
+        + databases (array[Publisher Database Wrapper])
+
+### Update Publisher Databases [PATCH]
+
+Update the specified publisher database
+
++ Request (application/json)
+    + Attributes
+        + websites (array)
+            + (object)
+                + website_id: 300029 - ID of the publisher website
+                + Include Publisher Website Base
 
 + Response 200 (application/json)
     + Attributes
@@ -221,12 +264,6 @@ Create and add a new database for the given publisher account
     + database_id: 300002 - ID of the publisher database
     + publisher_id: 300254 - ID of the publisher the database belongs to
     + Include Publisher Database Base
-    + created_by: 300621 - ID of the user who created this publisher database
-    + Include Created
-    + male: 50 (number)
-    + female: 50 (number)
-    + min_age: 25 (number)
-    + max_age: 77 (number)
 
 ### Retrieve a Publisher Database [GET]
 
@@ -234,10 +271,6 @@ Retrieve the information about the specified publisher database
 
 + Response 200 (application/json)
     + Attributes (Publisher Database Wrapper)
-
-### Update a Publisher database [POST]
-
-Update the specified publisher database
 
 # Group Advertiser
 
@@ -276,9 +309,8 @@ Create and add a new database for the given publisher account
     + vat_number: 636136773 (number)
     + default_currency (Currency)
     + payment_currency (Currency)
-    + `budget_summary_interval` (number)
-    + `budget_summary_start_time` (number)
-    + Include Created
+    + budget_summary_interval (number)
+    + budget_summary_start_time (number)
 
 ### Retreive an Advertiser [GET]
 
@@ -286,6 +318,12 @@ Create and add a new database for the given publisher account
     + Attributes (Advertiser Wrapper)
 
 ### Update an Advertiser [POST]
+
++ Request (application/json)
+    + Attributes (Advertiser Base)
+
++ Response 200 (application/json)
+    + Attributes (Advertiser Wrapper)
 
 # Group Campaign
 
@@ -314,67 +352,46 @@ A Campaign is owned by an Advertiser and an Advertiser may have multiple Camapig
 
 + Attributes (object)
     + campaign_id: 300389 - ID of the campaign
-    + Include Campaign Base
-    + campaign_logo
-    + created_by: 300621 - ID of the user who created the campaign
     + status (Status)
+    + Include Campaign Base
     + Include Time Info
-    + hidden_campaign (YesOrNo)
     + conversion_type: sale
     + default_override: 0
-    + vertical_id: 10
-    + vertical_name: Other
     + payment_date
     + network_fee
-    + hidden_campaign: n (YesOrNo)
-    + default_currency (Currency)
-    + tracking_method: s2s
-    + `restricted_deep_linking`: n (YesOrNo)
-    + `extra_restricted_deep_linking`
-    + `allow_deep_linking` (YesOrNo)
-    + `append_url_parameters`
-    + cookie_period
+    + restricted_deep_linking: n (YesOrNo)
+    + extra_restricted_deep_linking
     + cookie_status
-    + `multiple_conversions_per_click`: n (YesOrNo)
-    + `unique_conversion_refs` (YesOrNo)
-    + description
-    + `auto_rejected_ips`
-    + `ip_tracking_time`: 0 (number)
-    + associated_campaigns
-    + `conversion_hiatus_period`: 7 (number)
-    + `force_approve_period`: 0 (number)
-    + `invoice_address_1`
-    + `invoice_address_2`
-    + `invoice_address_3`
-    + `invoice_address_4`
-    + `invoice_address_country` (Country)
-    + `invoice_address_postcode`
-    + `auto_approve_publisher` (YesOrNo)
-    + `recurring_payment_setup` (YesOrNo)
-    + `prepend_url_string`
-    + test_mode: n (YesOrNo)
+    + ip_tracking_time: 0 (number)
+    + conversion_hiatus_period: 7 (number)
+    + force_approve_period: 0 (number)
+    + invoice_address_1
+    + invoice_address_2
+    + invoice_address_3
+    + invoice_address_4
+    + invoice_address_country (Country)
+    + invoice_address_postcode
+    + auto_approve_publisher (YesOrNo)
+    + recurring_payment_setup (YesOrNo)
     + dont_invoice: n (YesOrNo)
     + dont_consolidate (YesOrNo)
-    + `deferred_lead_submission`
+    + deferred_lead_submission
     + invoice_contact
     + invoice_company
     + invoice_only
-    + `pay_publisher_directly`: n (YesOrNo)
-    + `allow_third_party_pixel`: n (YesOrNo)
-    + `budget_summary_interval`
-    + `budget_summary_start_time`
-    + `lead_confirmation_url_success`
-    + `lead_confirmation_url_fail`
+    + pay_publisher_directly: n (YesOrNo)
+    + budget_summary_interval
+    + budget_summary_start_time
+    + lead_confirmation_url_success
+    + lead_confirmation_url_fail
     + tracking_subdomain
-    + campaign_notes
     + campaign_languages
     + tq_enabled: n (YesOrNo)
-    + `tq_enabled_publishers`
+    + tq_enabled_publishers
     + is_cpc (YesOrNo)
-    + secure_tracking: n (YesOrNo)
-    + `tq_auto_approve`: 60 (number)
-    + Include Created
-    + last_modified
+    + commissions (array)
+    + campaign_overloads (array)
+    + campaign_currency_conversions (array)
 
 ### Retrieve a Campaign [GET]
 
@@ -382,6 +399,121 @@ A Campaign is owned by an Advertiser and an Advertiser may have multiple Camapig
     + Attributes (Campaign Wrapper)
 
 ### Update a Campaign [POST]
+
++ Request (application/json)
+    + Attributes (Campaign Base)
+
++ Response 200 (application/json)
+    + Attributes (Campaign Wrapper)
+
+### Delete a Campaign [DELETE]
+
+Delete a specific campaign along with giving a reason to do so.
+
++ Request (application/json)
+    + Attributes
+        + reason: No longer needed
+
++ Response 204
+
+# Group Commission
+
+## Commission [/campaign/{campaign_id}/commission]
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+
++ Attributes (object)
+    + commission_id: 300092 - ID of the commission
+    + campaign_id: 300389
+    + reference_id: 300389
+    + reference_type: campaign (enum)
+        + campaign
+        + participation
+        + group
+        + voucher
+    + Include Commission Base
+    + sale_type: simple
+    + override: 10
+    + override_type: override
+    + active: n (YesOrNo)
+    + default_commission: false
+
+### List all Campaign level Commissions [GET /campaign/{campaign_id}/campaign/{campaign_id}/commission]
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+
++ Response 200 (application/json)
+    + Attributes
+        + commissions (array)
+            + (object)
+                + commission (Commission)
+                    + reference_type: campaign
+
+### List all Publisher level Commissions [GET /campaign/{campaign_id}/publisher/{publisher_id}/commission]
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+    + publisher_id: 300254 - ID of the publisher
+
++ Response 200 (application/json)
+    + Attributes
+        + commissions (array)
+            + (object)
+                + commission (Commission)
+                    + reference_type: participation
+
+### List all Group level Commissions [GET /campaign/{campaign_id}/commission_group/{commission_group_id}/commission]
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+    + commission_group_id: 300195 - ID of the commission group
+
++ Response 200 (application/json)
+    + Attributes
+        + commissions (array)
+            + (object)
+                + commisison (Commission)
+                    + reference_type: group
+
+### List all Voucher level Commissions [GET /campaign/{campaign_id}/voucher_code/{voucher_code_id}/commission]
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+    + voucher_code_id: 300024 - ID of the voucher
+
++ Response 200 (application/json)
+    + Attributes
+        + commissions (array)
+            + (object)
+                + commisison (Commission)
+                    + reference_type: voucher
+
+### Create a Commission [POST]
+
++ Request (application/json)
+    + Attributes
+        + commissions (array)
+            + (Commission Base)
+                + commission_level (required)
+                + reference_id
+
++ Response 200 (application/json)
+    + Attributes
+        + commission (array[Commission Wrapper])
+
+### Update a Commission [PATCH]
+
++ Request (application/json)
+    + Attributes
+        + commissions (array)
+            + (Commission Base)
+                + commission_id: 300092 - ID of the commission
+
++ Response 200 (application/json)
+    + Attributes
+        + commission (array[Commission Wrapper])
 
 # Group Commission Group
 
@@ -398,11 +530,22 @@ A Campaign owner can organise Publishers into Groups. These Groups can be used f
     + Attributes
         + commission_groups (array[Commission Group Wrapper])
 
-### Create a Commission Group [POST /commission_group]
+### Create Commission Groups [POST /commission_group]
 
 + Request (application/json)
-    + Attributes (Commission Group Base)
-        + publishers (array)
+    + Attributes
+        + commission_groups (array[Commission Group Base])
+
++ Response 200 (application/json)
+    + Attributes (Commission Group Wrapper)
+
+### Update Commission Groups [PATCH /commission_group]
+
++ Request (application/json)
+    + Attributes
+        + commission_groups (array)
+            + (Commission Group Base)
+                + commission_group_id: 300195 - ID of the commission group
 
 + Response 200 (application/json)
     + Attributes (Commission Group Wrapper)
@@ -418,7 +561,6 @@ A Campaign owner can organise Publishers into Groups. These Groups can be used f
     + Include Commission Group Base
     + active (YesOrNo)
     + last_modified: `2015-04-10 01:59:54`
-    + publishers (array[Commission Group Publisher])
 
 ### Retrieve a Commission Group [GET]
 
@@ -440,10 +582,22 @@ A Voucher references a coupon code, or voucher code which the Advertiser offers 
     + Attributes
         + voucher_codes (array[Voucher Code Wrapper])
 
-### Create a Voucher Code [POST]
+### Create Voucher Codes [POST]
 
 + Request (application/json)
-    + Attributes (Voucher Code Base)
+    + Attributes
+        + voucher_codes (array[Voucher Code Base])
+
++ Response 200 (application/json)
+    + Attributes (Voucher Code Wrapper)
+
+### Update Voucher Codes [PATCH]
+
++ Request (application/json)
+    + Attributes
+        + voucher_codes (array)
+            + (Voucher Code Base)
+                + voucher_code_id: 300024 - ID of the voucher code
 
 + Response 200 (application/json)
     + Attributes (Voucher Code Wrapper)
@@ -580,37 +734,102 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
 + Response 200 (application/json)
     + Attributes (Invoice Wrapper)
 
-# Group Commission
+# Group Campaign Conversion
 
-## Commissions [/campaign/{campaign_id}/commission]
+An Advertiser must approve or reject all events that occur on their Campaigns. A conversion can have one or more conversion items, and it is the items which must be updated before they can be Invoiced or ignored. It is possible to update the status of items individually, or all items within a conversion can be referenced at the same time. Due to the high volume of processing that can happen on this endpoint, it is Job enabled.
+
+###  [POST /campaign/{campaign_id}/conversion]
 
 + Parameters
     + campaign_id: 300389 - ID of the campaign
 
-### List all Campaign level Commissions [GET /campaign/{campaign_id}/campaign/{campaign_id}/commission]
++ Request (application/json)
+    + Attributes
+        + conversions (array)
+            + (object)
+                + One Of
+                    + conversion_id - The unqiue identifier for a conversion, which will affect all items attached to it
+                    + conversion_reference - The Advertiser's own reference for the conversion, which will affect all items attached to it
+                    + conversion_item_id - The unique identifier for an idividual item, this only affects its own status
+                + status (enum)
+                    + accepted
+                    + rejected
+                + reject_reason
+
++ Response 200 (application/json)
+    + Attributes (object)
+
+# Group Campaign Tracking
+
+To track conversions on a Campaign, all conversion data must be passed to the PHG tracking API. There are 2 distinct methods of passing this data, via an image/pixel tag (which emulates a HTTP GET), and via a direct API call (GET or POST). This endpoint is intended as a quick reference to the syntax of the tracking calls, the actual tracking implementation should be performed in co-operation with the Performance Horizon Integration team. 
+
+### View Example [GET /campaign/{campaign_id}/tracking]
 
 + Parameters
     + campaign_id: 300389 - ID of the campaign
 
 + Response 200 (application/json)
     + Attributes
-        + commissions (array)
-            + (object)
-                + commission (Commission)
-                    + reference_type: campaign
+        + tracking_code
+            + pixel_tracking
+                + default_conversion: `<img src="http://demo.prf.hn/conversion/campaign:300389/value:[xx:xx]/conversionref:[xxxxx]" height="1" width="2" />`
+                + categories (object)
+            + api_tracking
+                + default_conversion: `http://demo.prf.hn/conversion/clickref:[xxxxx]/campaign:300389/value:[xx:xx]/conversionref:[xxxxx]`
+                + categories (object)
 
-### List all Publisher level Commissions [GET /campaign/{campaign_id}/publisher/{publisher_id}/commission]
+# Group Selfbill
+
+Once funds have been received from the Advertiser, Performance Horizon will allocate all Commissions to the relevant Publishers.
+
+## Selfbills [/user/publisher/{publisher_id}/selfbill]
 
 + Parameters
-    + campaign_id: 300389 - ID of the campaign
     + publisher_id: 300254 - ID of the publisher
 
+### List all Selfbills [GET]
+
 + Response 200 (application/json)
     + Attributes
-        + commissions (array)
-            + (object)
-                + commission (Commission)
-                    + reference_type: participation
+        + selfbills (array[Selfbill Wrapper])
+
+## Selfbill [/user/publisher/{publisher_id}/selfbill/{publisher_self_bill_id}]
+
++ Parameters
+    + publisher_id: 300254 - ID of the publisher
+    + publisher_self_bill_id: 300003
+
++ Attributes
+    + publisher_id: 300254 - ID of the publisher
+    + publisher_self_bill_id: 300003
+    + publisher_self_bill_reference
+    + creation_date: `2012-07-25 14:22:35`
+    + payment_date
+    + timestamp: `2012-07-25 14:22:35`
+    + payment_batch_id: 0
+    + status: created (enum)
+    + tracked_net_value: 430.17 (number)
+    + tracked_currency (Currency)
+    + paid_currency (Currency)
+    + selfbill_currency (Currency)
+    + majority_received_currency (Currency)
+    + net_value: 430.17 (number)
+    + vat_value: 0 (number)
+    + withheld_tax: 0 (number)
+    + total_value: 430.17 (number)
+    + items_in_bill: 5 (number)
+    + publisher_payment_detail_set_id: 111111l80
+    + payment_detail_set_id: null
+    + self_bill_reference: `S-300254-300003`
+    + legal_entity (Country)
+    + vat_rate: 0 (number)
+    + download: false (boolean)
+    + item_download: false (boolean)
+
+### View a Selfbill [GET]
+
++ Response 200 (application/json)
+    + Attributes (Selfbill Wrapper)
 
 # Data Structures
 
@@ -627,24 +846,42 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
 
 ## Publisher Base (object)
 + account_name: publisherdemo (required)
-+ vertical_name: Other
-+ vertical: 10 (required)
-+ `promotional_method_name`: Portal
-+ promotional_method: 10 (required)
++ vertical_name: Other (required)
++ vertical_id: 10 (number, required)
++ promotional_method_name: Portal (required)
++ promotional_method_id: 10 (number, required)
++ vat_number (number)
++ uk_vat_registered (YesOrNo)
++ description - Description of the publisher FIXME:null
++ company_name: Demo Publisher
++ company_division
++ operating_country (Country)
++ Include Time Info
++ default_currency (Currency)
++ Include Phone
++ contact_name: Pete Cheyne
++ contact_email: demo@performancehorizon.com
++ contact_locale (Locale)
++ im_provider: Skype
++ im_username: elisangis
 + Include Signup IP
 
 ## Publisher Website Base (object)
 + website_url: http://www.performancehorizon.com (required)
-+ website_type: 9 (required)
-+ website_vertical: 10 (required)
 + description: Demo Publisher website - FIXME:null
-+ website_country (Country)
-+ website_name - FIXME:null
++ website_type: 9 (number, required)
++ website_type_name: PPC (required)
++ vertical_id: 10 (number, required)
++ vertical_name: Technical (required)
 
 ## Publisher Database Base (object)
 + database_name: PHG Test Database (required)
-+ creation_method: Email (required)
++ creation_method: Email - FIXME:null
 + size: 53000 (number, required)
++ male: 50 (number, required)
++ female: 50 (number, required)
++ min_age: 25 (number, required)
++ max_age: 77 (number, required)
 
 ## Advertiser Base (object)
 + account_name: demoadvertiser (required)
@@ -660,6 +897,45 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
 + One Of
     + default_commission_rate: 10 (number)
     + default_commission_value (number)
++ vertical_id: 10 (number)
++ vertical_name: Other
++ test_mode: n (YesOrNo)
++ tracking_method: s2s (enum)
+    + pixel
+    + api
+    + s2s
++ allow_third_party_pixel: n (YesOrNo)
++ campaign_logo
++ hidden_campaign: n (YesOrNo)
++ default_currency (Currency)
++ tq_auto_approve: 60 (number)
++ campaign_notes
++ description (object)
++ terms (object)
+    + en-US (Term)
++ cookie_period
++ multiple_conversions_per_click: n (enum)
+    + y
+    + n
+    + 2 (number)
+    + 3 (number)
+    + 4 (number)
+    + 5 (number)
+    + 6 (number)
+    + 7 (number)
+    + 8 (number)
+    + 9 (number)
+    + 10 (number)
++ unique_conversion_refs: y (enum)
+    + y
+    + n
+    + ignore
++ allow_deep_linking (YesOrNo)
++ append_url_parameters
++ prepend_url_string
++ associated_campaigns
++ auto_rejected_ips
++ secure_tracking: n (YesOrNo)
 
 ## Commission Group Publisher (object)
 + publisher_id: 300252 - ID of the publisher
@@ -671,6 +947,7 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
 + campaign_id: 300389 (required) - ID of the campaign
 + description
 + Include Time Range
++ publishers (array[Commission Group Publisher])
 
 ## Voucher Code Base (object)
 + voucher_code: promocode (required)
@@ -678,32 +955,23 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
 + Include Time Range
 + commission_groups (array) - Array of IDs of the commission groups
 
-## Commission (object)
-+ commission_id: 300092
-+ campaign_id: 300389
-+ reference_id: 300389
-+ reference_type: campaign (enum)
-    + campaign
-    + participation
-+ sale_type: simple
-+ sku
-+ customer_type
-+ category
-+ country
-+ vertical
+## Commission Base (object)
 + One Of
     + commission_rate: 4
     + commission_value
-+ override: 10
-+ override_type: override
+    + commission_value_cpc
 + Include Time Range
-+ active: n (YesOrNo)
-+ advertiser_reference
++ country (Country)
++ vertical_id: 10 (number, required)
++ vertical_name: Other (required)
++ conversion_type: 10 (number, required)
++ sku
++ customer_type: new (enum)
+    + new
+    + existing
++ category
 + customer_reference
-+ conversion_type
-+ default_commission: false
-+ last_modified_by: 300621
-+ last_modified: `2012-12-11 21:01:21`
++ advertiser_reference
 + update_description: Promotional Period
 
 ## Address (object)
@@ -721,16 +989,16 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
 ## Signup IP (object)
 + signup_ip: 178.23.129.160 (required)
 
-## Created (object)
-+ created: `2011-08-20 17:56:23` (required)
-
-## Meta Info (object)
-+ Include Signup IP
-+ Include Created
-
 ## Time Info (object)
 + reporting_timezone (Timezone)
 + week_start: Monday
+
+## Term (object)
++ terms: This is terms document
++ terms_id: 1100l119
+
+## Permissions (object)
++ super_admin_readwrite: create, update, delete (array)
 
 ## YesOrNo (enum)
 + y - yes
@@ -777,6 +1045,9 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
 ### Sample
 + GBP
 
+## User Wrapper (object)
++ user (User)
+
 ## Network Wrapper (object)
 + network (Network)
 
@@ -795,6 +1066,9 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
 ## Campaign Wrapper (object)
 + campaign (Campaign)
 
+## Commission Wrapper (object)
++ commission (Commission)
+
 ## Commission Group Wrapper (object)
 + commission_group (Commission Group)
 
@@ -811,3 +1085,6 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
 
 ## Invoice Wrapper (object)
 + invoice (Invoice)
+
+## Selfbill Wrapper (object)
++ selfbill (Selfbill)
