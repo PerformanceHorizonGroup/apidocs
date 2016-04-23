@@ -1,0 +1,116 @@
+## Publisher Base (object)
++ account_name: publisherdemo (required)
++ vertical_name: Other (required)
++ vertical_id: 10 (number, required)
++ promotional_method_name: Portal (required)
++ promotional_method_id: 10 (number, required)
++ vat_number (number)
++ uk_vat_registered (YesOrNo)
++ description - Description of the publisher
++ company_name: Demo Publisher
++ company_division
++ operating_country (Country)
++ Include Time Info
++ default_currency (Currency)
++ Include Phone
++ contact_name: Pete Cheyne
++ contact_email: demo@performancehorizon.com
++ contact_locale (Locale)
++ im_provider: Skype
++ im_username: elisangis
++ Include Signup IP
+
+## Publisher Website Base (object)
++ website_url: http://www.performancehorizon.com (required)
++ description: Demo Publisher website
++ website_type: 9 (number, required)
++ website_type_name: PPC (required)
++ vertical_id: 10 (number, required)
++ vertical_name: Technical (required)
+
+## Publisher Database Base (object)
++ database_name: PHG Test Database (required)
++ creation_method: Email
++ size: 53000 (number, required)
++ male: 50 (number, required)
++ female: 50 (number, required)
++ min_age: 25 (number, required)
++ max_age: 77 (number, required)
+
+## Publisher (object)
++ publisher_id: 300254 - ID of the publisher
++ Include Publisher Base
++ network_status (Status)
++ network_id: 1 - ID of the network this publisher belongs to
++ network_notes
++ campaign_select
++ is_lead_user (YesOrNo)
++ is_affliate_user (YesOrNo)
++ is_foreign_network (YesOrNo)
++ foreign_identifier
++ reporting_identifier
++ gst_registered
++ us_tax_state
++ abn
++ websites (array[Publisher Website])
++ databases (array[Publisher Database])
++ legal_entity (Country)
+
+## Phone (object)
++ phone: 01595725007 (required) - Primary contact telephone number
++ phone_area
+
+## Signup IP (object)
++ signup_ip: 178.23.129.160 (required)
+
+## Time Info (object)
++ reporting_timezone (Timezone)
++ week_start: Monday
+
+## Time Range (object)
++ start_date_time: `2013-08-31 15:00:00`
++ end_date_time: `2013-09-30 15:00:00`
+
+## Status (enum)
++ a - Approved
++ p - Pending
++ r - Rejected
++ n
+
+### Sample
++ a
+
+## YesOrNo (enum)
++ y - yes
++ n - no
+
+### Sample
++ y
+
+## Country (enum)
++ GB - Great Britain
++ JP - Japan
+
+### Sample
++ GB
+
+## Locale (enum)
++ en - English
+
+### Sample
++ en
+
+## Timezone (enum)
++ Australia/Sydney
+
+### Sample
++ Australia/Sydney
+
+## Currency (enum)
++ GBP - Great Britain Pounds
+
+### Sample
++ GBP
+
+## Publisher Wrapper (object)
++ publisher (Publisher)
