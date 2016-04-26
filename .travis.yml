@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - 0.12
+before_install:
+  - rvm install 2.2.3
+  - rvm use 2.2.3
+install:
+  - gem install apiaryio
+  - npm install hercule
+script:
+  - make
+after_success:
+  - if [ "$TRAVIS_BRANCH" == "master" ]; then make publish; fi
