@@ -69,9 +69,9 @@ Retrieve the details of the authenticated user.
     + network_notes: Internal PHG Network - Any additional notes for the network
     + network_application_id: 2
     + auto_approve_publishers (YesOrNo)
-    + default_campaign_id - FIXME:null
-    + cm_client_id: b4d0d85c2cff813cdce092c261b2b200 - FIXME:null
-    + network_contact_email - FIXME:null
+    + default_campaign_id
+    + cm_client_id: b4d0d85c2cff813cdce092c261b2b200
+    + network_contact_email
     + network_locale (Locale)
 
 ### List Networks [GET]
@@ -173,14 +173,6 @@ Update the specified publisher website
     + publisher_id: 300254 - ID of the publisher
     + website_id: 300029 - ID of the publisher website
 
-+ Attributes (object)
-    + website_id: 300029 - ID of the publisher website
-    + publisher_id: 300254 - ID of the publisher the website belongs to
-    + Include Publisher Website Base
-    + website_country (Country)
-    + website_name - FIXME:null
-    + active (YesOrNo)
-
 ### Retrieve a Publisher Website [GET]
 
 Retrieve the information about the specified publisher website
@@ -240,11 +232,6 @@ Update the specified publisher database
 + Parameters
     + publisher_id: 300254 - ID of the publisher
     + database_id: 300002 - ID of the publisher database
-
-+ Attributes (object)
-    + database_id: 300002 - ID of the publisher database
-    + publisher_id: 300254 - ID of the publisher the database belongs to
-    + Include Publisher Database Base
 
 ### Retrieve a Publisher Database [GET]
 
@@ -550,7 +537,7 @@ A Campaign owner can organise Publishers into Groups. These Groups can be used f
 
 # Group Voucher Code
 
-A Voucher references a coupon code, or voucher code which the Advertiser offers to their customers to usually perform a price discount at the end of the transaction. Specific rules can be set to defined Vouchers ensuring that only valid codes can be used and can also be restricted to specific Publishers. 
+A Voucher references a coupon code, or voucher code which the Advertiser offers to their customers to usually perform a price discount at the end of the transaction. Specific rules can be set to defined Vouchers ensuring that only valid codes can be used and can also be restricted to specific Publishers.
 
 ## Voucher Codes [/campaign/{campaign_id}/voucher_code]
 
@@ -742,7 +729,7 @@ An Advertiser must approve or reject all events that occur on their Campaigns. A
 
 # Group Campaign Tracking
 
-To track conversions on a Campaign, all conversion data must be passed to the PHG tracking API. There are 2 distinct methods of passing this data, via an image/pixel tag (which emulates a HTTP GET), and via a direct API call (GET or POST). This endpoint is intended as a quick reference to the syntax of the tracking calls, the actual tracking implementation should be performed in co-operation with the Performance Horizon Integration team. 
+To track conversions on a Campaign, all conversion data must be passed to the PHG tracking API. There are 2 distinct methods of passing this data, via an image/pixel tag (which emulates a HTTP GET), and via a direct API call (GET or POST). This endpoint is intended as a quick reference to the syntax of the tracking calls, the actual tracking implementation should be performed in co-operation with the Performance Horizon Integration team.
 
 ### View Example [GET /campaign/{campaign_id}/tracking]
 
@@ -918,9 +905,9 @@ Once funds have been received from the Advertiser, Performance Horizon will allo
 
 ## Address (object)
 + address1: Gardegasse 11 (required) - 1st line of the address
-+ address2: Top 7 - 2nd line of the address FIXME:null
-+ address3: London - 3rd line of the address FIXME:null
-+ address4 - 4th line of the address FIXME:null
++ address2: Top 7 - 2nd line of the address
++ address3: London - 3rd line of the address
++ address4 - 4th line of the address
 + country (Country, required) - Country of the address
 + postcode: `A-101` (required) - Postcode/Zipcode attached to the address
 

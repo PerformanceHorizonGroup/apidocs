@@ -28,6 +28,14 @@
 + vertical_id: 10 (number, required)
 + vertical_name: Technical (required)
 
+## Publisher Website (object)
++ website_id: 300029 - ID of the publisher website
++ publisher_id: 300254 - ID of the publisher the website belongs to
++ Include Publisher Website Base
++ website_country (Country)
++ website_name
++ active (YesOrNo)
+
 ## Publisher Database Base (object)
 + database_name: PHG Test Database (required)
 + creation_method: Email
@@ -36,6 +44,11 @@
 + female: 50 (number, required)
 + min_age: 25 (number, required)
 + max_age: 77 (number, required)
+
+## Publisher Database (object)
++ database_id: 300002 - ID of the publisher database
++ publisher_id: 300254 - ID of the publisher the database belongs to
++ Include Publisher Database Base
 
 ## Publisher (object)
 + publisher_id: 300254 - ID of the publisher
