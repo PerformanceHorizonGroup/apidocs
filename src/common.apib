@@ -93,6 +93,25 @@
 ### Sample
 + a
 
+## Job (object)
++ job_id: 111111l470 - ID of the job
++ completed_at: `2016-04-07 04:21:52`
++ Include Created
++ created_by_uri
++ status (enum)
+    + complete
+    + created
+    + active
++ percentage_complete: 100 (number)
++ reference
++ response_within_retention: true (boolean)
++ estimated_completion
++ time_elapsed
+
+## Created (object)
++ created_at: `2016-04-07 04:21:51`
++ created_by: 300621 - ID of the user who created the job
+
 ## YesOrNo (enum)
 + y - yes
 + n - no
@@ -127,3 +146,6 @@
 
 ## Publisher Wrapper (object)
 + publisher (Publisher)
+
+## Job Wrapper (object)
++ job (Job)
