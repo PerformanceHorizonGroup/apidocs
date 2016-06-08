@@ -51,11 +51,11 @@ Retrieve the details of the authenticated user.
 + Response 200 (application/json)
     + Attributes
         + user_accounts (array)
-            + (Network)
+            + (Network Wrapper)
                 + Include Permissions
-            + (Publisher)
+            + (Publisher Wrapper)
                 + Include Permissions
-            + (Advertiser)
+            + (Advertiser Wrapper)
                 + Include Permissions
 
 # Group Network
@@ -280,7 +280,7 @@ Create and add a new database for the given publisher account
     + budget_summary_interval (number)
     + budget_summary_start_time (number)
 
-### Retreive an Advertiser [GET]
+### Retrieve an Advertiser [GET]
 
 + Response 200 (application/json)
     + Attributes (Advertiser Wrapper)
