@@ -51,12 +51,10 @@ Retrieve the details of the authenticated user.
 + Response 200 (application/json)
     + Attributes
         + user_accounts (array)
-            + (Network Wrapper)
-                + Include Permissions
-            + (Publisher Wrapper)
-                + Include Permissions
-            + (Advertiser Wrapper)
-                + Include Permissions
+            + (Network Account Wrapper)
+            + (Publisher Account Wrapper)
+            + (Advertiser Account Wrapper)
+            + (Campaign Group Account Wrapper)
 
 # Group Network
 
@@ -918,6 +916,19 @@ Once funds have been received from the Advertiser, Performance Horizon will allo
 ## Permissions (object)
 + super_admin_readwrite: create, update, delete (array)
 
+# Group Campaigns (object)
++ title : PHG Aff Demo
++ campaign_id : 300389
+
+## Campaign Group (object)
++ campaign_group_id : 111111l1
++ title : Example Group - title of the campaign group
++ advertiser_id : 300309 - id of owning advertiser account
++ week_start : monday
++ reporting_timezone : GMT
++ default_currency : GBP
++ campaigns (array[Group Campaigns])
+
 :[](common.apib)
 
 ## User Wrapper (object)
@@ -954,6 +965,22 @@ Once funds have been received from the Advertiser, Performance Horizon will allo
 ## Publisher Campaign Wrapper (object)
 + campaign (Campaign)
     + publisher_status (Status)
+
+## Network Account Wrapper (object)
++ network (Network)
+    + permissions (Permissions)
+
+## Publisher Account Wrapper (object)
++ publisher (Publisher)
+    + permissions (Permissions)
+
+## Advertiser Account Wrapper (object)
++ advertiser (Advertiser)
+    + permissions (Permissions)
+
+## Campaign Group Account Wrapper (object)
++ campaign_group : (Campaign Group)
+    + permissions (Permissions)
 
 ## Invoice Wrapper (object)
 + invoice (Invoice)
