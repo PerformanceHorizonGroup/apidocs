@@ -691,7 +691,8 @@ Voucher overrides nested into each. This endpoint removes the need to query a sp
 
 # Group Commission Group
 
-A Campaign owner can organise Publishers into Groups. These Groups can be used for Reporting purposes, Communication filters, Commission offers and Voucher Code allocation.
+A Campaign owner can organise Publishers into Groups. These Groups can be used for Reporting purposes, Communication
+filters, Commission offers and Voucher Code allocation.
 
 ## Commission Groups [/campaign/{campaign_id}/commission_group]
 
@@ -700,11 +701,16 @@ A Campaign owner can organise Publishers into Groups. These Groups can be used f
 
 ### List all Commission Groups [GET]
 
+View all Groups with all associated Publishers.
+
 + Response 200 (application/json)
     + Attributes
         + commission_groups (array[Commission Group Wrapper])
 
 ### Create Commission Groups [POST /commission_group]
+
+Create new Groups by passing each Group object within a `commission_groups` array. A `name` and `campaign_id`
+must be passed, and to add Publishers into the Group pass them in a `publishers` array.
 
 + Request (application/json)
     + Attributes
@@ -714,6 +720,8 @@ A Campaign owner can organise Publishers into Groups. These Groups can be used f
     + Attributes (Commission Group Wrapper)
 
 ### Update Commission Groups [PATCH /commission_group]
+
+Update Groups by referencing the `commission_group_id` in each Group object within the `commission_groups` array.
 
 + Request (application/json)
     + Attributes
@@ -737,6 +745,8 @@ A Campaign owner can organise Publishers into Groups. These Groups can be used f
     + last_modified: `2015-04-10 01:59:54`
 
 ### Retrieve a Commission Group [GET]
+
+Outputs the specified Group.
 
 + Response 200 (application/json)
     + Attributes (Commission Group Wrapper)
