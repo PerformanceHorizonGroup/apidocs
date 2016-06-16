@@ -89,7 +89,25 @@ There are 2 considerations when doing this:
 - Results begin at offset `0`. If you're retrieving a report with `limit=300`, page 2 will begin at `offset=300`,
 page 3 at `offset=600`, page 4 at `offset=900`, etc.
 - The reports you generate are based on live data, and could be subject to continuous, incremental changes. If your
-query covers a particularly busy data set, then data inserts or updates may occur between paging. 
+query covers a particularly busy data set, then data inserts or updates may occur between paging.
+
+### Hypermedia
+It can be cumbersome to manage pagination programmatically, especially when attempting to rapidly prototype. To provide
+some helpful assistance, the API will output a `hypermedia` node for all paginated result sets. Essentially this
+performs all necessary calculations and outputs all relevant information with absolute URI's to assist easier pagination.
+
+```
+"hypermedia": {
+    "pagination": {
+        "total_page_count": 15,
+        "first_page": "/user.json?limit=100&offset=0",
+        "last_page": "/user.json?limit=100&offset=1400",
+        "next_page": "/user.json?limit=100&offset=100",
+        "previous_page": null
+    }
+}
+```
+
 
 # Group User
 
