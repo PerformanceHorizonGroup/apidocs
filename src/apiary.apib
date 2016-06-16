@@ -959,9 +959,16 @@ View an individual Invoice.
 
 # Group Campaign Conversion
 
-An Advertiser must approve or reject all events that occur on their Campaigns. A conversion can have one or more conversion items, and it is the items which must be updated before they can be Invoiced or ignored. It is possible to update the status of items individually, or all items within a conversion can be referenced at the same time. Due to the high volume of processing that can happen on this endpoint, it is Job enabled.
+An Advertiser must approve or reject all conversion events that occur on their Campaigns. A conversion can have one or more
+conversion items, and it is the items which must be updated before they can be Invoiced or ignored. It is possible to
+update the status of items individually, or all items within a conversion can be referenced at the same time.
+Due to the high volume of processing that can happen on this endpoint, it is Job enabled.
 
 ### Update Conversion Events [POST /campaign/{campaign_id}/conversion]
+
+A Conversion update can be actioned against one of three references. The relevant reference must be passed, with its
+associated id and status. Bulk operations are sent within a `conversions` array. An optional `reject_reason` can
+be sent with references that are set to the `rejected` status.
 
 + Parameters
     + campaign_id: 300389 - ID of the campaign
@@ -971,9 +978,9 @@ An Advertiser must approve or reject all events that occur on their Campaigns. A
         + conversions (array)
             + (object)
                 + One Of
-                    + conversion_id - The unqiue identifier for a conversion, which will affect all items attached to it
+                    + conversion_id - The unique identifier for a conversion, which will affect all items attached to it
                     + conversion_reference - The Advertiser's own reference for the conversion, which will affect all items attached to it
-                    + conversion_item_id - The unique identifier for an idividual item, this only affects its own status
+                    + conversion_item_id - The unique identifier for an individual item, this only affects its own status
                 + status (enum)
                     + accepted
                     + rejected
@@ -984,9 +991,14 @@ An Advertiser must approve or reject all events that occur on their Campaigns. A
 
 # Group Campaign Tracking
 
-To track conversions on a Campaign, all conversion data must be passed to the PHG tracking API. There are 2 distinct methods of passing this data, via an image/pixel tag (which emulates a HTTP GET), and via a direct API call (GET or POST). This endpoint is intended as a quick reference to the syntax of the tracking calls, the actual tracking implementation should be performed in co-operation with the Performance Horizon Integration team.
+To track conversions on a Campaign, all conversion data must be passed to the PHG tracking API. There are 2
+distinct methods of passing this data, via an image/pixel tag (which emulates a HTTP GET), and via a direct API call
+(GET or POST). This endpoint is intended as a quick reference to the syntax of the tracking calls, the actual
+tracking implementation should be performed in co-operation with the Performance Horizon Integration team.
 
 ### View Example [GET /campaign/{campaign_id}/tracking]
+
+View example tracking code for all unique Commission categories.
 
 + Parameters
     + campaign_id: 300389 - ID of the campaign
