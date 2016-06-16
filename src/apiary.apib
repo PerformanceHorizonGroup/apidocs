@@ -166,12 +166,10 @@ associated. Also includes a permissions node to relay the available User Access 
 + Response 200 (application/json)
     + Attributes
         + user_accounts (array)
-            + (Network)
-                + Include Permissions
-            + (Publisher)
-                + Include Permissions
-            + (Advertiser)
-                + Include Permissions
+            + (Network Account Wrapper)
+            + (Publisher Account Wrapper)
+            + (Advertiser Account Wrapper)
+            + (Campaign Group Account Wrapper)
 
 # Group Network
 
@@ -1610,6 +1608,15 @@ level `conversions` array.
 ## Permissions (object)
 + super_admin_readwrite: create, update, delete (array)
 
+## Campaign Group (object)
++ campaign_group_id : 111111l1
++ title : Example Group - title of the campaign group
++ advertiser_id : 300309 - id of owning advertiser account
++ week_start : monday
++ reporting_timezone : GMT
++ default_currency : GBP
++ campaigns (array[Campaign Base])
+
 ## Click (object)
 + click_id: 111111l100057
 + cookie_id: 111111l38040
@@ -1837,3 +1844,20 @@ level `conversions` array.
 
 ## Creative Tag Wrapper (object)
 + creative_tag (Creative Tag)
+
+## Network Account Wrapper (object)
++ network (Network)
+    + permissions (Permissions)
+
+## Publisher Account Wrapper (object)
++ publisher (Publisher)
+    + permissions (Permissions)
+
+## Advertiser Account Wrapper (object)
++ advertiser (Advertiser)
+    + permissions (Permissions)
+
+## Campaign Group Account Wrapper (object)
++ campaign_group : (Campaign Group)
+    + permissions (Permissions)
+
