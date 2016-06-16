@@ -1456,7 +1456,12 @@ array and must contain its associated `creative_tag_id`.
 
 # Group Campaign Bonus
 
+The bonus endpoint allows the Campaign owner to allocate a one off bonus Conversion to a Publisher.
+
 ## Create a Bonus Conversion [POST /user/advertiser/{advertiser_id}/campaign/{campaign_id}/bonus_conversion]
+
+Create one or more Bonus Conversions against the Campaign entity. Each Bonus is sent as an array within a top
+level `conversions` array.
 
 + Parameters
     + advertiser_id: 300309 - ID of the advertiser
