@@ -898,12 +898,18 @@ object within a `campaigns` array.
 
 # Group Invoice
 
+So that Publishers can receive payment for all approved conversion events they have generated across an Advertiser's
+Campaigns, the Advertiser must raise an Invoice and send payment to Performance Horizon. Once the payment has cleared,
+all funds will be deposited into the relevant Publisher accounts.
+
 ## Invoices [/user/advertiser/{advertiser_id}/invoice]
 
 + Parameters
     + advertiser_id: 300309 - ID of the advertiser
 
 ### List all Invoices [GET]
+
+View all Invoices that have been created.
 
 + Response 200 (application/json)
     + Attributes
@@ -945,6 +951,8 @@ object within a `campaigns` array.
     + item_download
 
 ### Retrieve an Invoice [GET]
+
+View an individual Invoice.
 
 + Response 200 (application/json)
     + Attributes (Invoice Wrapper)
