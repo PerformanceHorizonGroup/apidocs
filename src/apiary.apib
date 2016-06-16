@@ -314,7 +314,7 @@ Outputs the specified publisher website.
 
 # Group Publisher Database
 
-Authenticated user must have access to the publisher account
+The Database endpoint gathers information about a Publisher's client base. It is mostly relevant to lead generation Publishers.
 
 ## Publisher Databases [/user/publisher/{publisher_id}/database]
 
@@ -323,7 +323,7 @@ Authenticated user must have access to the publisher account
 
 ### List all Publisher Databases [GET]
 
-List all the databases attached to the given publisher account
+Return the details of all Databases attached to the Publisher account.
 
 + Response 200 (application/json)
     + Attributes
@@ -331,7 +331,8 @@ List all the databases attached to the given publisher account
 
 ### Create Publisher Database [POST]
 
-Create and add a new database for the given publisher account
+Create one or more Databases against the Publisher entity. Each Database is sent as an array within a top level `databases`
+array.
 
 + Request Single (application/json)
     + Attributes (Publisher Database Base)
@@ -346,7 +347,8 @@ Create and add a new database for the given publisher account
 
 ### Update Publisher Databases [PATCH]
 
-Update the specified publisher database
+Update one or more Databases against the Publisher entity. Each Database is sent as an array within a top level `databases`
+array and must contain its associated `database_id`.
 
 + Request (application/json)
     + Attributes
@@ -367,18 +369,24 @@ Update the specified publisher database
 
 ### Retrieve a Publisher Database [GET]
 
-Retrieve the information about the specified publisher database
+Outputs the specified Publisher Database.
 
 + Response 200 (application/json)
     + Attributes (Publisher Database Wrapper)
 
 # Group Advertiser
 
+A User can create one or more Advertiser accounts. A User can also have access to one or more Advertiser accounts -
+this is determined by the User's permissions. A Network admin may choose to grant a User access to multiple
+entities within their Network.
+
 ## Advertisers [/user/advertiser]
 
 ### List all Advertisers [GET]
 
-List all the advertisers that can be accessed by the authenticated user
+One or more Advertisers can reside on a Network. This endpoint will output a listing of all Advertisers who reside on
+the Network and the output is contextual based on the permissions of the User making the request to the endpoint.
+A limited Advertiser schema will be utilised for any Advertiser that the User does not have appropriate permissions to view.
 
 + Response 200 (application/json)
     + Attributes
@@ -386,7 +394,7 @@ List all the advertisers that can be accessed by the authenticated user
 
 ### Create Advertiser [POST]
 
-Create and add a new database for the given publisher account
+Create a new Advertiser account attached to the authenticated User.
 
 + Request (application/json)
     + Attributes (Advertiser Base)
@@ -412,12 +420,16 @@ Create and add a new database for the given publisher account
     + budget_summary_interval (number)
     + budget_summary_start_time (number)
 
-### Retreive an Advertiser [GET]
+### Retrieve an Advertiser [GET]
+
+Outputs the specified advertiser.
 
 + Response 200 (application/json)
     + Attributes (Advertiser Wrapper)
 
 ### Update an Advertiser [POST]
+
+Update the specified Advertiser.
 
 + Request (application/json)
     + Attributes (Advertiser Base)
