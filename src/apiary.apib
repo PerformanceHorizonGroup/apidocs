@@ -15,7 +15,7 @@ Finally, our API docs are open source. We would welcome any corrections, updates
 submit a pull request on our [Github project page](https://github.com/PerformanceHorizonGroup/apidocs).
 
 ## Access and Authentication
-The PH API supports two authentication protocols:
+The API supports two authentication protocols:
 
 1. [HTTP Basic Auth](http://en.wikipedia.org/wiki/Basic_access_authentication) over HTTPS
 2. [Oauth2 via Authorization Code Grant](http://oauthlib.readthedocs.io/en/latest/oauth2/grants/authcode.html) user flow
@@ -51,6 +51,13 @@ in the response. Currently, there are 3 available formats:
 | `.json`              | `Content-Type: application/json`         |                                                                     |
 | `.xml`               | `Content-Type: text/xml`                 |                                                                     |
 | `.csv`               | `Content-Type: application/octet-stream` | Only available on specific endpoints                                |
+
+## Compression
+The API is compression enabled. To control whether the API response is compressed, send the relevant
+`Accept-Encoding` HTTP header:
+
+- Request: `Accept-Encoding: gzip`
+- Response: `Content-Encoding: gzip`
 
 
 # Group User
