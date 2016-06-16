@@ -753,7 +753,9 @@ Outputs the specified Group.
 
 # Group Voucher Code
 
-A Voucher references a coupon code, or voucher code which the Advertiser offers to their customers to usually perform a price discount at the end of the transaction. Specific rules can be set to defined Vouchers ensuring that only valid codes can be used and can also be restricted to specific Publishers.
+A Voucher references a coupon code, or voucher code which the Advertiser offers to their customers to usually
+ perform a price discount at the end of the transaction. Specific rules can be set to defined Vouchers ensuring that
+ only valid codes can be used and can also be restricted to specific Publishers.
 
 ## Voucher Codes [/campaign/{campaign_id}/voucher_code]
 
@@ -762,11 +764,17 @@ A Voucher references a coupon code, or voucher code which the Advertiser offers 
 
 ### List all Voucher Codes [GET]
 
+View all Voucher Codes attached to the Campaign.
+
 + Response 200 (application/json)
     + Attributes
         + voucher_codes (array[Voucher Code Wrapper])
 
 ### Create Voucher Codes [POST]
+
+Create new Vouchers by passing each Voucher object within a `voucher_codes` array. A `voucher_code` string to define
+the actual code must be passed with each object, and to allocate the Voucher to specific Groups, pass the Group ids
+in a `commission_groups` array.
 
 + Request (application/json)
     + Attributes
@@ -776,6 +784,8 @@ A Voucher references a coupon code, or voucher code which the Advertiser offers 
     + Attributes (Voucher Code Wrapper)
 
 ### Update Voucher Codes [PATCH]
+
+Update Vouchers by referencing the `voucher_code_id` in each Group object within the `voucher_codes` array.
 
 + Request (application/json)
     + Attributes
@@ -801,6 +811,8 @@ A Voucher references a coupon code, or voucher code which the Advertiser offers 
     + on_invalid_user: ignore
 
 ### Retrieve a Voucher Code [GET]
+
+Outputs the specified Voucher Code.
 
 + Response 200 (application/json)
     + Attributes (Voucher Code Wrapper)
