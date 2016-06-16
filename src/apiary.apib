@@ -72,6 +72,24 @@ Any endpoint that supports pagination will return three attributes to support th
 If `offset` combined with `limit` is less than the overall `count`, the results have been truncated.
 Therefore, to consume all data you will need to page through the result set.
 
+### Paging
+To paginate through a result set, you can use a combination of 2 parameters:
+
+| Parameter            | Description                          | Notes                                                               |
+|----------------------|--------------------------------------|---------------------------------------------------------------------|
+| `offset`             | Offset the results by a given amount | Integer, defaults to `0`                                            |
+| `limit`              | Limit the number of results returned | Integer, maximum limit is defined in result set headers             |
+
+For example, if an endpoint produces 500 results, only the first 300 will be returned (results `0` to `299`).
+In order to retrieve the remaining results, implement the `offset` GET param. In this example, adding `offset=300` to
+the query string parameters.
+
+There are 2 considerations when doing this:
+
+- Results begin at offset `0`. If you're retrieving a report with `limit=300`, page 2 will begin at `offset=300`,
+page 3 at `offset=600`, page 4 at `offset=900`, etc.
+- The reports you generate are based on live data, and could be subject to continuous, incremental changes. If your
+query covers a particularly busy data set, then data inserts or updates may occur between paging. 
 
 # Group User
 
