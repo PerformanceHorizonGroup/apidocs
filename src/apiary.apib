@@ -110,10 +110,10 @@ performs all necessary calculations and outputs all relevant information with ab
 
 # Group User
 
-## User [/user]
-
 A User is the central entity that all API requests are autheticated against. A User can have permissions against
 multiple Publisher and Advertiser accounts.
+
+## User [/user]
 
 + Attributes (object)
     + user_id: 300621 - ID of the user
@@ -160,6 +160,9 @@ Update the non read-only attributes of the user.
 
 ### Retrieve Accounts [GET]
 
+Returns the Network object that the user belongs to, and all Advertiser and Publisher accounts to which they are
+associated. Also includes a permissions node to relay the available User Access Rights to that entity.
+
 + Response 200 (application/json)
     + Attributes
         + user_accounts (array)
@@ -172,10 +175,10 @@ Update the non read-only attributes of the user.
 
 # Group Network
 
-## Network [/network]
-
 All API calls are contextual to the User that is making the request, and all User accounts are associated with the
 Network that they are created on. Each network has a unique `application_user_key`.
+
+## Network [/network]
 
 + Attributes (object)
     + network_id: 1 - ID of the network
@@ -199,17 +202,25 @@ Retrieve the details of the authenticated Network.
 
 # Group Publisher
 
+A User can create one or more Publisher accounts. A User can also have access to one or more Publisher accounts - this
+is determined by the User's permissions. A Network admin may choose to grant a User access to multiple entities
+within their Network.
+
 ## Publishers [/user/publisher]
 
 ### List Publishers [GET]
 
-List all the publishers of the network that can be accessed by the authenticated user
+One or more Publishers can reside on a Network. This endpoint will output a listing of all Publishers who have access
+to the Network and the output is contextual based on the permissions of the User making the request to the endpoint.
+A limited Publisher schema will be utilised for any Publisher that the User does not have appropriate permissions to view.
 
 + Response 200 (application/json)
     + Attributes
         + publishers (array[Publisher Wrapper])
 
 ### Create a Publisher [POST]
+
+Create a new Publisher account attached to the authenticated User.
 
 + Request (application/json)
     + Attributes (Publisher Base)
@@ -224,10 +235,14 @@ List all the publishers of the network that can be accessed by the authenticated
 
 ### Retreive Publisher [GET]
 
+Outputs the specified publisher.
+
 + Response 200 (application/json)
     + Attributes (Publisher Wrapper)
 
 ### Update Publisher [POST]
+
+Update the specified Publisher.
 
 + Request (application/json)
     + Attributes (Publisher Base)
