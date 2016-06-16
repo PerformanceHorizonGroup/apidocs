@@ -59,6 +59,19 @@ The API is compression enabled. To control whether the API response is compresse
 - Request: `Accept-Encoding: gzip`
 - Response: `Content-Encoding: gzip`
 
+## Pagination
+Certain endpoints will generate large result sets. To save bandwidth and long processing times, these endpoints will
+paginate the results to reduce the strain on both client and server.
+
+Any endpoint that supports pagination will return three attributes to support this:
+
+- `offset` the current offset of the data returned
+- `limit` the number of results to which the output was restricted
+- `count` the total number of results available
+
+If `offset` combined with `limit` is less than the overall `count`, the results have been truncated.
+Therefore, to consume all data you will need to page through the result set.
+
 
 # Group User
 
