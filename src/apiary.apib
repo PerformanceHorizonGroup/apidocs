@@ -41,6 +41,18 @@ Where `cDN0ZXcxNDV5M3RhZzQxbjowaHkzNGho` is the Base64 representation of the use
 base64(username + ':' + password)
 ```
 
+## Response Formats
+The default response format is `JSON`. You can specify the response format of each request, by adding a file extension
+suffix to the end of the request URI. The requested format will dictate the HTTP `Content-Type` header that is returned
+in the response. Currently, there are 3 available formats:
+
+| Format               | Header                                   | Notes                                                               |
+|----------------------|------------------------------------------|---------------------------------------------------------------------|
+| `.json`              | `Content-Type: application/json`         |                                                                     |
+| `.xml`               | `Content-Type: text/xml`                 |                                                                     |
+| `.csv`               | `Content-Type: application/octet-stream` | Only available on specific endpoints                                |
+
+
 # Group User
 
 ## User [/user]
