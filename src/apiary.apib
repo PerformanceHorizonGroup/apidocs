@@ -2,12 +2,118 @@ FORMAT: 1A
 HOST: https://api.performancehorizon.com
 
 # Performance Horizon API
+This is the full external API documentation for the [PH](http://performancehorizon.com) API. Every feature exposed to
+our clients through our [Web App](https://phgconsole.performancehorizon.com) can be consumed programmatically through
+the API. This API documentation is written in [api blueprint](https://apiblueprint.org/) which can be read by humans
+and machines.
+
+The documentation is interactive, calls can be made to all documented endpoints within the browser
+without the need to write any code. For devs, there are many tools available to consume the documentation, for more
+information check out the [tools section](https://apiblueprint.org/tools.html).
+
+Finally, our API docs are open source. We would welcome any corrections, updates or bug fixes - to do this, please
+submit a pull request on our [Github project page](https://github.com/PerformanceHorizonGroup/apidocs).
+
+## Access and Authentication
+The API supports two authentication protocols:
+
+1. [HTTP Basic Auth](http://en.wikipedia.org/wiki/Basic_access_authentication) over HTTPS
+2. [Oauth2 via Authorization Code Grant](http://oauthlib.readthedocs.io/en/latest/oauth2/grants/authcode.html) user flow
+
+### HTTP Basic Auth
+You must have a valid `application_key` which identifies the Network you are making requests against.
+
+Unless you are creating a User, you should make all requests in the context of a User account. Each User has their own
+unique `user_api_key` which must be sent in conjunction with the `application_key`.
+
+- Username: `application_key`
+- Password: `user_api_key`
+
+Typically, authentcation via HTTP Basic is achieved by sending the `Authorization` header in the following format:
+
+```
+Authorization: Basic cDN0ZXcxNDV5M3RhZzQxbjowaHkzNGho
+```
+
+Where `cDN0ZXcxNDV5M3RhZzQxbjowaHkzNGho` is the Base64 representation of the username and password:
+
+```
+base64(username + ':' + password)
+```
+
+## Response Formats
+The default response format is `JSON`. You can specify the response format of each request, by adding a file extension
+suffix to the end of the request URI. The requested format will dictate the HTTP `Content-Type` header that is returned
+in the response. Currently, there are 3 available formats:
+
+| Format               | Header                                   | Notes                                                               |
+|----------------------|------------------------------------------|---------------------------------------------------------------------|
+| `.json`              | `Content-Type: application/json`         |                                                                     |
+| `.xml`               | `Content-Type: text/xml`                 |                                                                     |
+| `.csv`               | `Content-Type: application/octet-stream` | Only available on specific endpoints                                |
+
+## Compression
+The API is compression enabled. To control whether the API response is compressed, send the relevant
+`Accept-Encoding` HTTP header:
+
+- Request: `Accept-Encoding: gzip`
+- Response: `Content-Encoding: gzip`
+
+## Pagination
+Certain endpoints will generate large result sets. To save bandwidth and long processing times, these endpoints will
+paginate the results to reduce the strain on both client and server.
+
+Any endpoint that supports pagination will return three attributes to support this:
+
+- `offset` the current offset of the data returned
+- `limit` the number of results to which the output was restricted
+- `count` the total number of results available
+
+If `offset` combined with `limit` is less than the overall `count`, the results have been truncated.
+Therefore, to consume all data you will need to page through the result set.
+
+### Paging
+To paginate through a result set, you can use a combination of 2 parameters:
+
+| Parameter            | Description                          | Notes                                                               |
+|----------------------|--------------------------------------|---------------------------------------------------------------------|
+| `offset`             | Offset the results by a given amount | Integer, defaults to `0`                                            |
+| `limit`              | Limit the number of results returned | Integer, maximum limit is defined in result set headers             |
+
+For example, if an endpoint produces 500 results, only the first 300 will be returned (results `0` to `299`).
+In order to retrieve the remaining results, implement the `offset` GET param. In this example, adding `offset=300` to
+the query string parameters.
+
+There are 2 considerations when doing this:
+
+- Results begin at offset `0`. If you're retrieving a report with `limit=300`, page 2 will begin at `offset=300`,
+page 3 at `offset=600`, page 4 at `offset=900`, etc.
+- The reports you generate are based on live data, and could be subject to continuous, incremental changes. If your
+query covers a particularly busy data set, then data inserts or updates may occur between paging.
+
+### Hypermedia
+It can be cumbersome to manage pagination programmatically, especially when attempting to rapidly prototype. To provide
+some helpful assistance, the API will output a `hypermedia` node for all paginated result sets. Essentially this
+performs all necessary calculations and outputs all relevant information with absolute URI's to assist easier pagination.
+
+```
+"hypermedia": {
+    "pagination": {
+        "total_page_count": 15,
+        "first_page": "/user.json?limit=100&offset=0",
+        "last_page": "/user.json?limit=100&offset=1400",
+        "next_page": "/user.json?limit=100&offset=100",
+        "previous_page": null
+    }
+}
+```
 
 # Group User
 
-## User [/user]
+A User is the central entity that all API requests are autheticated against. A User can have permissions against
+multiple Publisher and Advertiser accounts.
 
-A User can have permissions against multiple Publisher and Advertiser accounts.
+## User [/user]
 
 + Attributes (object)
     + user_id: 300621 - ID of the user
@@ -24,7 +130,11 @@ Retrieve the details of the authenticated user.
 + Response 200 (application/json)
     + Attributes (User Wrapper)
 
-### Create an User [POST]
+### Create a User [POST]
+
+This is the only API request which can be made without submitting a HTTP Basic Auth password in the Authorization header.
+The reason for this is so that a new User can be created against the requested Network. On success, a unique
+`user_api_key` will be returned which can be used in subsequent requests to perform actions as that new User.
 
 + Request (application/json)
     + Attributes (User Base)
@@ -33,7 +143,9 @@ Retrieve the details of the authenticated user.
 + Response 200 (application/json)
     + Attributes (User Wrapper)
 
-### Update an User [POST /user/{user_id}]
+### Update a User [POST /user/{user_id}]
+
+Update the non read-only attributes of the user.
 
 + Parameters
     + user_id: 300621 - ID of the user
@@ -48,6 +160,9 @@ Retrieve the details of the authenticated user.
 
 ### Retrieve Accounts [GET]
 
+Returns the Network object that the user belongs to, and all Advertiser and Publisher accounts to which they are
+associated. Also includes a permissions node to relay the available User Access Rights to that entity.
+
 + Response 200 (application/json)
     + Attributes
         + user_accounts (array)
@@ -57,6 +172,9 @@ Retrieve the details of the authenticated user.
             + (Campaign Group Account Wrapper)
 
 # Group Network
+
+All API calls are contextual to the User that is making the request, and all User accounts are associated with the
+Network that they are created on. Each network has a unique `application_user_key`.
 
 ## Network [/network]
 
@@ -74,7 +192,7 @@ Retrieve the details of the authenticated user.
 
 ### List Networks [GET]
 
-Retrieve the details of the authenticated network.
+Retrieve the details of the authenticated Network.
 
 + Response 200 (application/json)
     + Attributes
@@ -82,17 +200,25 @@ Retrieve the details of the authenticated network.
 
 # Group Publisher
 
+A User can create one or more Publisher accounts. A User can also have access to one or more Publisher accounts - this
+is determined by the User's permissions. A Network admin may choose to grant a User access to multiple entities
+within their Network.
+
 ## Publishers [/user/publisher]
 
 ### List Publishers [GET]
 
-List all the publishers of the network that can be accessed by the authenticated user
+One or more Publishers can reside on a Network. This endpoint will output a listing of all Publishers who have access
+to the Network and the output is contextual based on the permissions of the User making the request to the endpoint.
+A limited Publisher schema will be utilised for any Publisher that the User does not have appropriate permissions to view.
 
 + Response 200 (application/json)
     + Attributes
         + publishers (array[Publisher Wrapper])
 
 ### Create a Publisher [POST]
+
+Create a new Publisher account attached to the authenticated User.
 
 + Request (application/json)
     + Attributes (Publisher Base)
@@ -107,10 +233,14 @@ List all the publishers of the network that can be accessed by the authenticated
 
 ### Retreive Publisher [GET]
 
+Outputs the specified publisher.
+
 + Response 200 (application/json)
     + Attributes (Publisher Wrapper)
 
 ### Update Publisher [POST]
+
+Update the specified Publisher.
 
 + Request (application/json)
     + Attributes (Publisher Base)
@@ -120,7 +250,7 @@ List all the publishers of the network that can be accessed by the authenticated
 
 # Group Publisher Website
 
-Authenticated user must have access to the publisher account
+The Website endpoint gathers information about a Publisher's Web properties, and its related information.
 
 ## Publisher Websites [/user/publisher/{publisher_id}/website]
 
@@ -129,7 +259,7 @@ Authenticated user must have access to the publisher account
 
 ### List all Publisher Websites [GET]
 
-List all the websites attached to the given publisher account
+Return the details of all Websites attached to the Publisher account.
 
 + Response 200 (application/json)
     + Attributes
@@ -137,7 +267,8 @@ List all the websites attached to the given publisher account
 
 ### Create Publisher Website [POST]
 
-Create and add a new website for the given publisher account
+Create one or more Websites against the Publisher entity. Each Website is sent as an array within a top level `websites`
+array.
 
 + Request Single (application/json)
     + Attributes (Publisher Website Base)
@@ -152,7 +283,8 @@ Create and add a new website for the given publisher account
 
 ### Update Publisher Websites [PATCH]
 
-Update the specified publisher website
+Update one or more Websites against the Publisher entity. Each Website is sent as an array within a top level
+`websites` array and must contain its associated `website_id`.
 
 + Request (application/json)
     + Attributes
@@ -173,14 +305,14 @@ Update the specified publisher website
 
 ### Retrieve a Publisher Website [GET]
 
-Retrieve the information about the specified publisher website
+Outputs the specified publisher website.
 
 + Response 200 (application/json)
     + Attributes (Publisher Website Wrapper)
 
 # Group Publisher Database
 
-Authenticated user must have access to the publisher account
+The Database endpoint gathers information about a Publisher's client base. It is mostly relevant to lead generation Publishers.
 
 ## Publisher Databases [/user/publisher/{publisher_id}/database]
 
@@ -189,7 +321,7 @@ Authenticated user must have access to the publisher account
 
 ### List all Publisher Databases [GET]
 
-List all the databases attached to the given publisher account
+Return the details of all Databases attached to the Publisher account.
 
 + Response 200 (application/json)
     + Attributes
@@ -197,7 +329,8 @@ List all the databases attached to the given publisher account
 
 ### Create Publisher Database [POST]
 
-Create and add a new database for the given publisher account
+Create one or more Databases against the Publisher entity. Each Database is sent as an array within a top level `databases`
+array.
 
 + Request Single (application/json)
     + Attributes (Publisher Database Base)
@@ -212,7 +345,8 @@ Create and add a new database for the given publisher account
 
 ### Update Publisher Databases [PATCH]
 
-Update the specified publisher database
+Update one or more Databases against the Publisher entity. Each Database is sent as an array within a top level `databases`
+array and must contain its associated `database_id`.
 
 + Request (application/json)
     + Attributes
@@ -233,18 +367,24 @@ Update the specified publisher database
 
 ### Retrieve a Publisher Database [GET]
 
-Retrieve the information about the specified publisher database
+Outputs the specified Publisher Database.
 
 + Response 200 (application/json)
     + Attributes (Publisher Database Wrapper)
 
 # Group Advertiser
 
+A User can create one or more Advertiser accounts. A User can also have access to one or more Advertiser accounts -
+this is determined by the User's permissions. A Network admin may choose to grant a User access to multiple
+entities within their Network.
+
 ## Advertisers [/user/advertiser]
 
 ### List all Advertisers [GET]
 
-List all the advertisers that can be accessed by the authenticated user
+One or more Advertisers can reside on a Network. This endpoint will output a listing of all Advertisers who reside on
+the Network and the output is contextual based on the permissions of the User making the request to the endpoint.
+A limited Advertiser schema will be utilised for any Advertiser that the User does not have appropriate permissions to view.
 
 + Response 200 (application/json)
     + Attributes
@@ -252,7 +392,7 @@ List all the advertisers that can be accessed by the authenticated user
 
 ### Create Advertiser [POST]
 
-Create and add a new database for the given publisher account
+Create a new Advertiser account attached to the authenticated User.
 
 + Request (application/json)
     + Attributes (Advertiser Base)
@@ -280,10 +420,14 @@ Create and add a new database for the given publisher account
 
 ### Retrieve an Advertiser [GET]
 
+Outputs the specified advertiser.
+
 + Response 200 (application/json)
     + Attributes (Advertiser Wrapper)
 
 ### Update an Advertiser [POST]
+
+Update the specified Advertiser.
 
 + Request (application/json)
     + Attributes (Advertiser Base)
@@ -293,17 +437,27 @@ Create and add a new database for the given publisher account
 
 # Group Campaign
 
-A Campaign is owned by an Advertiser and an Advertiser may have multiple Camapigns. A Campaign represents an entity which the Advertiser uses to represent something that they wish to allow Publishers the chance to promote. A Campaign dictates what products/events/conversions can be promoted, and lets the Publishers understand what Commission they would earn for generating sales/events/conversions. The Advertiser has complete control over their Campaigns and dictates which Publishers they accept onto the Campaign to promote their services.
+A Campaign is owned by an Advertiser and an Advertiser may have multiple Campaigns. A Campaign represents an entity
+which the Advertiser uses to represent something that they wish to allow Publishers the chance to promote.
+A Campaign dictates what products/events/conversions can be promoted, and lets the Publishers understand what
+Commission they would earn for generating sales/events/conversions. The Advertiser has complete control over their
+Campaigns and dictates which Publishers they accept onto the Campaign to promote their services.
 
 ## Campaigns [/campaign]
 
 ### List all Campaigns [GET]
+
+Return the details of all Campaigns attached to the Network account and visible to the authenticated User.
+The output is contextual based on the permissions of the User making the request to the endpoint. A limited Campaign
+schema will be utilised for any Campaign that the User does not have appropriate permissions to view.
 
 + Response 200 (application/json)
     + Attributes
         + campaigns (array[Campaign Wrapper])
 
 ### Create a Campaign [POST]
+
+To create a new Campaign, the Advertiser must pass their associated `advertiser_id`.
 
 + Request (application/json)
     + Attributes (Campaign Base)
@@ -361,10 +515,14 @@ A Campaign is owned by an Advertiser and an Advertiser may have multiple Camapig
 
 ### Retrieve a Campaign [GET]
 
+Outputs the specified Campaign.
+
 + Response 200 (application/json)
     + Attributes (Campaign Wrapper)
 
-### Update a Campaign [POST]
+### Update a Campaign [PATCH]
+
+Update the specified Campaign.
 
 + Request (application/json)
     + Attributes (Campaign Base)
@@ -372,9 +530,13 @@ A Campaign is owned by an Advertiser and an Advertiser may have multiple Camapig
 + Response 200 (application/json)
     + Attributes (Campaign Wrapper)
 
-### Delete a Campaign [DELETE]
+### Delete a Campaign [POST]
 
-Delete a specific campaign along with giving a reason to do so.
+To delete a specific campaign, you must pass 3 required parameters:
+
+1. `'action' => 'delete'`
+2. `'campaign_id' => ''`
+3. `'retire_reason' => 'some excuse'`.
 
 + Request (application/json)
     + Attributes
@@ -383,6 +545,21 @@ Delete a specific campaign along with giving a reason to do so.
 + Response 204
 
 # Group Commission
+
+To further expand on the the `default_commission` specified in the Campaign object, extra Campaign Commission offers
+can be created to reward specific actions, products, and types of conversion. An unlimited number of Commissions can
+be set up, however each Commission offer must be unique. You cannot have 2 active Commissions for the same event.
+Commissions can be defined at four separate levels, these are:
+
+​
+1. Campaign level: these Commissions apply to all Publishers, it is regarded as the base level for all actions that
+match the Commission offer.
+
+​2. Group level: Commissions apply to all Publishers in a predefined Commission Group.
+
+​3. Publisher level: Commissions that apply to a specific Publisher.
+
+​4. Voucher Code level: Commissions apply to a specified Voucher Code.
 
 ## Commission [/campaign/{campaign_id}/commission]
 
@@ -407,6 +584,8 @@ Delete a specific campaign along with giving a reason to do so.
 
 ### List all Campaign level Commissions [GET /campaign/{campaign_id}/campaign/{campaign_id}/commission]
 
+Only outputs Commission offers for the Campaign level.
+
 + Parameters
     + campaign_id: 300389 - ID of the campaign
 
@@ -418,6 +597,8 @@ Delete a specific campaign along with giving a reason to do so.
                     + reference_type: campaign
 
 ### List all Publisher level Commissions [GET /campaign/{campaign_id}/publisher/{publisher_id}/commission]
+
+Only outputs Commission offers for the specified Publisher.
 
 + Parameters
     + campaign_id: 300389 - ID of the campaign
@@ -432,6 +613,8 @@ Delete a specific campaign along with giving a reason to do so.
 
 ### List all Group level Commissions [GET /campaign/{campaign_id}/commission_group/{commission_group_id}/commission]
 
+Only outputs Commission offers for the specified Group.
+
 + Parameters
     + campaign_id: 300389 - ID of the campaign
     + commission_group_id: 300195 - ID of the commission group
@@ -440,10 +623,12 @@ Delete a specific campaign along with giving a reason to do so.
     + Attributes
         + commissions (array)
             + (object)
-                + commisison (Commission)
+                + commission (Commission)
                     + reference_type: group
 
 ### List all Voucher level Commissions [GET /campaign/{campaign_id}/voucher_code/{voucher_code_id}/commission]
+
+Only outputs Commission offers for the specified Voucher.
 
 + Parameters
     + campaign_id: 300389 - ID of the campaign
@@ -453,10 +638,14 @@ Delete a specific campaign along with giving a reason to do so.
     + Attributes
         + commissions (array)
             + (object)
-                + commisison (Commission)
+                + commission (Commission)
                     + reference_type: voucher
 
 ### Create a Commission [POST]
+
+Create new Commission offers, you can nest multiple new Commissions within a `commissions` array. The relevant
+`commission_level` must be passed to inform the endpoint which level the Commission belongs. If the level is not
+`campaign` then the associated `reference_id` should be passed to define the entity at the chosen level.
 
 + Request (application/json)
     + Attributes
@@ -471,6 +660,8 @@ Delete a specific campaign along with giving a reason to do so.
 
 ### Update a Commission [PATCH]
 
+To modify Commission offers, add the relevant `commission_id` into each array within the `commissions` array.
+
 + Request (application/json)
     + Attributes
         + commissions (array)
@@ -481,9 +672,25 @@ Delete a specific campaign along with giving a reason to do so.
     + Attributes
         + commission (array[Commission Wrapper])
 
+### Retrieve all Commissions [GET]
+
+Returns the details of all unique Commission offers, with any specific Campaign, Group, Publisher (participation),
+Voucher overrides nested into each. This endpoint removes the need to query a specific level individually.
+
++ Response 200 (application/json)
+    + Attributes
+        + commissions (array)
+            + (object)
+                + commission (Commission)
+                    + reference_type: campaign
+            + (object)
+                + commission (Commission)
+                    + reference_type: voucher
+
 # Group Commission Group
 
-A Campaign owner can organise Publishers into Groups. These Groups can be used for Reporting purposes, Communication filters, Commission offers and Voucher Code allocation.
+A Campaign owner can organise Publishers into Groups. These Groups can be used for Reporting purposes, Communication
+filters, Commission offers and Voucher Code allocation.
 
 ## Commission Groups [/campaign/{campaign_id}/commission_group]
 
@@ -492,11 +699,16 @@ A Campaign owner can organise Publishers into Groups. These Groups can be used f
 
 ### List all Commission Groups [GET]
 
+View all Groups with all associated Publishers.
+
 + Response 200 (application/json)
     + Attributes
         + commission_groups (array[Commission Group Wrapper])
 
 ### Create Commission Groups [POST /commission_group]
+
+Create new Groups by passing each Group object within a `commission_groups` array. A `name` and `campaign_id`
+must be passed, and to add Publishers into the Group pass them in a `publishers` array.
 
 + Request (application/json)
     + Attributes
@@ -506,6 +718,8 @@ A Campaign owner can organise Publishers into Groups. These Groups can be used f
     + Attributes (Commission Group Wrapper)
 
 ### Update Commission Groups [PATCH /commission_group]
+
+Update Groups by referencing the `commission_group_id` in each Group object within the `commission_groups` array.
 
 + Request (application/json)
     + Attributes
@@ -530,12 +744,16 @@ A Campaign owner can organise Publishers into Groups. These Groups can be used f
 
 ### Retrieve a Commission Group [GET]
 
+Outputs the specified Group.
+
 + Response 200 (application/json)
     + Attributes (Commission Group Wrapper)
 
 # Group Voucher Code
 
-A Voucher references a coupon code, or voucher code which the Advertiser offers to their customers to usually perform a price discount at the end of the transaction. Specific rules can be set to defined Vouchers ensuring that only valid codes can be used and can also be restricted to specific Publishers.
+A Voucher references a coupon code, or voucher code which the Advertiser offers to their customers to usually
+ perform a price discount at the end of the transaction. Specific rules can be set to defined Vouchers ensuring that
+ only valid codes can be used and can also be restricted to specific Publishers.
 
 ## Voucher Codes [/campaign/{campaign_id}/voucher_code]
 
@@ -544,11 +762,17 @@ A Voucher references a coupon code, or voucher code which the Advertiser offers 
 
 ### List all Voucher Codes [GET]
 
+View all Voucher Codes attached to the Campaign.
+
 + Response 200 (application/json)
     + Attributes
         + voucher_codes (array[Voucher Code Wrapper])
 
 ### Create Voucher Codes [POST]
+
+Create new Vouchers by passing each Voucher object within a `voucher_codes` array. A `voucher_code` string to define
+the actual code must be passed with each object, and to allocate the Voucher to specific Groups, pass the Group ids
+in a `commission_groups` array.
 
 + Request (application/json)
     + Attributes
@@ -558,6 +782,8 @@ A Voucher references a coupon code, or voucher code which the Advertiser offers 
     + Attributes (Voucher Code Wrapper)
 
 ### Update Voucher Codes [PATCH]
+
+Update Vouchers by referencing the `voucher_code_id` in each Group object within the `voucher_codes` array.
 
 + Request (application/json)
     + Attributes
@@ -584,12 +810,17 @@ A Voucher references a coupon code, or voucher code which the Advertiser offers 
 
 ### Retrieve a Voucher Code [GET]
 
+Outputs the specified Voucher Code.
+
 + Response 200 (application/json)
     + Attributes (Voucher Code Wrapper)
 
 # Group Participating Publishers
 
-Before Publishers can generate conversions for a Campaign, they must be approved to do so. A Publisher can apply to be part of a Campaign, or the Advertiser can choose to add the Publisher(s) of their choice to their own Campaign. Furthermore, if an Advertiser has stipulated their own unique set of Campaign Terms and Conditions, the Publisher must explicitly agree to these if they are to be fully approved on the Campaign.
+Before Publishers can generate conversions for a Campaign, they must be approved to do so. A Publisher can apply to
+be part of a Campaign, or the Advertiser can choose to add the Publisher(s) of their choice to their own Campaign.
+Furthermore, if an Advertiser has stipulated their own unique set of Campaign Terms and Conditions, the Publisher
+must explicitly agree to these if they are to be fully approved on the Campaign.
 
 ## Participating Publishers [/campaign/{campaign_id}/publisher]
 
@@ -598,13 +829,16 @@ Before Publishers can generate conversions for a Campaign, they must be approved
 
 ### List all Participating Publishers [GET]
 
-View all the publishers participating in a campaign
+View all Publishers Participating on the Campaign.
 
 + Response 200 (application/json)
     + Attributes
         + publishers (array[Participating Publisher Wrapper])
 
 ### Create a Participating Publisher [POST]
+
+Create new Participations by passing each `publisher_id` along with the relevant `campaign_status` in an
+object within a `publishers` array.
 
 + Request (application/json)
     + Attributes
@@ -618,6 +852,10 @@ View all the publishers participating in a campaign
         + publishers (array[Participating Publisher Wrapper])
 
 # Group Publisher Campaign
+
+Before a Publishers can begin to generate conversions, they must be associated with a Campaign. The Publisher Campaign
+endpoint allows the Publisher to request access to a Campaign, and to agree to any Terms and Conditions
+that the Campaign defines.
 
 ## Publisher Campaigns [/user/publisher/{publisher_id}/campaign]
 
@@ -634,7 +872,16 @@ View all Campaigns that the Publisher is associated with, along with the status 
 
 ### Create Publisher Campaigns [POST]
 
-Request access to one or more Campaigns. If a Campaign has any custom Terms and Conditions then the Publisher must agree to these terms when requesting access. On certain Campaigns, you may find that a Publisher will be auto-approved. However some Advertisers will stipulate that they wish to review all Participations. Therefore once access is requested, the Publisher will be shown as pending until this decision is made.
+Request access to one or more Campaigns. If a Campaign has any custom Terms and Conditions then the Publisher must
+agree to these terms when requesting access. This is achieved by passing the latest `terms_id` from the relevant
+Campaign object.
+​
+On certain Campaigns, you may find that a Publisher will be auto-approved. However some Advertisers will stipulate
+that they wish to review all Participations. Therefore once access is requested, the Publisher will be shown as
+pending until this decision is made.
+​
+Create new Participations by passing each `campaign_id` along with the relevant `terms_id` (if applicable) in an
+object within a `campaigns` array.
 
 + Request (application/json)
     + Attributes
@@ -649,12 +896,18 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
 
 # Group Invoice
 
+So that Publishers can receive payment for all approved conversion events they have generated across an Advertiser's
+Campaigns, the Advertiser must raise an Invoice and send payment to Performance Horizon. Once the payment has cleared,
+all funds will be deposited into the relevant Publisher accounts.
+
 ## Invoices [/user/advertiser/{advertiser_id}/invoice]
 
 + Parameters
     + advertiser_id: 300309 - ID of the advertiser
 
 ### List all Invoices [GET]
+
+View all Invoices that have been created.
 
 + Response 200 (application/json)
     + Attributes
@@ -697,14 +950,23 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
 
 ### Retrieve an Invoice [GET]
 
+View an individual Invoice.
+
 + Response 200 (application/json)
     + Attributes (Invoice Wrapper)
 
 # Group Campaign Conversion
 
-An Advertiser must approve or reject all events that occur on their Campaigns. A conversion can have one or more conversion items, and it is the items which must be updated before they can be Invoiced or ignored. It is possible to update the status of items individually, or all items within a conversion can be referenced at the same time. Due to the high volume of processing that can happen on this endpoint, it is Job enabled.
+An Advertiser must approve or reject all conversion events that occur on their Campaigns. A conversion can have one or more
+conversion items, and it is the items which must be updated before they can be Invoiced or ignored. It is possible to
+update the status of items individually, or all items within a conversion can be referenced at the same time.
+Due to the high volume of processing that can happen on this endpoint, it is Job enabled.
 
 ### Update Conversion Events [POST /campaign/{campaign_id}/conversion]
+
+A Conversion update can be actioned against one of three references. The relevant reference must be passed, with its
+associated id and status. Bulk operations are sent within a `conversions` array. An optional `reject_reason` can
+be sent with references that are set to the `rejected` status.
 
 + Parameters
     + campaign_id: 300389 - ID of the campaign
@@ -714,9 +976,9 @@ An Advertiser must approve or reject all events that occur on their Campaigns. A
         + conversions (array)
             + (object)
                 + One Of
-                    + conversion_id - The unqiue identifier for a conversion, which will affect all items attached to it
+                    + conversion_id - The unique identifier for a conversion, which will affect all items attached to it
                     + conversion_reference - The Advertiser's own reference for the conversion, which will affect all items attached to it
-                    + conversion_item_id - The unique identifier for an idividual item, this only affects its own status
+                    + conversion_item_id - The unique identifier for an individual item, this only affects its own status
                 + status (enum)
                     + accepted
                     + rejected
@@ -727,9 +989,14 @@ An Advertiser must approve or reject all events that occur on their Campaigns. A
 
 # Group Campaign Tracking
 
-To track conversions on a Campaign, all conversion data must be passed to the PHG tracking API. There are 2 distinct methods of passing this data, via an image/pixel tag (which emulates a HTTP GET), and via a direct API call (GET or POST). This endpoint is intended as a quick reference to the syntax of the tracking calls, the actual tracking implementation should be performed in co-operation with the Performance Horizon Integration team.
+To track conversions on a Campaign, all conversion data must be passed to the PHG tracking API. There are 2
+distinct methods of passing this data, via an image/pixel tag (which emulates a HTTP GET), and via a direct API call
+(GET or POST). This endpoint is intended as a quick reference to the syntax of the tracking calls, the actual
+tracking implementation should be performed in co-operation with the Performance Horizon Integration team.
 
 ### View Example [GET /campaign/{campaign_id}/tracking]
+
+View example tracking code for all unique Commission categories.
 
 + Parameters
     + campaign_id: 300389 - ID of the campaign
@@ -754,6 +1021,8 @@ Once funds have been received from the Advertiser, Performance Horizon will allo
     + publisher_id: 300254 - ID of the publisher
 
 ### List all Selfbills [GET]
+
+View all Selfbills that have been created.
 
 + Response 200 (application/json)
     + Attributes
@@ -794,8 +1063,431 @@ Once funds have been received from the Advertiser, Performance Horizon will allo
 
 ### View a Selfbill [GET]
 
+View an individual Selfbill.
+
 + Response 200 (application/json)
     + Attributes (Selfbill Wrapper)
+
+# Group Job
+
+## Job [/job/{job_id}]
+
+### View a Single Job [GET]
+
++ Parameters
+    + job_id: 111111l470 - ID of the job
+
++ Response 200 (application/json)
+    + Attributes (Job Wrapper)
+
+### List all Jobs [GET /job]
+
+Return the details of all Jobs created by the authenticated User.
+
++ Response 200 (application/json)
+    + Attributes
+        + jobs (array[Job Wrapper])
+
+# Group Granular Reporting
+
+The granular reporting endpoints list all Clicks or Conversions individually. Due to the volume of data,
+these result sets are Paginated.
+
+## List all Clicks attached to Campaign [GET /reporting/report_advertiser/campaign/{campaign_id}/click{?start_date,end_date}]
+
+Return the details of all Clicks attached to the Campaign within the requested time period.
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+    + start_date: `2016-02-30T05:15:32Z` (required)
+    + end_date: `2016-03-10T19:02:35Z` (required)
+
++ Response 200 (application/json)
+    + Attributes
+        + unique_click_count: 28 (number)
+        + start_date_time: `2016-02-30 05:15:32`
+        + end_date_time: `2016-03-10 19:02:35`
+        + clicks (array)
+            + (object)
+                + click (Click)
+                    + advertiser_reference
+
+## List all Conversions attached to Campaign [GET /reporting/report_advertiser/campaign/{campaign_id}/conversion{?start_date,end_date}]
+
+Return the details of all Conversions attached to the Campaign within the requested time period.
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+    + start_date: `2016-02-30T05:15:32Z` (required)
+    + end_date: `2016-03-10T19:02:35Z` (required)
+
++ Response 200 (application/json)
+    + Attributes
+        + total_conversion_count
+            + GBP: 97 (number)
+        + total_commission_value
+            + GBP: 39417.7684 (number)
+        + total_publisher_commission
+            + GBP: 35804.7927 (number)
+        + total_value
+            + GBP: 186166.28 (number)
+        + conversions (array)
+            + (object)
+                + conversion_data (Conversion)
+                    + click (Click)
+                        + advertiser_reference
+
+## List all Clicks generated by Publisher [GET /reporting/report_publisher/publisher/{publisher_id}/click{?start_date,end_date}]
+
+Return the details of all Clicks generated by the Publisher within the requested time period.
+
++ Parameters
+    + publisher_id: 300254 - ID of the publisher
+    + start_date: `2016-02-30T05:15:32Z` (required)
+    + end_date: `2016-03-10T19:02:35Z` (required)
+
++ Response 200 (application/json)
+    + Attributes
+        + unique_click_count: 28 (number)
+        + start_date_time: `2016-02-30 05:15:32`
+        + end_date_time: `2016-03-10 19:02:35`
+        + clicks (array)
+            + (object)
+                + click (Click)
+                    + publisher_reference
+
+## List all Conversions generated by Publisher [GET /reporting/report_publisher/publisher/{publisher_id}/conversion{?start_date,end_date}]
+
+Return the details of all Conversions generated by the Publisher within the requested time period.
+
++ Parameters
+    + publisher_id: 300254 - ID of the publisher
+    + start_date: `2016-02-30T05:15:32Z` (required)
+    + end_date: `2016-03-10T19:02:35Z` (required)
+
++ Response 200 (application/json)
+    + Attributes
+        + total_conversion_count
+            + GBP: 97 (number)
+        + total_commission_value
+            + GBP: 39417.7684 (number)
+        + total_publisher_commission
+            + GBP: 35804.7927 (number)
+        + total_value
+            + GBP: 186166.28 (number)
+        + conversions (array)
+            + (object)
+                + conversion_data (Conversion)
+                    + click (Click)
+                        + publisher_reference
+
+# Group Aggregated Reporting
+
+In most instances, it is not feasible to traverse large paginated result sets - it is a largely inefficient process
+when most use cases demand an aggregation of data across a defined time period. To speed up this process the
+aggregation endpoint will instantly total all headline stats for a given pivot to offer near instant summation of the
+data. These endpoints support the `.csv` format.
+
+## Aggregate Advertiser [GET /reporting/report_advertiser/campaign/{campaign_id}/overview/{pivot}{?start_date,end_date}]
+
+Return the aggregation stats for the requested `pivot` within the requested time period.
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+    + pivot: agent (enum[string])
+        + primary - All Publishers
+        + adref - All advertiser references referenced through tracking
+        + product - All tracked item categories
+        + country - All countries detected from tracking events
+        + type - The type of each Conversion
+        + creative - Stats related to all active Creative
+        + agent - The type of device used
+        + custref - Optional customer identifiers referenced in tracking
+        + self - Totals for the Campaign
+    + start_date: `2016-02-30T05:15:32Z` (required)
+    + end_date: `2016-03-10T19:02:35Z` (required)
+
++ Response 200 (application/json)
+    + Attributes (Aggregated Report)
+
+## Aggregate Publisher [GET /reporting/report_publisher/publisher/{publisher_id}/overview/{pivot}{?start_date,end_date}]
+
+Return the aggregation stats for the requested `pivot` within the requested time period.
+
++ Parameters
+    + publisher_id: 300254 - ID of the publisher
+    + pivot: agent (enum[string])
+        + primary - All Campaigns
+        + pubref - All publisher references referenced through tracking
+        + product - All tracked item categories
+        + country - All countries detected from tracking events
+        + type - The type of each Conversion
+        + creative - Stats related to all active Creative
+        + agent - The type of device used
+        + custref - Optional customer identifiers referenced in tracking
+        + self - Totals for the Campaign
+    + start_date: `2016-02-30T05:15:32Z` (required)
+    + end_date: `2016-03-10T19:02:35Z` (required)
+
++ Response 200 (application/json)
+    + Attributes (Aggregated Report)
+
+# Group Export Reporting
+
+It is possible to export any report into a CSV file. Depending on the size of the export, the response may be
+automatically converted into a Job.
+
+## Export Clicks [GET /reporting/export/export/click.csv{?start_date,end_date,campaign_id,publisher_id}]
+
+Request a CSV for a granular Click report for the defined Campaign or Publisher and within the requested time period.
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+    + publisher_id: 300254 - ID of the publisher
+    + start_date: `2016-02-30T05:15:32Z` (required)
+    + end_date: `2016-03-10T19:02:35Z` (required)
+
++ Response 200
+
+## Export Conversions [GET /reporting/export/export/conversion.csv{?start_date,end_date,campaign_id,publisher_id}]
+
+Request a CSV for a granular Conversion report for the defined Campaign or Publisher and within the requested time period.
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+    + publisher_id: 300254 - ID of the publisher
+    + start_date: `2016-02-30T05:15:32Z` (required)
+    + end_date: `2016-03-10T19:02:35Z` (required)
+
++ Response 200
+
+## Export Conversion Items [GET /reporting/export/export/conversion_item.csv{?start_date,end_date,campaign_id,publisher_id}]
+
+Request a CSV for a granular Conversion report which includes all individual items for the defined Campaign or Publisher and within the requested time period.
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+    + publisher_id: 300254 - ID of the publisher
+    + start_date: `2016-02-30T05:15:32Z` (required)
+    + end_date: `2016-03-10T19:02:35Z` (required)
+
++ Response 200
+
+# Group Network Publisher
+
+An Advertiser can view all Publishers who are created on their network. This endpoint is not specific to a Campaign,
+therefore it pools all available Publishers who have been created or are able to access their Network.
+​
+It is also possible to accept new Publishers onto the Network, or to reject any approved or pending Publishers
+from the Network. If a Publisher is rejected from the Network, they will be automatically rejected from all participating Campaigns.
+
+## Network Publisher [/network/{network_id}/publisher]
+
++ Parameters
+    + network_id: 1 - ID of the network
+
+### List all Publishers on the Network [GET]
+
+View all Publishers on the Network.
+
++ Response 200 (application/json)
+    + Attributes
+        + publishers (array[Publisher Wrapper])
+
+### Update Publisher's Network status [POST]
+
+Update the `network_status` of a Publisher by passing each `publisher_id` along with the relevant `network_status`
+in an object within a `publishers` array.
+
++ Request (application/json)
+    + Attributes
+        + publishers (array)
+            + (object)
+                + network_status (Status, required)
+                + publisher_id: 300254 (required) - ID of the publisher
+
++ Response 200 (application/json)
+    + Attributes
+        + publishers (array[Publisher Wrapper])
+
+# Group Publisher Creative
+
+A Publisher may wish to use pre-generated Creative when promoting an Advertiser.
+
+## List all Creatives on each participating Campaign [GET /user/publisher/{publisher_id}/creative]
+
+View a summary of all Creatives available on each participating Campaign.
+
++ Parameters
+    + publisher_id: 300254 - ID of the publisher
+
++ Response 200 (application/json)
+    + Attributes
+        + campaign_creatives (array)
+            + (object)
+                + campaign_creative
+                    + campaign_id: 300389 - ID of the campaign
+                    + creatives
+                        + Banner: 1 (number)
+                        + HTML: 1 (number)
+                        + Email: 1 (number)
+                        + Text Link: 1 (number)
+                        + Feed: 1 (number)
+                        + HTML Form: 1 (number)
+
+## List all Creatives on a Campaign [GET /user/publsiher/{publisher_id}/campaign/{campaign_id}/creative]
+
+View all Creative for the specified Campaign.
+
++ Parameters
+    + publisher_id: 300254 - ID of the publisher
+    + campaign_id: 300389 - ID of the campaign
+
++ Response 200 (application/json)
+    + Attributes
+        + creatives (array[Creative Wrapper])
+
+# Group Campaign Creative
+
+An Advertiser may wish to offer pre-generated Creative so that the Publishers can advertise their brand easily.
+It is possible to categorise Creative with tags and there are 3 distinct Creative formats: Image, HTML and Text.
+
+## Campaign Creative [/campaign/{campaign_id}/creative]
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+
+### List all Creatives for Campaign [GET]
+
+View all Creative for the specified Campaign.
+
++ Response 200 (application/json)
+    + Attributes
+        + creatives (array[Creative Wrapper])
+
+### Create Campaign Creatives [POST]
+
+Create one or more Creatives against the Campaign entity. Each Creative is sent as an array within a top level
+`creatives` array.
+
++ Request (application/json)
+    + Attributes
+        + creatives (array[Creative Base])
+
++ Response 200 (application/json)
+    + Attributes
+        + creatives (array[Creative Wrapper])
+
+### Update Campaign Creatives [PATCH]
+
+Update one or more Creatives against the Campaign entity. Each Creative is sent as an array within a top level
+`creatives` array and must contain its associated `creative_id`.
+
++ Request (application/json)
+    + Attributes
+        + creatives (array)
+            + (object)
+                + creative_id: 300441 - ID of the creative
+                + Include Creative Base
+
++ Response 200 (application/json)
+    + Attributes
+        + creatives (array[Creative Wrapper])
+
+# Group Creative Tags
+
+Creative Tags allows an Advertiser to organise their Creatives in a flexible structure.
+
+## Creative Tag [/campaign/{campaign_id}/creative/tags]
+
++ Parameters
+    + campaign_id: 300389 - ID of the campaign
+
+### List all Creative Tags for Campaign [GET]
+
+View all Creative Tags for the specified Campaign.
+
++ Response 200 (application/json)
+    + Attributes
+        + creative_tags (array[Creative Tag Wrapper])
+
+### Create Campaign Creative Tags [POST]
+
+Create one or more Creative Tags against the Campaign entity. Each Tag is sent as an array within a top level `tags` array.
+
++ Request (application/json)
+    + Attributes
+        + tags (array[Creative Tag Base])
+
++ Response 200 (application/json)
+    + Attributes
+        + creative_tags (array[Creative Tag Wrapper])
+
+### Update Campaign Creative Tags [PATCH]
+
+Update one or more Creative Tags against the Campaign entity. Each Tag is sent as an array within a top level `tags`
+array and must contain its associated `creative_tag_id`.
+
++ Request (application/json)
+    + Attributes
+        + tags (array)
+            + (object)
+                + creative_tag_id: 111111l2 - ID of the creative tag
+                + Include Creative Tag Base
+
++ Response 200 (application/json)
+    + Attributes
+        + creative_tags (array[Creative Tag Wrapper])
+
+## Delete Campaign Creative Tags [DELETE]
+
+Delete one or more Creative Tags against the Campaign entity. Each Tag is sent as an array within a top level `tags`
+array and must contain its associated `creative_tag_id`.
+
++ Request (application/json)
+    + Attributes
+        + tags (array)
+            + (object)
+                + creative_tag_id: 111111l2 - ID of the creative tag
+
++ Response 204
+
+# Group Campaign Bonus
+
+The bonus endpoint allows the Campaign owner to allocate a one off bonus Conversion to a Publisher.
+
+## Create a Bonus Conversion [POST /user/advertiser/{advertiser_id}/campaign/{campaign_id}/bonus_conversion]
+
+Create one or more Bonus Conversions against the Campaign entity. Each Bonus is sent as an array within a top
+level `conversions` array.
+
++ Parameters
+    + advertiser_id: 300309 - ID of the advertiser
+    + campaign_id: 300389 - ID of the campaign
+
++ Request (application/json)
+    + Attributes
+        + conversions (array)
+            + (object)
+                + publisher_id: 300254 (required) - ID of the publisher
+                + commission (number, required)
+                + value (number)
+                + override (number)
+                + currency (Currency)
+                + country (Country)
+                + dispute_id
+                + conversion_time: `2015-03-28 11:08:52`
+                + conversionref
+                + adref
+                + pubref
+                + approve
+
++ Response 200 (application/json)
+    + Attributes
+        + conversions (array)
+            + (object)
+                + conversion (Conversion)
+                    + conversion_type: 3 (number)
 
 # Data Structures
 
@@ -916,10 +1608,6 @@ Once funds have been received from the Advertiser, Performance Horizon will allo
 ## Permissions (object)
 + super_admin_readwrite: create, update, delete (array)
 
-# Group Campaigns (object)
-+ title : PHG Aff Demo
-+ campaign_id : 300389
-
 ## Campaign Group (object)
 + campaign_group_id : 111111l1
 + title : Example Group - title of the campaign group
@@ -927,7 +1615,186 @@ Once funds have been received from the Advertiser, Performance Horizon will allo
 + week_start : monday
 + reporting_timezone : GMT
 + default_currency : GBP
-+ campaigns (array[Group Campaigns])
++ campaigns (array[Campaign Base])
+
+## Click (object)
++ click_id: 111111l100057
++ cookie_id: 111111l38040
++ campaign_id: 300389 - ID of the campaign
++ publisher_id: 300254 - ID of the publisher
++ publisher_name: Demo
++ type (enum)
+    + standard
+    + batch
+    + cpc
++ status (enum)
+    + fresh
+    + stale
+    + used
+    + nibbled
++ set_time: `2015-03-28 11:08:52`
++ set_ip: 127.0.0.1
++ last_used: `2015-03-28 11:08:52`
++ last_ip: 127.0.0.1
++ referer
++ country (Country)
++ creative_id: 0 (number)
++ creative_type: 0 (number)
++ specific_creative_id: 0 (number)
++ ref_device_id: 1 (number)
++ ref_traffic_source_id: 1 (number)
+
+## Conversion (object)
++ conversion_id: 111111l726240
++ cookie_id: 111111l38040
++ campaign_id: 300389 - ID of the campaign
++ publisher_id: 300254 - ID of the publisher
++ publisher_name: Demo
++ campaign_title: Demo Campaign
++ click (Click)
++ conversion_time: `2016-04-10 13:08:15`,
++ last_modified: `2016-04-10 13:08:16`
++ currency (Currency)
++ currency_original (Currency)
++ currency_conversion_rate
++ customer_type
++ conversion_type: 1 (number)
++ conversion_reference: `AUTO-570a968f38b55`,
++ advertiser_reference
++ customer_reference
++ source_referer
++ referer_ip: 127.0.0.1
++ user_agent: Mozilla
++ country (Country)
++ creative_id: 0 (number)
++ creative_type: 0 (number)
++ specific_creative_id: 0 (number)
++ ref_device_id: 1 (number)
++ ref_traffic_source_id: 1 (number)
++ ref_partnership_model_id: 2 (number)
++ ref_conversion_metric_id: 2 (number)
++ ref_user_context_id: 3 (number)
++ was_disputed: false (boolean)
++ conversion_lag: 33 (number)
++ conversion_items (array[Conversion Item])
++ conversion_value
+    + conversion_value_id: 111111l726195
+    + conversion_status (Conversion Status)
+    + value: 915.26 (number)
+    + commission: 2013.572 (number)
+    + publisher_commission: 1830.52 (number)
+
+## Conversion Item (object)
++ conversion_item_id: 111111l1107235 - ID of the conversion item
++ sku: 855779
++ category: Promotion
++ item_value: 915.26 (number)
++ item_commission: 2013.572 (number)
++ item_publisher_commission: 1830.52 (number)
++ item_status (Conversion Status)
++ invoice_id
++ last_update: `2016-04-10 13:08:16`
++ item_status_id: 1 (number)
++ reject_reason
++ voucher_codes (array)
+
+## Conversion Status (enum)
++ pending
++ accepted
++ rejected
+
+### Sample
++ pending
+
+## Aggregated Rejection (object)
++ percentage: 93.83 (number)
++ all_conversions_count: 4395 (number)
++ rejected_conversions_count: 4124 (number)
+
+## Aggregated Overview (object)
++ impression: 0 (number)
++ clicks: 825 (number)
++ currency (object)
++ quantity_all: 0 (number)
++ rejection_rate (Aggregated Rejection)
++ clickthrough_rate: 0 (number)
++ ordersize_avg: 0 (number)
+
+## Aggregated Report (object)
++ start_date_time: `2016-02-30 05:15:32`
++ end_date_time: `2016-03-10 19:02:35`
++ total_impression_count: 0 (number)
++ total_click_count: 30242 (number)
++ total_conversion_count
+    + GBP: 97 (number)
++ total_commission_value
+    + GBP: 39417.7684 (number)
++ total_publisher_commission
+    + GBP: 35804.7927 (number)
++ total_order_value
+    + GBP: 186166.28 (number)
++ total_rejection_rate (Aggregated Rejection)
++ total_quantity: 0 (number)
++ total_clickthrough_rate: 0 (number)
++ total_ordersize_avg: 0 (number)
++ *agents* (array)
+    + (object)
+        + *agent* (Aggregated Overview)
+
+## Creative Common (object)
++ campaign_id: 300389 - ID of the campaign
++ active (YesOrNo)
++ creative_type_id: 1 (number)
++ creative_type
++ custom_append_url_parameters
++ custom_prepend_url_parameters
++ tags
+
+## Creative Base (object)
++ Include Creative Common
++ description: Demo Text
++ destination
++ default_specific_creative_id: 300396
++ creative_tracking_link
++ creative_tracking_link_rotate
++ dynamic_tracking_link
++ html_tracking_link
++ width: 400
++ height: 360
++ Include Time Range
++ preview: https://demo.prf.hn/preview/creativeref:300442
++ advertiser_reference
++ limits
++ creative_items (array[Creative Item])
+
+## Creative (object)
++ creative_id: 300441 - ID of the creative
++ Include Creative Base
++ Include Created
+
+## Creative Item (object)
++ creative_item_id: 300396 - ID of the creative item
++ Include Creative Common
++ description
++ specific_destination
++ img_url: `https://demophgconsole.performancehorizon.com/upload/4fdf4b3879da1funny-animals-page.jpg`
++ content_type: image/jpeg
++ filename: `4fdf4b3879da1funny-animals-page.jpg`
++ preview: https://demo.prf.hn/preview/screativeref:300396
++ Include Created
+
+## Creative Tag Base (object)
++ name: logo (required)
+
+## Creative Tag (object)
++ creative_tag_id: 111111l2 - ID of the creative tag
++ campaign_id: 300389 - ID of the campaign
++ Include Creative Tag Base
++ Include Created
++ creatives (array)
+    + (object)
+        + creative_id: 300441 - ID of the creative
+        + creative_item_id: 300396 - ID of the creative item
 
 :[](common.apib)
 
@@ -966,6 +1833,18 @@ Once funds have been received from the Advertiser, Performance Horizon will allo
 + campaign (Campaign)
     + publisher_status (Status)
 
+## Invoice Wrapper (object)
++ invoice (Invoice)
+
+## Selfbill Wrapper (object)
++ selfbill (Selfbill)
+
+## Creative Wrapper (object)
++ creative (Creative)
+
+## Creative Tag Wrapper (object)
++ creative_tag (Creative Tag)
+
 ## Network Account Wrapper (object)
 + network (Network)
     + permissions (Permissions)
@@ -982,8 +1861,3 @@ Once funds have been received from the Advertiser, Performance Horizon will allo
 + campaign_group : (Campaign Group)
     + permissions (Permissions)
 
-## Invoice Wrapper (object)
-+ invoice (Invoice)
-
-## Selfbill Wrapper (object)
-+ selfbill (Selfbill)
