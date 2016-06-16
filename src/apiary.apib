@@ -439,17 +439,27 @@ Update the specified Advertiser.
 
 # Group Campaign
 
-A Campaign is owned by an Advertiser and an Advertiser may have multiple Camapigns. A Campaign represents an entity which the Advertiser uses to represent something that they wish to allow Publishers the chance to promote. A Campaign dictates what products/events/conversions can be promoted, and lets the Publishers understand what Commission they would earn for generating sales/events/conversions. The Advertiser has complete control over their Campaigns and dictates which Publishers they accept onto the Campaign to promote their services.
+A Campaign is owned by an Advertiser and an Advertiser may have multiple Campaigns. A Campaign represents an entity
+which the Advertiser uses to represent something that they wish to allow Publishers the chance to promote.
+A Campaign dictates what products/events/conversions can be promoted, and lets the Publishers understand what
+Commission they would earn for generating sales/events/conversions. The Advertiser has complete control over their
+Campaigns and dictates which Publishers they accept onto the Campaign to promote their services.
 
 ## Campaigns [/campaign]
 
 ### List all Campaigns [GET]
+
+Return the details of all Campaigns attached to the Network account and visible to the authenticated User.
+The output is contextual based on the permissions of the User making the request to the endpoint. A limited Campaign
+schema will be utilised for any Campaign that the User does not have appropriate permissions to view.
 
 + Response 200 (application/json)
     + Attributes
         + campaigns (array[Campaign Wrapper])
 
 ### Create a Campaign [POST]
+
+To create a new Campaign, the Advertiser must pass their associated `advertiser_id`.
 
 + Request (application/json)
     + Attributes (Campaign Base)
@@ -507,10 +517,14 @@ A Campaign is owned by an Advertiser and an Advertiser may have multiple Camapig
 
 ### Retrieve a Campaign [GET]
 
+Outputs the specified Campaign.
+
 + Response 200 (application/json)
     + Attributes (Campaign Wrapper)
 
-### Update a Campaign [POST]
+### Update a Campaign [PATCH]
+
+Update the specified Campaign.
 
 + Request (application/json)
     + Attributes (Campaign Base)
@@ -518,9 +532,13 @@ A Campaign is owned by an Advertiser and an Advertiser may have multiple Camapig
 + Response 200 (application/json)
     + Attributes (Campaign Wrapper)
 
-### Delete a Campaign [DELETE]
+### Delete a Campaign [POST]
 
-Delete a specific campaign along with giving a reason to do so.
+To delete a specific campaign, you must pass 3 required parameters:
+
+1. `'action' => 'delete'`
+2. `'campaign_id' => ''`
+3. `'retire_reason' => 'some excuse'`.
 
 + Request (application/json)
     + Attributes
