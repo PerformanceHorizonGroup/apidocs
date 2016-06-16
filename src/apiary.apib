@@ -855,6 +855,10 @@ object within a `publishers` array.
 
 # Group Publisher Campaign
 
+Before a Publishers can begin to generate conversions, they must be associated with a Campaign. The Publisher Campaign
+endpoint allows the Publisher to request access to a Campaign, and to agree to any Terms and Conditions
+that the Campaign defines.
+
 ## Publisher Campaigns [/user/publisher/{publisher_id}/campaign]
 
 + Parameters
@@ -870,7 +874,16 @@ View all Campaigns that the Publisher is associated with, along with the status 
 
 ### Create Publisher Campaigns [POST]
 
-Request access to one or more Campaigns. If a Campaign has any custom Terms and Conditions then the Publisher must agree to these terms when requesting access. On certain Campaigns, you may find that a Publisher will be auto-approved. However some Advertisers will stipulate that they wish to review all Participations. Therefore once access is requested, the Publisher will be shown as pending until this decision is made.
+Request access to one or more Campaigns. If a Campaign has any custom Terms and Conditions then the Publisher must
+agree to these terms when requesting access. This is achieved by passing the latest `terms_id` from the relevant
+Campaign object.
+​
+On certain Campaigns, you may find that a Publisher will be auto-approved. However some Advertisers will stipulate
+that they wish to review all Participations. Therefore once access is requested, the Publisher will be shown as
+pending until this decision is made.
+​
+Create new Participations by passing each `campaign_id` along with the relevant `terms_id` (if applicable) in an
+object within a `campaigns` array.
 
 + Request (application/json)
     + Attributes
