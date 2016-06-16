@@ -252,7 +252,7 @@ Update the specified Publisher.
 
 # Group Publisher Website
 
-Authenticated user must have access to the publisher account
+The Website endpoint gathers information about a Publisher's Web properties, and its related information.
 
 ## Publisher Websites [/user/publisher/{publisher_id}/website]
 
@@ -261,7 +261,7 @@ Authenticated user must have access to the publisher account
 
 ### List all Publisher Websites [GET]
 
-List all the websites attached to the given publisher account
+Return the details of all Websites attached to the Publisher account.
 
 + Response 200 (application/json)
     + Attributes
@@ -269,7 +269,8 @@ List all the websites attached to the given publisher account
 
 ### Create Publisher Website [POST]
 
-Create and add a new website for the given publisher account
+Create one or more Websites against the Publisher entity. Each Website is sent as an array within a top level `websites`
+array.
 
 + Request Single (application/json)
     + Attributes (Publisher Website Base)
@@ -284,7 +285,8 @@ Create and add a new website for the given publisher account
 
 ### Update Publisher Websites [PATCH]
 
-Update the specified publisher website
+Update one or more Websites against the Publisher entity. Each Website is sent as an array within a top level
+`websites` array and must contain its associated `website_id`.
 
 + Request (application/json)
     + Attributes
@@ -305,7 +307,7 @@ Update the specified publisher website
 
 ### Retrieve a Publisher Website [GET]
 
-Retrieve the information about the specified publisher website
+Outputs the specified publisher website.
 
 + Response 200 (application/json)
     + Attributes (Publisher Website Wrapper)
