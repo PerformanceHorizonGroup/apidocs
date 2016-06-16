@@ -108,12 +108,12 @@ performs all necessary calculations and outputs all relevant information with ab
 }
 ```
 
-
 # Group User
 
 ## User [/user]
 
-A User can have permissions against multiple Publisher and Advertiser accounts.
+A User is the central entity that all API requests are autheticated against. A User can have permissions against
+multiple Publisher and Advertiser accounts.
 
 + Attributes (object)
     + user_id: 300621 - ID of the user
@@ -130,7 +130,11 @@ Retrieve the details of the authenticated user.
 + Response 200 (application/json)
     + Attributes (User Wrapper)
 
-### Create an User [POST]
+### Create a User [POST]
+
+This is the only API request which can be made without submitting a HTTP Basic Auth password in the Authorization header.
+The reason for this is so that a new User can be created against the requested Network. On success, a unique
+`user_api_key` will be returned which can be used in subsequent requests to perform actions as that new User.
 
 + Request (application/json)
     + Attributes (User Base)
@@ -139,7 +143,9 @@ Retrieve the details of the authenticated user.
 + Response 200 (application/json)
     + Attributes (User Wrapper)
 
-### Update an User [POST /user/{user_id}]
+### Update a User [POST /user/{user_id}]
+
+Update the non read-only attributes of the user.
 
 + Parameters
     + user_id: 300621 - ID of the user
