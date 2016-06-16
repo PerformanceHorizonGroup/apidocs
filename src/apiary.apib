@@ -14,6 +14,33 @@ information check out the [tools section](https://apiblueprint.org/tools.html).
 Finally, our API docs are open source. We would welcome any corrections, updates or bug fixes - to do this, please
 submit a pull request on our [Github project page](https://github.com/PerformanceHorizonGroup/apidocs).
 
+## Access and Authentication
+The PH API supports two authentication protocols:
+
+1. [HTTP Basic Auth](http://en.wikipedia.org/wiki/Basic_access_authentication) over HTTPS
+2. [Oauth2 via Authorization Code Grant](http://oauthlib.readthedocs.io/en/latest/oauth2/grants/authcode.html) user flow
+
+### HTTP Basic Auth
+You must have a valid `application_key` which identifies the Network you are making requests against.
+
+Unless you are creating a User, you should make all requests in the context of a User account. Each User has their own
+unique `user_api_key` which must be sent in conjunction with the `application_key`.
+
+- Username: `application_key`
+- Password: `user_api_key`
+
+Typically, authentcation via HTTP Basic is achieved by sending the `Authorization` header in the following format:
+
+```
+Authorization: Basic cDN0ZXcxNDV5M3RhZzQxbjowaHkzNGho
+```
+
+Where `cDN0ZXcxNDV5M3RhZzQxbjowaHkzNGho` is the Base64 representation of the username and password:
+
+```
+base64(username + ':' + password)
+```
+
 # Group User
 
 ## User [/user]
