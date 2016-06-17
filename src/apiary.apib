@@ -7,7 +7,7 @@ our clients through our [Web App](https://phgconsole.performancehorizon.com) can
 the API. This API documentation is written in [api blueprint](https://apiblueprint.org/) which can be read by humans
 and machines.
 
-The documentation is interactive, calls can be made to all documented endpoints within the browser
+The documentation is interactive; calls can be made to all documented endpoints within the browser
 without the need to write any code. For devs, there are many tools available to consume the documentation, for more
 information check out the [tools section](https://apiblueprint.org/tools.html).
 
@@ -29,7 +29,7 @@ unique `user_api_key` which must be sent in conjunction with the `application_ke
 - Username: `application_key`
 - Password: `user_api_key`
 
-Typically, authentcation via HTTP Basic is achieved by sending the `Authorization` header in the following format:
+Typically, authentication via HTTP Basic is achieved by sending the `Authorization` header in the following format:
 
 ```
 Authorization: Basic cDN0ZXcxNDV5M3RhZzQxbjowaHkzNGho
@@ -63,7 +63,7 @@ The API is compression enabled. To control whether the API response is compresse
 Certain endpoints will generate large result sets. To save bandwidth and long processing times, these endpoints will
 paginate the results to reduce the strain on both client and server.
 
-Any endpoint that supports pagination will return three attributes to support this:
+Any endpoint that supports pagination will return 3 attributes to support this:
 
 - `offset` the current offset of the data returned
 - `limit` the number of results to which the output was restricted
@@ -110,7 +110,7 @@ performs all necessary calculations and outputs all relevant information with ab
 
 # Group User
 
-A User is the central entity that all API requests are autheticated against. A User can have permissions against
+A User is the central entity that all API requests are authenticated against. A User can have permissions against
 multiple Publisher and Advertiser accounts.
 
 ## User [/user]
@@ -145,7 +145,7 @@ The reason for this is so that a new User can be created against the requested N
 
 ### Update a User [POST /user/{user_id}]
 
-Update the non read-only attributes of the user.
+Update the specified user.
 
 + Parameters
     + user_id: 300621 - ID of the user
@@ -550,7 +550,7 @@ To delete a specific campaign, you must pass 3 required parameters:
 
 To further expand on the the `default_commission` specified in the Campaign object, extra Campaign Commission offers
 can be created to reward specific actions, products, and types of conversion. An unlimited number of Commissions can
-be set up, however each Commission offer must be unique. You cannot have 2 active Commissions for the same event.
+be set up however each Commission offer must be unique. You cannot have 2 active Commissions for the same event.
 Commissions can be defined at four separate levels, these are:
 
 ​
@@ -878,8 +878,8 @@ Request access to one or more Campaigns. If a Campaign has any custom Terms and 
 agree to these terms when requesting access. This is achieved by passing the latest `terms_id` from the relevant
 Campaign object.
 ​
-On certain Campaigns, you may find that a Publisher will be auto-approved. However some Advertisers will stipulate
-that they wish to review all Participations. Therefore once access is requested, the Publisher will be shown as
+On certain Campaigns, you may find that a Publisher will be auto-approved. However, some Advertisers will stipulate
+that they wish to review all Participations. Therefore, once access is requested the Publisher will be shown as
 pending until this decision is made.
 ​
 Create new Participations by passing each `campaign_id` along with the relevant `terms_id` (if applicable) in an
@@ -966,7 +966,7 @@ Due to the high volume of processing that can happen on this endpoint, it is Job
 
 ### Update Conversion Events [POST /campaign/{campaign_id}/conversion]
 
-A Conversion update can be actioned against one of three references. The relevant reference must be passed, with its
+A Conversion update can be actioned against one of 3 references. The relevant reference must be passed, with its
 associated id and status. Bulk operations are sent within a `conversions` array. An optional `reject_reason` can
 be sent with references that are set to the `rejected` status.
 
