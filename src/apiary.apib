@@ -410,13 +410,13 @@ Create a new Advertiser account attached to the authenticated User.
     + Include Advertiser Base
     + contact_email: kristin.bouveng@performancehorizon.com
     + status (Status)
-    + pre_payment
-    + current_balance
-    + vat_number: 636136773 (number)
+    + pre_payment (nullable)
+    + current_balance (nullable)
+    + vat_number: GB636136773 (string, optional, nullable)
     + default_currency (Currency)
     + payment_currency (Currency)
-    + budget_summary_interval (number)
-    + budget_summary_start_time (number)
+    + budget_summary_interval (nullable)
+    + budget_summary_start_time (nullable)
 
 ### Retrieve an Advertiser [GET]
 
