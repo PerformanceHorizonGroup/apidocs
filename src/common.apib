@@ -24,17 +24,17 @@
 + website_url: http://www.performancehorizon.com (required)
 + description: Demo Publisher website
 + website_type: 9 (number, required)
-+ website_type_name: PPC (required)
-+ vertical_id: 10 (number, required)
-+ vertical_name: Technical (required)
++ website_vertical: 10 (number, required)
++ website_country (Country)
++ website_name
++ website_vertical_name: Technical
++ website_type_name: PPC
++ active (YesOrNo)
 
 ## Publisher Website (object)
 + website_id: 11l18694 - ID of the publisher website
 + publisher_id: 1l1007802 - ID of the publisher the website belongs to
 + Include Publisher Website Base
-+ website_country (Country)
-+ website_name
-+ active (YesOrNo)
 
 ## Publisher Database Base (object)
 + database_name: PHG Test Database (required)
@@ -54,7 +54,7 @@
 + publisher_id: 1l1007802 - ID of the publisher
 + Include Publisher Base
 + network_status (Status)
-+ network_id: 1 - ID of the network this publisher belongs to
++ network_id: 1l1000003 - ID of the network this publisher belongs to
 + network_notes
 + campaign_select
 + is_lead_user (YesOrNo)
