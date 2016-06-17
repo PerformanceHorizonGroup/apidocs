@@ -17,12 +17,12 @@ data might appear in reports/exports and is also useful when building an externa
 View all unique Meta attributes for the Campaign.
 
 + Parameters
-    + campaign_id: 300389 - ID of the campaign
+    + campaign_id: 10l176 - ID of the campaign
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes
         + campaign
-            + campaign_id: 300389 - ID of the campaign
+            + campaign_id: 10l176 - ID of the campaign
             + meta
                 + currencies (array[Currency])
                 + meta_conversion (array)
@@ -33,12 +33,12 @@ View all unique Meta attributes for the Campaign.
 View all unique Meta attributes for the Publisher.
 
 + Parameters
-    + publisher_id: 300254 - ID of the publisher
+    + publisher_id: 1l1007802 - ID of the publisher
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes
         + publisher
-            + publisher_id: 300254 - ID of the publisher
+            + publisher_id: 1l1007802 - ID of the publisher
             + meta
                 + currencies (array[Currency])
                 + meta_conversion (array)
@@ -49,13 +49,13 @@ View all unique Meta attributes for the Publisher.
 View all unique Meta attributes for the Campaign Group.
 
 + Parameters
-    + advertiser_id: 300309 - ID of the advertiser
-    + campaign_group_id: 111111l1 - ID of the campaign group
+    + advertiser_id: 10l110 - ID of the advertiser
+    + campaign_group_id: 62 - ID of the campaign group
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes
         + campaign_group
-            + campaign_group_id: 111111l1 - ID of the campaign group
+            + campaign_group_id: 62 (number) - ID of the campaign group
             + meta
                 + currencies (array[Currency])
                 + meta_conversion (array)
@@ -71,7 +71,7 @@ Any text based file format is supported.
 ## Campaign Feed [/campaign/{campaign_id}/feed]
 
 + Parameters
-    + campaign_id: 300389 - ID of the campaign
+    + campaign_id: 10l176 - ID of the campaign
 
 + Attributes (object)
     + feed_id: 1111l13 - ID of the campaign feed
@@ -83,7 +83,7 @@ Any text based file format is supported.
 
 Return the details of all Feeds attached to the Campaign.
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes
         + feeds (array[Campaign Feed Wrapper])
 
@@ -91,11 +91,11 @@ Return the details of all Feeds attached to the Campaign.
 
 Create one or more Feeds against the Campaign entity. Each Feed is sent as an array within a top level `feeds` array.
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
     + Attributes
         + feeds (array[Campaign Feed Base])
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes
         + feeds (array[Campaign Feed Wrapper])
 
@@ -104,13 +104,13 @@ Create one or more Feeds against the Campaign entity. Each Feed is sent as an ar
 Update one or more `feeds` against the Campaign entity. Each Feed is sent as an array within a top level `feeds`
 array and must contain its associated `feed_id`.
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
     + Attributes
         + feeds (array)
             + (Campaign Feed Base)
                 + feed_id: 300092 - ID of the campaign feed
 
-+ Response 200 (application/json)
++ Response 200 (application/json; charset=utf-8)
     + Attributes
         + feeds (array[Campaign Feed Wrapper])
 
