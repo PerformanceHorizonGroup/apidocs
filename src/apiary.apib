@@ -479,7 +479,7 @@ To create a new Campaign, the Advertiser must pass their associated `advertiser_
     + default_override: 0
     + payment_date
     + network_fee
-    + restricted_deep_linking: n (YesOrNo)
+    + restricted_deep_linking (YesOrNo)
     + extra_restricted_deep_linking
     + cookie_status
     + ip_tracking_time: 0 (number)
@@ -493,20 +493,20 @@ To create a new Campaign, the Advertiser must pass their associated `advertiser_
     + invoice_address_postcode
     + auto_approve_publisher (YesOrNo)
     + recurring_payment_setup (YesOrNo)
-    + dont_invoice: n (YesOrNo)
+    + dont_invoice (YesOrNo)
     + dont_consolidate (YesOrNo)
     + deferred_lead_submission
     + invoice_contact
     + invoice_company
     + invoice_only
-    + pay_publisher_directly: n (YesOrNo)
+    + pay_publisher_directly (YesOrNo)
     + budget_summary_interval
     + budget_summary_start_time
     + lead_confirmation_url_success
     + lead_confirmation_url_fail
     + tracking_subdomain
     + campaign_languages
-    + tq_enabled: n (YesOrNo)
+    + tq_enabled (YesOrNo)
     + tq_enabled_publishers
     + is_cpc (YesOrNo)
     + commissions (array)
@@ -579,7 +579,7 @@ match the Commission offer.
     + sale_type: simple
     + override: 10
     + override_type: override
-    + active: n (YesOrNo)
+    + active (YesOrNo)
     + default_commission: false
 
 ### List all Campaign level Commissions [GET /campaign/{campaign_id}/campaign/{campaign_id}/commission]
@@ -1527,14 +1527,14 @@ level `conversions` array.
     + default_commission_value (number)
 + vertical_id: 10 (number)
 + vertical_name: Other
-+ test_mode: n (YesOrNo)
++ test_mode (YesOrNo)
 + tracking_method: s2s (enum)
     + pixel
     + api
     + s2s
-+ allow_third_party_pixel: n (YesOrNo)
++ allow_third_party_pixel (YesOrNo)
 + campaign_logo
-+ hidden_campaign: n (YesOrNo)
++ hidden_campaign (YesOrNo)
 + default_currency (Currency)
 + tq_auto_approve: 60 (number)
 + campaign_notes
@@ -1563,7 +1563,7 @@ level `conversions` array.
 + prepend_url_string
 + associated_campaigns
 + auto_rejected_ips
-+ secure_tracking: n (YesOrNo)
++ secure_tracking (YesOrNo)
 
 ## Commission Group Publisher (object)
 + publisher_id: 300252 - ID of the publisher
