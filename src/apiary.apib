@@ -281,7 +281,7 @@ array.
     + Attributes
         + websites (array[Publisher Website Wrapper])
 
-### Update Publisher Websites [PATCH]
+### Update Publisher Websites [PUT]
 
 Update one or more Websites against the Publisher entity. Each Website is sent as an array within a top level
 `websites` array and must contain its associated `website_id`.
@@ -295,7 +295,7 @@ Update one or more Websites against the Publisher entity. Each Website is sent a
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + databases (array[Publisher Website Wrapper])
+        + websites (array[Publisher Website Wrapper])
 
 ## Publisher Website [/user/publisher/{publisher_id}/website/{website_id}]
 
@@ -343,17 +343,17 @@ array.
     + Attributes
         + databases (array[Publisher Database Wrapper])
 
-### Update Publisher Databases [PATCH]
+### Update Publisher Databases [PUT]
 
 Update one or more Databases against the Publisher entity. Each Database is sent as an array within a top level `databases`
 array and must contain its associated `database_id`.
 
 + Request (application/json; charset=utf-8)
     + Attributes
-        + websites (array)
+        + databases (array)
             + (object)
-                + website_id: 11l18694 - ID of the publisher website
-                + Include Publisher Website Base
+                + database_id: 111111l300347 - ID of the publisher database
+                + Include Publisher Database Base
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -520,7 +520,7 @@ Outputs the specified Campaign.
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Campaign Wrapper)
 
-### Update a Campaign [PATCH]
+### Update a Campaign [PUT]
 
 Update the specified Campaign.
 
@@ -617,7 +617,7 @@ Only outputs Commission offers for the specified Group.
 
 + Parameters
     + campaign_id: 10l176 - ID of the campaign
-    + commission_group_id: 300195 - ID of the commission group
+    + commission_group_id: 10l169 - ID of the commission group
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -632,7 +632,7 @@ Only outputs Commission offers for the specified Voucher.
 
 + Parameters
     + campaign_id: 10l176 - ID of the campaign
-    + voucher_code_id: 300024 - ID of the voucher
+    + voucher_code_id: 111111l1000015 - ID of the voucher
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -658,7 +658,7 @@ Create new Commission offers, you can nest multiple new Commissions within a `co
     + Attributes
         + commission (array[Commission Wrapper])
 
-### Update a Commission [PATCH]
+### Update a Commission [PUT]
 
 To modify Commission offers, add the relevant `commission_id` into each array within the `commissions` array.
 
@@ -717,7 +717,7 @@ must be passed, and to add Publishers into the Group pass them in a `publishers`
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Commission Group Wrapper)
 
-### Update Commission Groups [PATCH /commission_group]
+### Update Commission Groups [PUT /commission_group]
 
 Update Groups by referencing the `commission_group_id` in each Group object within the `commission_groups` array.
 
@@ -725,7 +725,7 @@ Update Groups by referencing the `commission_group_id` in each Group object with
     + Attributes
         + commission_groups (array)
             + (Commission Group Base)
-                + commission_group_id: 300195 - ID of the commission group
+                + commission_group_id: 10l169 - ID of the commission group
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Commission Group Wrapper)
@@ -734,10 +734,10 @@ Update Groups by referencing the `commission_group_id` in each Group object with
 
 + Parameters
     + campaign_id: 10l176 - ID of the campaign
-    + commission_group_id: 300195 - ID of the commission group
+    + commission_group_id: 10l169 - ID of the commission group
 
 + Attributes (object)
-    + commission_group_id: 300195 - ID of the commission group
+    + commission_group_id: 10l169 - ID of the commission group
     + Include Commission Group Base
     + active (YesOrNo)
     + last_modified: `2015-04-10 01:59:54`
@@ -781,7 +781,7 @@ in a `commission_groups` array.
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Voucher Code Wrapper)
 
-### Update Voucher Codes [PATCH]
+### Update Voucher Codes [PUT]
 
 Update Vouchers by referencing the `voucher_code_id` in each Group object within the `voucher_codes` array.
 
@@ -789,7 +789,7 @@ Update Vouchers by referencing the `voucher_code_id` in each Group object within
     + Attributes
         + voucher_codes (array)
             + (Voucher Code Base)
-                + voucher_code_id: 300024 - ID of the voucher code
+                + voucher_code_id: 111111l1000015 - ID of the voucher code
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Voucher Code Wrapper)
@@ -798,10 +798,10 @@ Update Vouchers by referencing the `voucher_code_id` in each Group object within
 
 + Parameters
     + campaign_id: 10l176 - ID of the campaign
-    + voucher_code_id: 300024 - ID of the voucher code
+    + voucher_code_id: 111111l1000015 - ID of the voucher code
 
 + Attributes (object)
-    + voucher_code_id: 300024 - ID of the voucher code
+    + voucher_code_id: 111111l1000015 - ID of the voucher code
     + campaign_id: 10l176 - ID of the campaign
     + Include Voucher Code Base
     + active (YesOrNo)
@@ -917,10 +917,10 @@ View all Invoices that have been created.
 
 + Parameters
     + advertiser_id: 10l110 - ID of the advertiser
-    + invoice_id: 101l18694 - ID of the invoice
+    + invoice_id: 1101l1536 - ID of the invoice
 
 + Attributes
-    + invoice_id: 101l18694 - ID of the invoice
+    + invoice_id: 1101l1536 - ID of the invoice
     + campaign_id: 10l176 - ID of the campaign
     + merchant_invoice_id
     + creation_date: `2015-12-14 22:58:25`
@@ -942,7 +942,7 @@ View all Invoices that have been created.
     + set_timezone (Timezone)
     + invoiced: All
     + average_conversion_age: 14 (number)
-    + invoice_reference: `I-10l176-101l18694`
+    + invoice_reference: `I-10l176-1101l1536`
     + vat_rate: 0 (number)
     + `payment_due_by_date`
     + download
@@ -1032,11 +1032,11 @@ View all Selfbills that have been created.
 
 + Parameters
     + publisher_id: 1l1007802 - ID of the publisher
-    + publisher_self_bill_id: 300003
+    + publisher_self_bill_id: 1011l5403
 
 + Attributes
     + publisher_id: 1l1007802 - ID of the publisher
-    + publisher_self_bill_id: 300003
+    + publisher_self_bill_id: 1011l5403
     + publisher_self_bill_reference
     + creation_date: `2012-07-25 14:22:35`
     + payment_date
@@ -1055,7 +1055,7 @@ View all Selfbills that have been created.
     + items_in_bill: 5 (number)
     + publisher_payment_detail_set_id: 111111l80
     + payment_detail_set_id: null
-    + self_bill_reference: `S-1l1007802-300003`
+    + self_bill_reference: `S-1l1007802-1011l5403`
     + legal_entity (Country)
     + vat_rate: 0 (number)
     + download: false (boolean)
@@ -1075,7 +1075,7 @@ View an individual Selfbill.
 ### View a Single Job [GET]
 
 + Parameters
-    + job_id: 111111l470 - ID of the job
+    + job_id: 111111l1177306 - ID of the job
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Job Wrapper)
@@ -1194,7 +1194,7 @@ Return the aggregation stats for the requested `pivot` within the requested time
 
 + Parameters
     + campaign_id: 10l176 - ID of the campaign
-    + pivot: agent (enum[string])
+    + pivot: country (enum[string])
         + primary - All Publishers
         + adref - All advertiser references referenced through tracking
         + product - All tracked item categories
@@ -1216,7 +1216,7 @@ Return the aggregation stats for the requested `pivot` within the requested time
 
 + Parameters
     + publisher_id: 1l1007802 - ID of the publisher
-    + pivot: agent (enum[string])
+    + pivot: country (enum[string])
         + primary - All Campaigns
         + pubref - All publisher references referenced through tracking
         + product - All tracked item categories
@@ -1247,7 +1247,10 @@ Request a CSV for a granular Click report for the defined Campaign or Publisher 
     + start_date: `2016-02-30T05:15:32Z` (required)
     + end_date: `2016-03-10T19:02:35Z` (required)
 
-+ Response 200
++ Response 200 (application/octet-stream; charset=UTF-8)
+
+        click_id,cookie_id,campaign_id,publisher_id,status,set_time,set_ip,last_used,last_ip,advertiser_reference,referer,creative_id,creative_type,specific_creative_id,country,publisher_name
+        111111l2210,111111l2136,10l176,1l1007802,nibbled,"2016-03-02 10:11:36",127.0.0.1,"2016-06-17 19:13:09",127.0.0.1,,,0,0,0,X0,klmtest
 
 ## Export Conversions [GET /reporting/export/export/conversion.csv{?start_date,end_date,campaign_id,publisher_id}]
 
@@ -1259,7 +1262,10 @@ Request a CSV for a granular Conversion report for the defined Campaign or Publi
     + start_date: `2016-02-30T05:15:32Z` (required)
     + end_date: `2016-03-10T19:02:35Z` (required)
 
-+ Response 200
++ Response 200 (application/octet-stream; charset=UTF-8)
+
+        conversion_id,campaign_id,publisher_id,conversion_date,conversion_date_time,click_time,click_date,click_date_time,currency,advertiser_reference,conversion_reference,referer_ip,source_referer,campaign_title,publisher_name,conversion_status,conversion_lag,value,commission,publisher_commission,creative_type,creative_id,specific_creative_id,customer_type,was_disputed,cookie_id,country,currency_original,currency_conversion_rate,customer_reference,camref,meta_conversion_original_currency
+        111111l3919676,10l176,1l1007802,2016-03-02,"2016-03-02 10:22:02",10:11:36,2016-03-02,"2016-03-02 10:11:36",EUR,,AUTO-57643db548165,127.0.0.1,,"KLM United Kingdom",klmtest,pending,626,90.92,1.0001,0.9092,0,0,0,,,111111l2136,X0,,,,1l3v9UA,
 
 ## Export Conversion Items [GET /reporting/export/export/conversion_item.csv{?start_date,end_date,campaign_id,publisher_id}]
 
@@ -1271,7 +1277,10 @@ Request a CSV for a granular Conversion report which includes all individual ite
     + start_date: `2016-02-30T05:15:32Z` (required)
     + end_date: `2016-03-10T19:02:35Z` (required)
 
-+ Response 200
++ Response 200 (application/octet-stream; charset=UTF-8)
+
+        conversion_id,campaign_id,publisher_id,conversion_date,conversion_date_time,click_time,click_date,click_date_time,currency,advertiser_reference,conversion_reference,referer_ip,source_referer,campaign_title,publisher_name,conversion_status,conversion_lag,value,commission,publisher_commission,creative_type,creative_id,specific_creative_id,customer_type,was_disputed,cookie_id,country,currency_original,currency_conversion_rate,conversion_item_id,sku,category,item_value,item_commission,item_publisher_commission,item_status,item_status_id,reject_reason,last_update,voucher_codes,customer_reference,camref,invoice_id,meta_conversion_original_currency,meta_item_cabin_code,meta_item_departure_date,meta_item_dest,meta_item_device,meta_item_origin,meta_item_original_value,meta_item_passenger,meta_item_payment_method,meta_item_product_ids,meta_item_return_date
+        111111l3919676,10l176,1l1007802,2016-03-02,"2016-03-02 10:22:02",10:11:36,2016-03-02,"2016-03-02 10:11:36",EUR,,AUTO-57643db548165,127.0.0.1,,"KLM United Kingdom",klmtest,pending,626,90.92,1.0001,0.9092,0,0,0,,,111111l2136,X0,,,111111l4118583,,,90.92,1.0001,0.9092,pending,1,,"2016-06-17 19:13:09",,,1l3v9UA,,,,,,,,,,,,
 
 # Group Network Publisher
 
@@ -1378,7 +1387,7 @@ Create one or more Creatives against the Campaign entity. Each Creative is sent 
     + Attributes
         + creatives (array[Creative Wrapper])
 
-### Update Campaign Creatives [PATCH]
+### Update Campaign Creatives [PUT]
 
 Update one or more Creatives against the Campaign entity. Each Creative is sent as an array within a top level
 `creatives` array and must contain its associated `creative_id`.
@@ -1423,7 +1432,7 @@ Create one or more Creative Tags against the Campaign entity. Each Tag is sent a
     + Attributes
         + creative_tags (array[Creative Tag Wrapper])
 
-### Update Campaign Creative Tags [PATCH]
+### Update Campaign Creative Tags [PUT]
 
 Update one or more Creative Tags against the Campaign entity. Each Tag is sent as an array within a top level `tags`
 array and must contain its associated `creative_tag_id`.
@@ -1565,17 +1574,12 @@ level `conversions` array.
 + auto_rejected_ips
 + secure_tracking (YesOrNo)
 
-## Commission Group Publisher (object)
-+ publisher_id: 300252 - ID of the publisher
-+ publisher_name: Bloggers
-+ added: `2015-12-14 22:58:25`
-
 ## Commission Group Base (object)
 + name: Fansites 3% (required)
 + campaign_id: 10l176 (required) - ID of the campaign
 + description
 + Include Time Range
-+ publishers (array[Commission Group Publisher])
++ publishers (array) - Array of IDs of the publisher ids
 
 ## Voucher Code Base (object)
 + voucher_code: promocode (required)
@@ -1746,9 +1750,9 @@ level `conversions` array.
 + total_quantity: 0 (number)
 + total_clickthrough_rate: 0 (number)
 + total_ordersize_avg: 0 (number)
-+ *agents* (array)
++ *countrys* (array)
     + (object)
-        + *agent* (Aggregated Overview)
+        + *country* (Aggregated Overview)
 
 ## Creative Common (object)
 + campaign_id: 10l176 - ID of the campaign
