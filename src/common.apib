@@ -95,7 +95,7 @@
 
 ## Job (object)
 + job_id: 111111l470 - ID of the job
-+ completed_at: `2016-04-07 04:21:52`
++ completed_at: `2016-04-07 04:21:52` (string, optional, nullable)
 + Include Created
 + created_by_uri
 + status (enum)
@@ -105,8 +105,8 @@
 + percentage_complete: 100 (number)
 + reference (nullable)
 + response_within_retention: true (boolean)
-+ estimated_completion
-+ time_elapsed
++ estimated_completion (nullable)
++ time_elapsed (number)
 + Include Hypermedia
 
 ## Created (object)
@@ -136,6 +136,9 @@
 
 ## Timezone (enum)
 + Australia/Sydney
++ UTC
++ Europe/London
++ CET
 
 ### Sample
 + Australia/Sydney
@@ -144,6 +147,7 @@
 + GBP - Great Britain Pounds
 + USD - United States Dollars
 + EUR - Euros
++ JPY - Japanese Yen
 
 ### Sample
 + GBP

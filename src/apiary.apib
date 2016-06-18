@@ -137,6 +137,7 @@ The reason for this is so that a new User can be created against the requested N
 
 + Request (application/json; charset=utf-8)
     + Attributes (User Base)
+        + user_name: newuser123 (required) - Unique user account name
         + password: samplepass (required) - Password of the user
 
 + Response 200 (application/json; charset=utf-8)
@@ -396,6 +397,7 @@ Create a new Advertiser account attached to the authenticated User.
 
 + Request (application/json; charset=utf-8)
     + Attributes (Advertiser Base)
+        + account_name: newadvertiser123 (required) - Unique advertiser account name
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Advertiser Wrapper)
@@ -430,7 +432,8 @@ Outputs the specified advertiser.
 Update the specified Advertiser.
 
 + Request (application/json; charset=utf-8)
-    + Attributes (Advertiser Base)
+    + Attributes (Advertiser Update)
+        + advertiser_id: 10l110 - ID of the advertiser
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Advertiser Wrapper)
@@ -712,7 +715,9 @@ must be passed, and to add Publishers into the Group pass them in a `publishers`
 
 + Request (application/json; charset=utf-8)
     + Attributes
-        + commission_groups (array[Commission Group Base])
+        + commission_groups (array)
+            + (Commission Group Base)
+                + name: Top Sites 2% (required)
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Commission Group Wrapper)
@@ -726,6 +731,7 @@ Update Groups by referencing the `commission_group_id` in each Group object with
         + commission_groups (array)
             + (Commission Group Base)
                 + commission_group_id: 10l169 - ID of the commission group
+                + name: Top Sites 4% (required)
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Commission Group Wrapper)
@@ -776,7 +782,9 @@ in a `commission_groups` array.
 
 + Request (application/json; charset=utf-8)
     + Attributes
-        + voucher_codes (array[Voucher Code Base])
+        + voucher_codes (array)
+            + (Voucher Code Base)
+                + voucher_code: specialoffer69
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Voucher Code Wrapper)
@@ -922,7 +930,7 @@ View all Invoices that have been created.
 + Attributes
     + invoice_id: 1101l1536 - ID of the invoice
     + campaign_id: 10l176 - ID of the campaign
-    + merchant_invoice_id
+    + merchant_invoice_id (string, optional, nullable) - Optional merchant reference
     + creation_date: `2015-12-14 22:58:25`
     + payment_date
     + status: created (enum)
@@ -934,7 +942,7 @@ View all Invoices that have been created.
     + invoice_net_value: 770.84 (number)
     + invoice_vat_value: 0 (number)
     + invoice_total_value: 770.84 (number)
-    + payment_reference
+    + payment_reference (string, optional, nullable) - Optional payment reference
     + publisher_commission: 700.76 (number)
     + publisher_override: 70.08 (number)
     + set_start_date: `2015-08-30`
@@ -945,8 +953,8 @@ View all Invoices that have been created.
     + invoice_reference: `I-10l176-1101l1536`
     + vat_rate: 0 (number)
     + `payment_due_by_date`
-    + download
-    + item_download
+    + download (nullable) - URL for PDF download
+    + item_download (nullable) - URL for CSV item download
 
 ### Retrieve an Invoice [GET]
 
@@ -1037,11 +1045,11 @@ View all Selfbills that have been created.
 + Attributes
     + publisher_id: 1l1007802 - ID of the publisher
     + publisher_self_bill_id: 1011l5403
-    + publisher_self_bill_reference
+    + publisher_self_bill_reference (string, optional, nullable)
     + creation_date: `2012-07-25 14:22:35`
-    + payment_date
+    + payment_date (string, optional, nullable)
     + timestamp: `2012-07-25 14:22:35`
-    + payment_batch_id: 0
+    + payment_batch_id (string, optional, nullable)
     + status: created (enum)
     + tracked_net_value: 430.17 (number)
     + tracked_currency (Currency)
@@ -1053,13 +1061,13 @@ View all Selfbills that have been created.
     + withheld_tax: 0 (number)
     + total_value: 430.17 (number)
     + items_in_bill: 5 (number)
-    + publisher_payment_detail_set_id: 111111l80
-    + payment_detail_set_id: null
+    + publisher_payment_detail_set_id: 111111l80 (string, optional, nullable)
+    + payment_detail_set_id: 24 (number)
     + self_bill_reference: `S-1l1007802-1011l5403`
     + legal_entity (Country)
     + vat_rate: 0 (number)
-    + download: false (boolean)
-    + item_download: false (boolean)
+    + download (nullable) - URL for PDF download
+    + item_download (nullable) - URL for CSV item download
 
 ### View a Selfbill [GET]
 
@@ -1264,8 +1272,8 @@ Request a CSV for a granular Conversion report for the defined Campaign or Publi
 
 + Response 200 (application/octet-stream; charset=UTF-8)
 
-        conversion_id,campaign_id,publisher_id,conversion_date,conversion_date_time,click_time,click_date,click_date_time,currency,advertiser_reference,conversion_reference,referer_ip,source_referer,campaign_title,publisher_name,conversion_status,conversion_lag,value,commission,publisher_commission,creative_type,creative_id,specific_creative_id,customer_type,was_disputed,cookie_id,country,currency_original,currency_conversion_rate,customer_reference,camref,meta_conversion_original_currency
-        111111l3919676,10l176,1l1007802,2016-03-02,"2016-03-02 10:22:02",10:11:36,2016-03-02,"2016-03-02 10:11:36",EUR,,AUTO-57643db548165,127.0.0.1,,"KLM United Kingdom",klmtest,pending,626,90.92,1.0001,0.9092,0,0,0,,,111111l2136,X0,,,,1l3v9UA,
+        conversion_id,campaign_id,publisher_id,conversion_date,conversion_date_time,click_time,click_date,click_date_time,currency,advertiser_reference,conversion_reference,referer_ip,source_referer,campaign_title,publisher_name,conversion_status,conversion_lag,value,commission,publisher_commission,creative_type,creative_id,specific_creative_id,customer_type,was_disputed,cookie_id,country,currency_original,currency_conversion_rate,customer_reference,camref
+        111111l3919676,10l176,1l1007802,2016-03-02,"2016-03-02 10:22:02",10:11:36,2016-03-02,"2016-03-02 10:11:36",EUR,,AUTO-57643db548165,127.0.0.1,,"KLM United Kingdom",klmtest,pending,626,90.92,1.0001,0.9092,0,0,0,,,111111l2136,X0,,,,1l3v9UA
 
 ## Export Conversion Items [GET /reporting/export/export/conversion_item.csv{?start_date,end_date,campaign_id,publisher_id}]
 
@@ -1279,8 +1287,8 @@ Request a CSV for a granular Conversion report which includes all individual ite
 
 + Response 200 (application/octet-stream; charset=UTF-8)
 
-        conversion_id,campaign_id,publisher_id,conversion_date,conversion_date_time,click_time,click_date,click_date_time,currency,advertiser_reference,conversion_reference,referer_ip,source_referer,campaign_title,publisher_name,conversion_status,conversion_lag,value,commission,publisher_commission,creative_type,creative_id,specific_creative_id,customer_type,was_disputed,cookie_id,country,currency_original,currency_conversion_rate,conversion_item_id,sku,category,item_value,item_commission,item_publisher_commission,item_status,item_status_id,reject_reason,last_update,voucher_codes,customer_reference,camref,invoice_id,meta_conversion_original_currency,meta_item_cabin_code,meta_item_departure_date,meta_item_dest,meta_item_device,meta_item_origin,meta_item_original_value,meta_item_passenger,meta_item_payment_method,meta_item_product_ids,meta_item_return_date
-        111111l3919676,10l176,1l1007802,2016-03-02,"2016-03-02 10:22:02",10:11:36,2016-03-02,"2016-03-02 10:11:36",EUR,,AUTO-57643db548165,127.0.0.1,,"KLM United Kingdom",klmtest,pending,626,90.92,1.0001,0.9092,0,0,0,,,111111l2136,X0,,,111111l4118583,,,90.92,1.0001,0.9092,pending,1,,"2016-06-17 19:13:09",,,1l3v9UA,,,,,,,,,,,,
+        conversion_id,campaign_id,publisher_id,conversion_date,conversion_date_time,click_time,click_date,click_date_time,currency,advertiser_reference,conversion_reference,referer_ip,source_referer,campaign_title,publisher_name,conversion_status,conversion_lag,value,commission,publisher_commission,creative_type,creative_id,specific_creative_id,customer_type,was_disputed,cookie_id,country,currency_original,currency_conversion_rate,conversion_item_id,sku,category,item_value,item_commission,item_publisher_commission,item_status,item_status_id,reject_reason,last_update,voucher_codes,customer_reference,camref,invoice_id,meta_item_cabin_code,meta_item_departure_date,meta_item_dest,meta_item_device,meta_item_origin,meta_item_passenger,meta_item_payment_method,meta_item_product_ids,meta_item_return_date
+        111111l3919676,10l176,1l1007802,2016-03-02,"2016-03-02 10:22:02",10:11:36,2016-03-02,"2016-03-02 10:11:36",EUR,,AUTO-57643db548165,127.0.0.1,,"KLM United Kingdom",klmtest,pending,626,90.92,1.0001,0.9092,0,0,0,,,111111l2136,X0,,,111111l4118583,,,90.92,1.0001,0.9092,pending,1,,"2016-06-17 19:13:09",,,1l3v9UA,,,,,,,,,,
 
 # Group Network Publisher
 
@@ -1344,7 +1352,7 @@ View a summary of all Creatives available on each participating Campaign.
                         + Feed: 1 (number)
                         + HTML Form: 1 (number)
 
-## List all Creatives on a Campaign [GET /user/publsiher/{publisher_id}/campaign/{campaign_id}/creative]
+## List all Creatives on a Campaign [GET /user/publisher/{publisher_id}/campaign/{campaign_id}/creative]
 
 View all Creative for the specified Campaign.
 
@@ -1426,7 +1434,9 @@ Create one or more Creative Tags against the Campaign entity. Each Tag is sent a
 
 + Request (application/json; charset=utf-8)
     + Attributes
-        + tags (array[Creative Tag Base])
+        + tags (array)
+            + (Creative Tag Base)
+                + name: promo (required)
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -1443,6 +1453,7 @@ array and must contain its associated `creative_tag_id`.
             + (object)
                 + creative_tag_id: 111111l2 - ID of the creative tag
                 + Include Creative Tag Base
+                + name: promotion (required)
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -1459,7 +1470,9 @@ array and must contain its associated `creative_tag_id`.
             + (object)
                 + creative_tag_id: 111111l2 - ID of the creative tag
 
-+ Response 204
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + creative_tags (array[Creative Tag Wrapper])
 
 # Group Campaign Bonus
 
@@ -1474,22 +1487,28 @@ level `conversions` array.
     + advertiser_id: 10l110 - ID of the advertiser
     + campaign_id: 10l176 - ID of the campaign
 
++ Attributes
+    + conversions (array)
+        + (object)
+            + publisher_id: 1l1007802 (required) - ID of the publisher
+            + commission: 100.99 (number, required)
+            + value (number, optional, nullable)
+            + override (number)
+            + currency (Currency)
+            + country (Country, optional, nullable)
+            + dispute_id (string, optional, nullable)
+            + conversion_time: `2015-03-28 11:08:52` (string, optional, nullable)
+            + conversionref (string, optional, nullable)
+            + adref (string, optional, nullable)
+            + pubref (string, optional, nullable)
+            + approve (YesOrNo, optional, nullable)
+
 + Request (application/json; charset=utf-8)
     + Attributes
         + conversions (array)
             + (object)
                 + publisher_id: 1l1007802 (required) - ID of the publisher
-                + commission (number, required)
-                + value (number)
-                + override (number)
-                + currency (Currency)
-                + country (Country)
-                + dispute_id
-                + conversion_time: `2015-03-28 11:08:52`
-                + conversionref
-                + adref
-                + pubref
-                + approve
+                + commission: 100.99 (number, required)
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -1501,10 +1520,10 @@ level `conversions` array.
 # Data Structures
 
 ## User Base (object)
-+ user_name: demomaster (required) - Username of the user
++ user_name: demomaster (required) - Unique user account name
 + email_address: matthew.clarke@performancehorizon.com (required) - Email address registered to the user
 + firstname: Pete (required) - First name of the user
-+ lastname: CheyneWins (required) - Surname of the user
++ lastname: Cheyne (required) - Surname of the user
 + Include Phone
 + fax: 123456 (number, optional, nullable) - Fax number
 + Include Address
@@ -1513,19 +1532,25 @@ level `conversions` array.
 
 ## User Update (object)
 + email_address: matthew.clarke@performancehorizon.com (optional) - Email address registered to the user
-+ firstname: Pete (optional) - First name of the user
-+ lastname: CheyneWins (optional) - Surname of the user
++ firstname: Mike (optional) - First name of the user
++ lastname: Cheyne (optional) - Surname of the user
 + Include Phone (optional)
 + fax: 123456 (number, optional, nullable) - Fax number
 + Include Address (optional)
 + locale (Locale, optional)
 
 ## Advertiser Base (object)
-+ account_name: demoadvertiser (required)
++ account_name: demoadvertiser (required) - Unique advertiser account name
 + company_name: PHG Demo Advertiser (required)
 + Include Address
 + Include Phone
 + Include Signup IP
+
+## Advertiser Update (object)
++ company_name: PHG Demo Advertiser (optional)
++ Include Address (optional)
++ Include Phone (optional)
++ Include Signup IP (optional)
 
 ## Campaign Base (object)
 + advertiser_id: 10l110 (required) - ID of the advertiser the campaign should belong to
@@ -1728,6 +1753,7 @@ level `conversions` array.
 + impression: 0 (number)
 + clicks: 825 (number)
 + currency (object)
+    + GBP (object)
 + quantity_all: 0 (number)
 + rejection_rate (Aggregated Rejection)
 + clickthrough_rate: 0 (number)
