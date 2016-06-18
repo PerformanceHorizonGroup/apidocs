@@ -1,5 +1,7 @@
 # Performance Horizon API Docs
 
+[![Build Status](https://travis-ci.org/PerformanceHorizonGroup/apidocs.svg?branch=master)](https://travis-ci.org/PerformanceHorizonGroup/apidocs)
+
 The PH api documentation is written in [api blueprint](https://apiblueprint.org/).
 
 We render our docs on [apiary.io](http://docs.performancehorizon.apiary.io/).
