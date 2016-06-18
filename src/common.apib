@@ -1,14 +1,18 @@
+## Publisher Update (object)
++ promotional_method: 9 (number, required)
++ description: Top performance (string, optional, nullable) - Description of the publisher
+
 ## Publisher Base (object)
-+ account_name: publisherdemo (required)
-+ vertical_name: Other (required)
-+ vertical_id: 10 (number, required)
-+ promotional_method_name: Portal (required)
-+ promotional_method_id: 10 (number, required)
-+ vat_number (number)
++ account_name: publisherdemo123 (required)
++ vertical_name: Other (string, optional)
++ vertical: 10 (number, required)
++ promotional_method_name: Portal (string, optional)
++ promotional_method: 10 (number, required)
++ vat_number: 974997534 (number, optional, nullable)
 + uk_vat_registered (YesOrNo)
-+ description - Description of the publisher
++ description (string, optional, nullable) - Description of the publisher
 + company_name: Demo Publisher
-+ company_division
++ company_division (string, optional, nullable)
 + operating_country (Country)
 + Include Time Info
 + default_currency (Currency)
@@ -16,8 +20,8 @@
 + contact_name: Pete Cheyne
 + contact_email: demo@performancehorizon.com
 + contact_locale (Locale)
-+ im_provider: Skype
-+ im_username: elisangis
++ im_provider: Skype  (string, optional, nullable)
++ im_username: elisangis  (string, optional, nullable)
 + Include Signup IP
 
 ## Publisher Website Base (object)
@@ -55,16 +59,16 @@
 + Include Publisher Base
 + network_status (Status)
 + network_id: 1l1000003 - ID of the network this publisher belongs to
-+ network_notes
-+ campaign_select
++ network_notes (string, optional, nullable)
++ campaign_select (string, optional, nullable)
 + is_lead_user (YesOrNo)
 + is_affiliate_user (YesOrNo)
 + is_foreign_network (YesOrNo)
-+ foreign_identifier
-+ reporting_identifier
-+ gst_registered
-+ us_tax_state
-+ abn
++ foreign_identifier (string, optional, nullable)
++ reporting_identifier (string, optional, nullable)
++ gst_registered (string, optional, nullable)
++ us_tax_state (string, optional, nullable)
++ abn (string, optional, nullable)
 + websites (array[Publisher Website])
 + databases (array[Publisher Database])
 + legal_entity (Country)

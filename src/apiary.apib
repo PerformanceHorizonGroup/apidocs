@@ -223,6 +223,9 @@ Create a new Publisher account attached to the authenticated User.
 
 + Request (application/json; charset=utf-8)
     + Attributes (Publisher Base)
+        + entity_id: 1 (required) - The relevant entity id
+        + network_id: 1l1000003 (required) - The relevant network id
+        + entity_terms_id: 252 (required) - The terms and conditions for the specified entity
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Publisher Wrapper)
@@ -244,7 +247,8 @@ Outputs the specified publisher.
 Update the specified Publisher.
 
 + Request (application/json; charset=utf-8)
-    + Attributes (Publisher Base)
+    + Attributes (Publisher Update)
+        + publisher_id: 1l1007802 - ID of the publisher
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Publisher Wrapper)
@@ -414,7 +418,7 @@ Create a new Advertiser account attached to the authenticated User.
     + status (Status)
     + pre_payment (nullable)
     + current_balance (nullable)
-    + vat_number: GB636136773 (string, optional, nullable)
+    + vat_number: GB974997534 (string, optional, nullable)
     + default_currency (Currency)
     + payment_currency (Currency)
     + budget_summary_interval (nullable)
@@ -529,6 +533,7 @@ Update the specified Campaign.
 
 + Request (application/json; charset=utf-8)
     + Attributes (Campaign Base)
+        + campaign_id: 10l176 (required) - ID of the campaign
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Campaign Wrapper)
@@ -543,9 +548,17 @@ To delete a specific campaign, you must pass 3 required parameters:
 
 + Request (application/json; charset=utf-8)
     + Attributes
-        + reason: No longer needed
+        + campaign_id: 10l176 (required) - ID of the campaign
+        + action: delete (required)
+        + retire_reason: No longer needed (string, required)
 
-+ Response 204
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Campaign Wrapper)
+        + status (object)
+            + status: Deleted
+            + message: Campaign successfully deleted
+            + retire_reason: No longer needed
+            + campaign_id: 10l176
 
 # Group Commission
 
@@ -1508,13 +1521,13 @@ level `conversions` array.
             + value (number, optional, nullable)
             + override (number)
             + currency (Currency)
-            + country (Country, optional, nullable)
+            + country (Country, optional)
             + dispute_id (string, optional, nullable)
             + conversion_time: `2015-03-28 11:08:52` (string, optional, nullable)
             + conversionref (string, optional, nullable)
             + adref (string, optional, nullable)
             + pubref (string, optional, nullable)
-            + approve (YesOrNo, optional, nullable)
+            + approve (YesOrNo)
 
 + Request (application/json; charset=utf-8)
     + Attributes
@@ -1580,7 +1593,7 @@ level `conversions` array.
     + api
     + s2s
 + allow_third_party_pixel (YesOrNo)
-+ campaign_logo
++ campaign_logo: http://performancehorizon.com/logo.png (string, optional, nullable)
 + hidden_campaign (YesOrNo)
 + default_currency (Currency)
 + tq_auto_approve: 60 (number)
@@ -1607,7 +1620,7 @@ level `conversions` array.
     + ignore
 + allow_deep_linking (YesOrNo)
 + append_url_parameters
-+ prepend_url_string
++ prepend_url_string: `http://google.com?d=` (string, optional, nullable) - Prepend all destination URLs
 + associated_campaigns
 + auto_rejected_ips
 + secure_tracking (YesOrNo)
@@ -1910,6 +1923,6 @@ level `conversions` array.
     + permissions (Permissions)
 
 ## Campaign Group Account Wrapper (object)
-+ campaign_group : (Campaign Group)
++ campaign_group (Campaign Group)
     + permissions (Permissions)
 
