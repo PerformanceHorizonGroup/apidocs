@@ -4,7 +4,9 @@
 
 The PH api documentation is written in [api blueprint](https://apiblueprint.org/).
 
-We render our docs on [apiary.io](http://docs.performancehorizon.apiary.io/).
+Read and interact with our docs at [apiary.io](http://docs.performancehorizon.apiary.io/).
+
+We test our docs with [dredd](http://dredd.readthedocs.io/en/latest/).
 
 We would welcome all contributions to our docs, to get involved, follow the setup
 instructions below and hit us with a pull request.
@@ -15,9 +17,8 @@ instructions below and hit us with a pull request.
 
 ```
 brew install node npm nvm
-npm install gem
+npm install gem hercule
 gem install apiaryio
-npm install hercule
 ```
 
 ### Preview
