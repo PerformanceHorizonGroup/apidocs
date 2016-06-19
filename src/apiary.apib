@@ -469,9 +469,6 @@ To create a new Campaign, the Advertiser must pass their associated `advertiser_
 
 + Request (application/json; charset=utf-8)
     + Attributes (Campaign Base)
-        + One Of
-            + default_commission_rate: 5
-            + default_commission_value: 20
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Campaign Wrapper)
@@ -1583,6 +1580,9 @@ level `conversions` array.
 + Include Signup IP (optional)
 
 ## Campaign Base (object)
++ One Of
+    + default_commission_rate: 5
+    + default_commission_value: 20
 + advertiser_id: 10l110 (required) - ID of the advertiser the campaign should belong to
 + title: PHG Aff Demo (required)
 + destination_url: http://www.performancehorizon.com (required)
@@ -1599,9 +1599,11 @@ level `conversions` array.
 + default_currency (Currency)
 + tq_auto_approve: 60 (number)
 + campaign_notes
-+ description (object)
-    + en: Awesome new campaign (string, optional, nullable)
-+ terms (array)
++ description (object, optional, nullable)
+    + en: Awesome new campaign (string)
++ terms (object, optional, nullable)
+    + en (object)
+        + terms: Important campaign terms and conditions (string)
 + cookie_period (number)
 + multiple_conversions_per_click: n (enum)
     + y
@@ -1885,9 +1887,6 @@ level `conversions` array.
 
 ## Campaign Wrapper (object)
 + campaign (Campaign)
-    + One Of
-        + default_commission_rate: 5
-        + default_commission_value: 20
 
 ## Commission Wrapper (object)
 + commission (Commission)
