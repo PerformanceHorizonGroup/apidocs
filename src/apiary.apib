@@ -469,6 +469,9 @@ To create a new Campaign, the Advertiser must pass their associated `advertiser_
 
 + Request (application/json; charset=utf-8)
     + Attributes (Campaign Base)
+        + One Of
+            + default_commission_rate: 5
+            + default_commission_value: 20
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Campaign Wrapper)
@@ -484,36 +487,36 @@ To create a new Campaign, the Advertiser must pass their associated `advertiser_
     + Include Campaign Base
     + Include Time Info
     + conversion_type: sale
-    + default_override: 0
-    + payment_date
-    + network_fee
+    + default_override: 10 (number)
+    + payment_date (string, optional, nullable)
+    + network_fee (string, optional, nullable)
     + restricted_deep_linking (YesOrNo)
     + extra_restricted_deep_linking
-    + cookie_status
+    + cookie_status (string, optional, nullable)
     + ip_tracking_time: 0 (number)
     + conversion_hiatus_period: 7 (number)
     + force_approve_period: 0 (number)
-    + invoice_address_1
-    + invoice_address_2
-    + invoice_address_3
-    + invoice_address_4
-    + invoice_address_country (Country)
-    + invoice_address_postcode
+    + invoice_address_1 (string, optional, nullable)
+    + invoice_address_2 (string, optional, nullable)
+    + invoice_address_3 (string, optional, nullable)
+    + invoice_address_4 (string, optional, nullable)
+    + invoice_address_country (string, optional, nullable)
+    + invoice_address_postcode (string, optional, nullable)
     + auto_approve_publisher (YesOrNo)
     + recurring_payment_setup (YesOrNo)
     + dont_invoice (YesOrNo)
     + dont_consolidate (YesOrNo)
-    + deferred_lead_submission
-    + invoice_contact
-    + invoice_company
-    + invoice_only
+    + deferred_lead_submission (string, optional, nullable)
+    + invoice_contact (string, optional, nullable)
+    + invoice_company (string, optional, nullable)
+    + invoice_only (string, optional, nullable)
     + pay_publisher_directly (YesOrNo)
-    + budget_summary_interval
-    + budget_summary_start_time
+    + budget_summary_interval (number, optional, nullable)
+    + budget_summary_start_time (string, optional, nullable)
     + lead_confirmation_url_success
     + lead_confirmation_url_fail
-    + tracking_subdomain
-    + campaign_languages
+    + tracking_subdomain (string, optional, nullable)
+    + campaign_languages (object, optional, nullable)
     + tq_enabled (YesOrNo)
     + tq_enabled_publishers
     + is_cpc (YesOrNo)
@@ -533,7 +536,7 @@ Outputs the specified Campaign.
 Update the specified Campaign.
 
 + Request (application/json; charset=utf-8)
-    + Attributes (Campaign Base)
+    + Attributes (Campaign Update)
         + campaign_id: 10l176 (required) - ID of the campaign
 
 + Response 200 (application/json; charset=utf-8)
@@ -1583,9 +1586,6 @@ level `conversions` array.
 + advertiser_id: 10l110 (required) - ID of the advertiser the campaign should belong to
 + title: PHG Aff Demo (required)
 + destination_url: http://www.performancehorizon.com (required)
-+ One Of
-    + default_commission_rate: 10 (number)
-    + default_commission_value (number)
 + vertical_id: 10 (number)
 + vertical_name: Other
 + test_mode (YesOrNo)
@@ -1600,9 +1600,9 @@ level `conversions` array.
 + tq_auto_approve: 60 (number)
 + campaign_notes
 + description (object)
-+ terms (object)
-    + en-US (Term)
-+ cookie_period
+    + en: Awesome new campaign (string, optional, nullable)
++ terms (array)
++ cookie_period (number)
 + multiple_conversions_per_click: n (enum)
     + y
     + n
@@ -1621,10 +1621,14 @@ level `conversions` array.
     + ignore
 + allow_deep_linking (YesOrNo)
 + append_url_parameters
-+ prepend_url_string: `http://google.com?d=` (string, optional, nullable) - Prepend all destination URLs
++ prepend_url_string: `http://google.com` (string, optional, nullable) - Prepend all destination URLs
 + associated_campaigns
-+ auto_rejected_ips
++ auto_rejected_ips (string, optional, nullable)
 + secure_tracking (YesOrNo)
+
+## Campaign Update
++ title: PHG Aff Demo (optional)
++ destination_url: http://www.performancehorizon.com (optional)
 
 ## Commission Group Base (object)
 + name: Fansites 3% (required)
@@ -1881,6 +1885,9 @@ level `conversions` array.
 
 ## Campaign Wrapper (object)
 + campaign (Campaign)
+    + One Of
+        + default_commission_rate: 5
+        + default_commission_value: 20
 
 ## Commission Wrapper (object)
 + commission (Commission)
