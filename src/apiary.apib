@@ -1285,7 +1285,7 @@ Request a CSV for a granular Click report for the defined Campaign or Publisher 
 + Response 200 (application/octet-stream; charset=UTF-8)
 
         click_id,cookie_id,campaign_id,publisher_id,status,set_time,set_ip,last_used,last_ip,advertiser_reference,referer,creative_id,creative_type,specific_creative_id,country,publisher_name
-        111111l2210,111111l2136,10l176,1l1007802,nibbled,"2016-03-02 10:11:36",127.0.0.1,"2016-06-17 19:13:09",127.0.0.1,,,0,0,0,X0,klmtest
+        111111l2210,111111l2136,10l176,1l1007802,nibbled,"2016-03-02 10:11:36",127.0.0.1,"2016-06-17 19:13:09",127.0.0.1,,,0,0,0,GB,apipublisher123
 
 ## Export Conversions [GET /reporting/export/export/conversion.csv{?start_date,end_date,campaign_id,publisher_id}]
 
@@ -1300,7 +1300,7 @@ Request a CSV for a granular Conversion report for the defined Campaign or Publi
 + Response 200 (application/octet-stream; charset=UTF-8)
 
         conversion_id,campaign_id,publisher_id,conversion_date,conversion_date_time,click_time,click_date,click_date_time,currency,advertiser_reference,conversion_reference,referer_ip,source_referer,campaign_title,publisher_name,conversion_status,conversion_lag,value,commission,publisher_commission,creative_type,creative_id,specific_creative_id,customer_type,was_disputed,cookie_id,country,currency_original,currency_conversion_rate,customer_reference,camref
-        111111l3919676,10l176,1l1007802,2016-03-02,"2016-03-02 10:22:02",10:11:36,2016-03-02,"2016-03-02 10:11:36",EUR,,AUTO-57643db548165,127.0.0.1,,"KLM United Kingdom",klmtest,pending,626,90.92,1.0001,0.9092,0,0,0,,,111111l2136,X0,,,,1l3v9UA
+        111111l3919676,10l176,1l1007802,2016-03-02,"2016-03-02 10:22:02",10:11:36,2016-03-02,"2016-03-02 10:11:36",EUR,,AUTO-57643db548165,127.0.0.1,,"API Campaign Demo",apipublisher123,pending,626,90.92,1.0001,0.9092,0,0,0,,,111111l2136,GB,,,,1l3v9UA
 
 ## Export Conversion Items [GET /reporting/export/export/conversion_item.csv{?start_date,end_date,campaign_id,publisher_id}]
 
@@ -1315,7 +1315,7 @@ Request a CSV for a granular Conversion report which includes all individual ite
 + Response 200 (application/octet-stream; charset=UTF-8)
 
         conversion_id,campaign_id,publisher_id,conversion_date,conversion_date_time,click_time,click_date,click_date_time,currency,advertiser_reference,conversion_reference,referer_ip,source_referer,campaign_title,publisher_name,conversion_status,conversion_lag,value,commission,publisher_commission,creative_type,creative_id,specific_creative_id,customer_type,was_disputed,cookie_id,country,currency_original,currency_conversion_rate,conversion_item_id,sku,category,item_value,item_commission,item_publisher_commission,item_status,item_status_id,reject_reason,last_update,voucher_codes,customer_reference,camref,invoice_id,meta_item_cabin_code,meta_item_departure_date,meta_item_dest,meta_item_device,meta_item_origin,meta_item_passenger,meta_item_payment_method,meta_item_product_ids,meta_item_return_date
-        111111l3919676,10l176,1l1007802,2016-03-02,"2016-03-02 10:22:02",10:11:36,2016-03-02,"2016-03-02 10:11:36",EUR,,AUTO-57643db548165,127.0.0.1,,"KLM United Kingdom",klmtest,pending,626,90.92,1.0001,0.9092,0,0,0,,,111111l2136,X0,,,111111l4118583,,,90.92,1.0001,0.9092,pending,1,,"2016-06-17 19:13:09",,,1l3v9UA,,,,,,,,,,
+        111111l3919676,10l176,1l1007802,2016-03-02,"2016-03-02 10:22:02",10:11:36,2016-03-02,"2016-03-02 10:11:36",EUR,,AUTO-57643db548165,127.0.0.1,,"API Campaign Demo",apipublisher123,pending,626,90.92,1.0001,0.9092,0,0,0,,,111111l2136,GB,,,111111l4118583,,,90.92,1.0001,0.9092,pending,1,,"2016-06-17 19:13:09",,,1l3v9UA,,,,,,,,,,
 
 # Group Network Publisher
 
