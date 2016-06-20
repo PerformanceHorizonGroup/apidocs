@@ -1,14 +1,18 @@
+## Publisher Update (object)
++ promotional_method: 9 (number, required)
++ description: Top performance (string, optional, nullable) - Description of the publisher
+
 ## Publisher Base (object)
-+ account_name: publisherdemo (required)
-+ vertical_name: Other (required)
-+ vertical_id: 10 (number, required)
-+ promotional_method_name: Portal (required)
-+ promotional_method_id: 10 (number, required)
-+ vat_number (number)
++ account_name: publisher123 (required)
++ vertical_name: Other (string, optional)
++ vertical: 10 (number, required)
++ promotional_method_name: Portal (string, optional)
++ promotional_method: 10 (number, required)
++ vat_number: 974997534 (number, optional, nullable)
 + uk_vat_registered (YesOrNo)
-+ description - Description of the publisher
++ description (string, optional, nullable) - Description of the publisher
 + company_name: Demo Publisher
-+ company_division
++ company_division (string, optional, nullable)
 + operating_country (Country)
 + Include Time Info
 + default_currency (Currency)
@@ -16,25 +20,27 @@
 + contact_name: Pete Cheyne
 + contact_email: demo@performancehorizon.com
 + contact_locale (Locale)
-+ im_provider: Skype
-+ im_username: elisangis
++ im_provider: Skype  (string, optional, nullable)
++ im_username: elisangis  (string, optional, nullable)
 + Include Signup IP
++ is_lead_user (YesOrNo, nullable)
++ is_foreign_network (YesOrNo, nullable)
 
 ## Publisher Website Base (object)
 + website_url: http://www.performancehorizon.com (required)
 + description: Demo Publisher website
 + website_type: 9 (number, required)
-+ website_type_name: PPC (required)
-+ vertical_id: 10 (number, required)
-+ vertical_name: Technical (required)
++ website_vertical: 10 (number, required)
++ website_country (Country)
++ website_name (nullable)
++ website_vertical_name: Technical
++ website_type_name: PPC
++ active (YesOrNo)
 
 ## Publisher Website (object)
-+ website_id: 300029 - ID of the publisher website
-+ publisher_id: 300254 - ID of the publisher the website belongs to
++ website_id: 11l18694 - ID of the publisher website
++ publisher_id: 1l1007802 - ID of the publisher the website belongs to
 + Include Publisher Website Base
-+ website_country (Country)
-+ website_name
-+ active (YesOrNo)
 
 ## Publisher Database Base (object)
 + database_name: PHG Test Database (required)
@@ -46,32 +52,30 @@
 + max_age: 77 (number, required)
 
 ## Publisher Database (object)
-+ database_id: 300002 - ID of the publisher database
-+ publisher_id: 300254 - ID of the publisher the database belongs to
++ database_id: 111111l300347 - ID of the publisher database
++ publisher_id: 1l1007802 - ID of the publisher the database belongs to
 + Include Publisher Database Base
 
 ## Publisher (object)
-+ publisher_id: 300254 - ID of the publisher
++ publisher_id: 1l1007802 - ID of the publisher
 + Include Publisher Base
 + network_status (Status)
-+ network_id: 1 - ID of the network this publisher belongs to
-+ network_notes
-+ campaign_select
-+ is_lead_user (YesOrNo)
++ network_id: 1l1000003 - ID of the network this publisher belongs to
++ network_notes (string, optional, nullable)
++ campaign_select (string, optional, nullable)
 + is_affiliate_user (YesOrNo)
-+ is_foreign_network (YesOrNo)
-+ foreign_identifier
-+ reporting_identifier
-+ gst_registered
-+ us_tax_state
-+ abn
++ foreign_identifier (string, optional, nullable)
++ reporting_identifier (string, optional, nullable)
++ gst_registered (string, optional, nullable)
++ us_tax_state (string, optional, nullable)
++ abn (string, optional, nullable)
 + websites (array[Publisher Website])
 + databases (array[Publisher Database])
 + legal_entity (Country)
 
 ## Phone (object)
 + phone: 01595725007 (required) - Primary contact telephone number
-+ phone_area
++ phone_area: +44 (nullable) - Phone prefix to declare country or region
 
 ## Signup IP (object)
 + signup_ip: 178.23.129.160 (required)
@@ -81,8 +85,8 @@
 + week_start: Monday
 
 ## Time Range (object)
-+ start_date_time: `2013-08-31 15:00:00`
-+ end_date_time: `2013-09-30 15:00:00`
++ start_date_time: `2013-08-31 15:00:00` (string, optional, nullable)
++ end_date_time: `2013-09-30 15:00:00` (string, optional, nullable)
 
 ## Status (enum)
 + a - Approved
@@ -95,7 +99,7 @@
 
 ## Job (object)
 + job_id: 111111l470 - ID of the job
-+ completed_at: `2016-04-07 04:21:52`
++ completed_at: `2016-04-07 04:21:52` (string, optional, nullable)
 + Include Created
 + created_by_uri
 + status (enum)
@@ -103,10 +107,11 @@
     + created
     + active
 + percentage_complete: 100 (number)
-+ reference
++ reference (nullable)
 + response_within_retention: true (boolean)
-+ estimated_completion
-+ time_elapsed
++ estimated_completion (nullable)
++ time_elapsed (number)
++ Include Hypermedia
 
 ## Created (object)
 + created_at: `2016-04-07 04:21:51`
@@ -122,6 +127,7 @@
 ## Country (enum)
 + GB - Great Britain
 + JP - Japan
++ NL - Netherlands
 
 ### Sample
 + GB
@@ -134,12 +140,19 @@
 
 ## Timezone (enum)
 + Australia/Sydney
++ UTC
++ Europe/London
++ CET
++ GMT
 
 ### Sample
 + Australia/Sydney
 
 ## Currency (enum)
 + GBP - Great Britain Pounds
++ USD - United States Dollars
++ EUR - Euros
++ JPY - Japanese Yen
 
 ### Sample
 + GBP
@@ -149,3 +162,7 @@
 
 ## Job Wrapper (object)
 + job (Job)
+
+## Hypermedia (object)
++ response: /job/111111l1177306/response.json (string, optional, nullable) - The raw response
++ update: /job/111111l1177306.json (string, optional, nullable) - The update URI
