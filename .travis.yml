@@ -1,13 +1,16 @@
 language: node_js
 node_js:
-  - 0.12
+- 0.12
 before_install:
-  - rvm install 2.2.3
-  - rvm use 2.2.3
+- rvm install 2.2.3
+- rvm use 2.2.3
 install:
-  - gem install apiaryio
-  - npm install hercule
+- gem install apiaryio
+- npm install hercule
 script:
-  - make
+- make
 after_success:
-  - if [ "$TRAVIS_BRANCH" == "master" ]; then make publish; fi
+- if [ "$TRAVIS_BRANCH" == "master" ]; then make publish; fi
+notifications:
+  slack:
+    secure: wtrTXafgqar8ZPXcx/Ipgtj1CMpk71JVzJzSLi/jVMSleNncJrnCHAwY6jReMPcwmDTE20m2DAbTQvNlcXhL5vZcckkvD/MrWNMUBwdpSw+jbk/hAerSPoOTnauBYwKWqFt1JV8sNeAFNAOZCFlRJ6ItgnyUEmt/DQgktyJyS3NQpQOCCBZhUWrzfiga0VsT28vGGVioF9cT6yZkSSvJ4istmM9QiV7ibdFs+YLd7MuXhZm73jfqPI19TybsqeM4MaKQqfBIa7jC2YEU0s1kpm+U/4FO87pVk75kPyVbc06CKgTPWEB0lnK0r8raOqrtCmfBQ8550RhOl7T5FlymUeGmYP/3rUk8vuYkQIZ84gfgLToMkkl2lkMKAnFT6I/HesXnOu61OVnTUY7PUKaxOXgqR3f/3QhfFFOFHU89wpOjtYrjF3evU8NiVUuMmrkBz7XlFVCvHgN6W/Ouh609lQp0TbaKcE4eH41RzMDkLwsi57F5dvOqeJXzoAZjbwaHSmQT665dWiHLqTEmpgTH+bu012Pu1Feh6GUBBRHg/7euGo66zriIJVixlS8EIjRkoS6FoSW4m9ywg5KA5vQuuGnS9aodE2jyNhtOYGWWg2ZgKKBRx6XZkoJSkIC+JToZpGU24ub4HBpR2XTLdmJMtCLdz+XdEq3oKu/5mGkGbwY=
