@@ -1544,6 +1544,28 @@ level `conversions` array.
                 + conversion (Conversion)
                     + conversion_type: 3 (number)
 
+# Group Reference
+
+The Reference endpoints list common entities which are used across several endpoints. These endpoints are read-only
+and seldom change.
+
+## Vertical [/reference/vertical]
+
+A vertical is a categorisation of business.
+
++ Attributes (object)
+    + vertical_id: 1 (number) - ID of the vertical
+    + name: Downloads - The vertical name
+    + description: App downloads (string, nullable)
+
+### List all Verticals [GET]
+
+List all active verticals.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + verticals (array[Vertical Wrapper])
+
 # Data Structures
 
 ## User Base (object)
@@ -1933,3 +1955,5 @@ level `conversions` array.
 + campaign_group (Campaign Group)
     + permissions (Permissions)
 
+## Vertical Wrapper (object)
++ vertical (Vertical)
