@@ -28,4 +28,11 @@ render the docs. Please give the docs time to render, they require external asse
 ```
 make
 apiary preview --path="apiary.apib"
-````
+```
+
+or
+```
+make
+apiary preview --output tmp.html
+```
+
