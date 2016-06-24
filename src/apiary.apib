@@ -1544,6 +1544,26 @@ level `conversions` array.
                 + conversion (Conversion)
                     + conversion_type: 3 (number)
 
+# Group Alert
+
+Alerts are used across application to notify users (when subscribed) of events happening in platform.
+
+## List all available Alerts [GET /alerts/alert]
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + alerts (array)
+            + (Alert Base)
+                + id: 13 (number)
+
+## List all available Notifiers [GET /alerts/notifier]
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + notifiers (array)
+            + (Notifier Base)
+                + id: 9 (number)
+
 # Data Structures
 
 ## User Base (object)
@@ -1857,6 +1877,16 @@ level `conversions` array.
 
 ## Creative Tag Base (object)
 + name: logo (required)
+
+## Alert Base (object)
++ code: new_campaign (string) - Code used internally for reference
++ name: New campaign alert (string) - Display name of an Alert
++ description: Fired when new campaign is created (string)
++ service: new_campaign (string) - Name of a service in DIC
+
+## Notifier Base (object)
++ name: Slack (string) - Name of the notifier
++ service: slack (string) - Service registered in DIC
 
 ## Creative Tag (object)
 + creative_tag_id: 111111l2 - ID of the creative tag
