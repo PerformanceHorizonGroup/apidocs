@@ -1564,6 +1564,14 @@ Alerts are used across application to notify users (when subscribed) of events h
             + (Notifier Base)
                 + id: 9 (number)
 
+## List User Notifications [GET /alerts/notification]
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + notifications (array)
+            + (Notification Base)
+                + id: 9 (number)
+
 # Data Structures
 
 ## User Base (object)
@@ -1887,6 +1895,11 @@ Alerts are used across application to notify users (when subscribed) of events h
 ## Notifier Base (object)
 + name: Slack (string) - Name of the notifier
 + service: slack (string) - Service registered in DIC
+
+## Notification Base (object)
++ user_id (string) - User ID
++ alert_id (number) - Alert ID
++ notifier_id (number) - Notifier ID
 
 ## Creative Tag (object)
 + creative_tag_id: 111111l2 - ID of the creative tag
