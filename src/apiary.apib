@@ -1548,15 +1548,18 @@ level `conversions` array.
 
 Alerts are used across application to notify users (when subscribed) of events happening in platform.
 
-## List all available Alerts [GET /alerts/alert]
+## Alerts [/alerts/alert]
 
+### Get All Available Alerts [GET]
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + alerts (array)
             + (Alert Base)
                 + id: 13 (number)
 
-## List all available Notifiers [GET /alerts/notifier]
+# Notifiers [/alerts/notifier]
+
+## Get All Available Notifiers [GET]
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -1564,13 +1567,39 @@ Alerts are used across application to notify users (when subscribed) of events h
             + (Notifier Base)
                 + id: 9 (number)
 
-## List User Notifications [GET /alerts/notification]
+## Notifications [/alerts/notification]
 
+### List User Notifications [GET]
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + notifications (array)
             + (Notification Base)
                 + id: 9 (number)
+
+### Delete User Notifications [DELETE]
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + notifications (array)
+            + (object)
+                + id (number)
+
++ Response 200
+
+### Create New Notification [POST]
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + notification (object)
+            + alert_id (number)
+            + user_id (number)
+            + notifier (object)
+                + notifier_id (number)
+                + values (object) - data specific to a notifier
+
+
++ Response 200 (created)
+
++ Response 400 (bad request)
+
 
 # Data Structures
 
