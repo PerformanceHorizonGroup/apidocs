@@ -1767,11 +1767,26 @@ List all the US states
 
 ### List all Time Zones [GET]
 
-List all the US states
+List all the time zones
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + timezones (array[Time Zone Wrapper])
+
+## Website Type [/reference/website_type]
+
++ Attributes (object)
+    + website_id: 1 - The id of the website
+    + name: Blog - The name of the website type
+    + description (string, nullable)
+
+### List all Website Types [GET]
+
+List all the website types
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + website_types (array[Website Types Wrapper])		
 
 # Data Structures
 
@@ -2200,3 +2215,6 @@ List all the US states
 
 ## US States Wrapper (object)
 + us_state (US State)
+
+## Website Types Wrapper (object)
++ website_type (Website Type)
