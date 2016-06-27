@@ -1724,6 +1724,55 @@ List all the types of rejection reason
     + Attributes
         + reject_reasons (array[Reject Reason Wrapper])
 		
+## Conversion Type [/reference/conversion_type]
+
++ Attributes (object)
+    + conversion_type_id: 1 (number)  - The id of the conversion type
+    + conversion_type: standard  - The name of the extra field
+    + description: Standard Transaction
+    + available_to_invoice (YesOrNo)
+    + available_to_selfbill (YesOrNo)
+    + exclude_from_override_rules (YesOrNo)
+
+### List all Conversion Type [GET]
+
+List all the types of conversion type
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + conversion_types (array[Conversion Type Wrapper])
+		
+## US State [/reference/us_state]
+
++ Attributes (object)
+    + code: AZ
+    + printable_name: Alabama
+
+### List all US States [GET]
+
+List all the US states
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + us_states (array[US States Wrapper])
+	
+## Time Zone [/reference/timezone]
+
++ Attributes (object)
+    + ref_timezone_id: 3
+    + name: Pacific/Tahiti
+    + description: [GMT-10:00] Pacific/Tahiti
+    + local_time
+    + utc_offset: -36000
+
+### List all Time Zones [GET]
+
+List all the US states
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + timezones (array[Time Zone Wrapper])	
+	
 # Data Structures
 
 ## User Base (object)
@@ -2142,3 +2191,6 @@ List all the types of rejection reason
 
 ## Reject Reason Wrapper (object)
 + reject_reason (Reject Reason)
+
+## Time Zone Wrapper (object)
++ timezone (Time Zone)
