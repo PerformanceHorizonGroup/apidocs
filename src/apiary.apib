@@ -1566,7 +1566,7 @@ List all active verticals.
     + Attributes
         + verticals (array[Vertical Wrapper])
 
-## Locale [/reference/locale]
+## Reference Locale [/reference/locale]
 
 + Attributes (object)
     + code: en  - The iso code of the locale
@@ -1580,7 +1580,7 @@ List all active locales.
     + Attributes
         + locales (array[Locale Wrapper])
 
-## Country [/reference/country]
+## Reference Country [/reference/country]
 
 + Attributes (object)
     + ref_country_id: 1 (number) - ID of the country
@@ -1611,12 +1611,12 @@ List all active countries.
     + Attributes
          + countries (array[Country Wrapper])
 
-## Creative Type[/reference/creative_type]
+## Creative Type [/reference/creative_type]
 
 + Attributes (object)
     + creative_type_id: 1 (number)  - The id of the creative type
     + creative_name: Banner  - The name of the creative type
-    + active: (YesOrNo)
+    + active (YesOrNo)
     + output_method: banner 
     + description: Image based creative - Describing what the creative
 
@@ -1628,7 +1628,7 @@ List all the types of creative
     + Attributes
         + creative_types (array[Creative Type Wrapper])
 
-## Currency[/reference/currency]
+## Currency [/reference/currency]
 
 + Attributes (object)
     + currency_id: 51 (number)  - The id of the currency
@@ -1644,7 +1644,7 @@ List all the types of currency
     + Attributes
         + currencies (array[Currency Wrapper])
 
-## Campaign Extra Field[/reference/campaign_extra_field]
+## Campaign Extra Field [/reference/campaign_extra_field]
 
 + Attributes (object)
     + campaign_extra_field_id: 102 (number)  - The id of the extra field
@@ -1660,14 +1660,14 @@ List all the types of campaign extra fields
     + Attributes
         + campaign_extra_fields (array[Campaign Extra Field Wrapper])
 
-## Payment Method[/reference/payment_method]
+## Payment Method [/reference/payment_method]
 
 + Attributes (object)
     + payment_method_id: 1 (number)  - The id of the payment method
     + payment_method_code: bank_transfer  - The code of the payment method
     + title: Bank Transfer - The title of the payment method
     + payment_type_code: eft
-    + active:  (YesOrNo)
+    + active (YesOrNo)
 
 ### List all Payment Method [GET]
 
@@ -2070,10 +2070,10 @@ List all the types of payment methods
 + vertical (Vertical)
 
 ## Locale Wrapper (object)
-+ locale (Locale)
++ locale (Reference Locale)
 
 ## Country Wrapper (object)
-+ country (Country)
++ country (Reference Country)
 
 ## Creative Type Wrapper (object)
 + creative_type (Creative Type)
