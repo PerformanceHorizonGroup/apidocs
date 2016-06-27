@@ -1627,6 +1627,55 @@ List all the types of creative
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + creative_types (array[Creative Type Wrapper])
+			
+## Currency[/reference/currency]
+
++ Attributes (object)
+    + currency_id: 51 (number)  - The id of the currency
+    + name: Pound Sterling  - The name of the currency
+    + iso: GBP - The ISO value for the currency
+    + minor_unit: 2 (number) - The number of decimal places
+
+### List all Currencies [GET]
+
+List all the types of currency
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + currencies (array[Currency Wrapper])
+	
+## Campaign Extra Field[/reference/campaign_extra_field]
+
++ Attributes (object)
+    + campaign_extra_field_id: 102 (number)  - The id of the extra field
+    + field_name: country  - The name of the extra field
+    + field_default_value: nil - The value assigned if no value is passed in
+    + field_comment: campaign level country setting, overrides advertiser level country setting
+
+### List all Campaign Extra Fields [GET]
+
+List all the types of campaign extra fields
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + campaign_extra_fields (array[Campaign Extra Field Wrapper])
+
+## Payment Method[/reference/payment_method]
+
++ Attributes (object)
+    + payment_method_id: 1 (number)  - The id of the payment method
+    + payment_method_code: bank_transfer  - The code of the payment method
+    + title: Bank Transfer - The title of the payment method
+    + payment_type_code: eft
+    + active:  (YesOrNo)
+
+### List all Payment Method [GET]
+
+List all the types of payment methods
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + payment_methods (array[Payment Method Wrapper])
 		
 # Data Structures
 
@@ -2028,3 +2077,12 @@ List all the types of creative
 
 ## Creative Type Wrapper (object)
 + creative_type (Creative Type)
+
+## Currency Wrapper (object)
++ currency (Currency)
+
+## Campaign Extra Field Wrapper (object)
++ campaign_extra_field (Campaign Extra Field)
+
+## Payment Method Wrapper (object)
++ payment_method (Payment Method)
