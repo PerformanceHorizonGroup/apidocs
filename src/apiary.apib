@@ -1555,7 +1555,7 @@ Alerts are used across application to notify users (when subscribed) of events h
     + Attributes
         + alerts (array)
             + (Alert Base)
-                + id: 13 (number)
+                + id (number)
 
 # Notifiers [/alerts/notifier]
 
@@ -1565,7 +1565,7 @@ Alerts are used across application to notify users (when subscribed) of events h
     + Attributes
         + notifiers (array)
             + (Notifier Base)
-                + id: 9 (number)
+                + id (number)
 
 ## Notifications [/alerts/notification]
 
@@ -1574,7 +1574,7 @@ Alerts are used across application to notify users (when subscribed) of events h
     + Attributes
         + notifications (array)
             + (Notification Base)
-                + id: 9 (number)
+                + id (number)
 
 ### Delete User Notifications [DELETE]
 + Request (application/json; charset=utf-8)
@@ -1595,11 +1595,9 @@ Alerts are used across application to notify users (when subscribed) of events h
                 + notifier_id (number)
                 + values (object) - data specific to a notifier
 
-
 + Response 200 (created)
 
 + Response 400 (bad request)
-
 
 # Data Structures
 
@@ -1916,14 +1914,14 @@ Alerts are used across application to notify users (when subscribed) of events h
 + name: logo (required)
 
 ## Alert Base (object)
-+ code: new_campaign (string) - Code used internally for reference
-+ name: New campaign alert (string) - Display name of an Alert
-+ description: Fired when new campaign is created (string)
-+ service: new_campaign (string) - Name of a service in DIC
++ code (string) - Code used internally for reference
++ name (string) - Display name of an Alert
++ description (string) -  Fired when new campaign is created
++ service (string) - Name of a service in DIC
 
 ## Notifier Base (object)
-+ name: Slack (string) - Name of the notifier
-+ service: slack (string) - Service registered in DIC
++ name (string) - Name of the notifier
++ service (string) - Service registered in DIC
 
 ## Notification Base (object)
 + user_id (string) - User ID
