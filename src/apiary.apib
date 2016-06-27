@@ -1566,6 +1566,20 @@ List all active verticals.
     + Attributes
         + verticals (array[Vertical Wrapper])
 
+## Locale [/reference/locale]
+
++ Attributes (object)
+    + code: en  - The iso code of the locale
+    + printable_name: English - The dictionary word for the locale
+
+### List all Locales [GET]
+
+List all active locales.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + locales (array[Locale Wrapper])
+		
 # Data Structures
 
 ## User Base (object)
@@ -1957,3 +1971,6 @@ List all active verticals.
 
 ## Vertical Wrapper (object)
 + vertical (Vertical)
+
+## Locale Wrapper (object)
++ locale (Locale)
