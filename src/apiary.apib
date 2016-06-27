@@ -1677,6 +1677,53 @@ List all the types of payment methods
     + Attributes
         + payment_methods (array[Payment Method Wrapper])
 
+## Promotional Method [/reference/promotional_method]
+
++ Attributes (object)
+    + promotional_method_id: 1 (number)  - The id of the promo method
+    + name: PPC  - The name of the promo method
+    + description: Pay per click - Description of the promo method
+
+### List all Promotional Method [GET]
+
+List all the types of payment methods
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + promotional_methods (array[Promotional Method Wrapper])
+		
+## Publisher Extra Field [/reference/publisher_extra_field]
+
++ Attributes (object)
+    + publisher_extra_field_id: 10 (number)  - The id of the extra field
+    + field_name: is_affiliate_user  - The name of the extra field
+    + field_required (YesOrNo)
+    + field_comment: set if publisher does affiliate business
+
+### List all Publisher Extra Fields [GET]
+
+List all the types of publisher extra fields
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + publisher_extra_fields (array[Publisher Extra Field Wrapper])
+		
+## Reject Reason [/reference/reject_reason]
+
++ Attributes (object)
+    + publisher_extra_field_id: 10 (number)  - The id of the extra field
+    + field_name: is_affiliate_user  - The name of the extra field
+    + field_required (YesOrNo)
+    + field_comment: set if publisher does affiliate business
+
+### List all Reject Reasons [GET]
+
+List all the types of rejection reason
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + reject_reasons (array[Reject Reason Wrapper])
+		
 # Data Structures
 
 ## User Base (object)
@@ -2086,3 +2133,12 @@ List all the types of payment methods
 
 ## Payment Method Wrapper (object)
 + payment_method (Payment Method)
+
+## Promotional Method Wrapper (object)
++ promotional_method (Promotional Method)
+
+## Publisher Extra Field Wrapper (object)
++ publisher_extra_field (Publisher Extra Field)
+
+## Reject Reason Wrapper (object)
++ reject_reason (Reject Reason)
