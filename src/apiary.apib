@@ -1580,6 +1580,54 @@ List all active locales.
     + Attributes
         + locales (array[Locale Wrapper])
 		
+## Country [/reference/country]
+
++ Attributes (object)
+    + ref_country_id: 1 (number) - ID of the country
+    + iso: AD - The ISO code for the country
+    + printable_name: Andorra - The dictionary word for the locale
+    + currency_iso: EUR - The ISO of the currency
+    + population: 84000 (number)
+    + fips_code: AN 
+    + iso_numeric: 020
+    + north: 42.656043
+    + south: 42.656043
+    + east: 42.656043
+    + west: 42.656043
+    + capital: Andorra la Vella
+    + continent_name: Europe
+    + continent_iso: EU
+    + area_sq_km: 468 (number)
+    + languages: ca
+    + iso3: AND
+    + geoname_id: 3041565 (number)
+    + zone: Outside EU VAT area
+
+### List all Countries [GET]
+
+List all active countries.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + countries (array[Country Wrapper])		
+			
+## Creative Type[/reference/creative_type]
+
++ Attributes (object)
+    + creative_type_id: 1 (number)  - The id of the creative type
+    + creative_name: Banner  - The name of the creative type
+    + active: (YesOrNo)
+    + output_method: banner 
+    + description: Image based creative - Describing what the creative
+
+### List all Creative Types [GET]
+
+List all the types of creative
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + creative_types (array[Creative Type Wrapper])
+		
 # Data Structures
 
 ## User Base (object)
@@ -1974,3 +2022,9 @@ List all active locales.
 
 ## Locale Wrapper (object)
 + locale (Locale)
+
+## Country Wrapper (object)
++ country (Country)
+
+## Creative Type Wrapper (object)
++ creative_type (Creative Type)
