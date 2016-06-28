@@ -1544,60 +1544,79 @@ level `conversions` array.
                 + conversion (Conversion)
                     + conversion_type: 3 (number)
 
+
 # Group Alert
 
-Alerts are used across application to notify users (when subscribed) of events happening in platform.
+Alerts are used across application to notify users about events that are triggered in the platform. Notifications are sent to users that have subscribed to an alert using a selected channel
 
-## Alerts [/alerts/alert]
+## Alert [/alerts/alert]
++ Attributes
+    + id: 23 - ID of the alert
+    + code: Example -  Code used internally for reference
+    + name: Example alert - Display name of an Alert
+    + description: This alert will notify you about particular event happening in the platform (nullable, string) -  Fired when new campaign is created
+    + service: ExampleAlert (string) - Name of a service in DIC
 
 ### Get All Available Alerts [GET]
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + alerts (array)
-            + (Alert Base)
-                + id (number)
+        + alerts (array[Alert Wrapper])
 
-# Notifiers [/alerts/notifier]
+# Notifier [/alerts/notifier]
++ Attributes
+    + id: 23 - ID of a Notifier
+    + name: Email (string) - Name of the notifier
+    + service: EmailService (string) - Service registered in DIC
 
 ## Get All Available Notifiers [GET]
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + notifiers (array)
-            + (Notifier Base)
-                + id (number)
+        + notifiers(array[Notifier Wrapper])
 
-## Notifications [/alerts/notification]
 
-### List User Notifications [GET]
+
+## Notification [/alerts/notification]
++ Attributes
+    + id: 11l16829 - ID of the notification
+    + user_id: 3 - ID of User
+    + alert_id: 70 - ID of Alert
+    + notifier_id: 4 - ID of Notifier
+
+### Retrieve Notifications [GET]
+
+Retrieve all currently set notifications for a user
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + notifications (array)
-            + (Notification Base)
-                + id (number)
+        + notifications (array[Notification Wrapper])
 
 ### Delete User Notifications [DELETE]
+
+Delete one or more user notification
+
 + Request (application/json; charset=utf-8)
     + Attributes
         + notifications (array)
             + (object)
-                + id (number)
+                + id: 234 (required)
 
-+ Response 200
++ Response 200 (application/json; charset=utf-8)
 
 ### Create New Notification [POST]
+
+Notification consists of combination of alert/user/notifier and settings that are specific to the notifier itself.
+
 + Request (application/json; charset=utf-8)
     + Attributes
-        + notification (object)
-            + alert_id (number)
-            + user_id (number)
-            + notifier (object)
-                + notifier_id (number)
-                + values (object) - data specific to a notifier
+        + notifications (array)
+            + (Notification Base)
 
-+ Response 200 (created)
 
-+ Response 400 (bad request)
++ Response 200 (application/json; charset=utf-8)
+
++ Response 400 (application/json; charset=utf-8)
+
+
 
 # Data Structures
 
@@ -1913,20 +1932,7 @@ Alerts are used across application to notify users (when subscribed) of events h
 ## Creative Tag Base (object)
 + name: logo (required)
 
-## Alert Base (object)
-+ code (string) - Code used internally for reference
-+ name (string) - Display name of an Alert
-+ description (string) -  Fired when new campaign is created
-+ service (string) - Name of a service in DIC
 
-## Notifier Base (object)
-+ name (string) - Name of the notifier
-+ service (string) - Service registered in DIC
-
-## Notification Base (object)
-+ user_id (string) - User ID
-+ alert_id (number) - Alert ID
-+ notifier_id (number) - Notifier ID
 
 ## Creative Tag (object)
 + creative_tag_id: 111111l2 - ID of the creative tag
@@ -2002,4 +2008,31 @@ Alerts are used across application to notify users (when subscribed) of events h
 ## Campaign Group Account Wrapper (object)
 + campaign_group (Campaign Group)
     + permissions (Permissions)
+
+## Alert Base (object)
++ code: Example -  Code used internally for reference
++ name: Example alert - Display name of an Alert
++ description: This alert is triggered when a particular event happend (nullable, string) -  Fired when new campaign is created
++ service: ExampleAlert (string) - Name of a service in DIC
+
+## Alert Wrapper (object)
++ alert (Alert)
+
+## Notifier Base (object)
++ name: Email (string) - Name of the notifier
++ service: EmailService (string) - Service registered in DIC
+
+## Notifier Wrapper (object)
++ notifier (Notifier)
+
+## Notification Base (object)
++ alert_id: 34 (required)
++ user_id: 23423 (required)
++ notifier_id (required)
++ notifier_values (array, nullable) - data specific to a notifier
+    + value: john@example.com
+
+## Notification Wrapper (object)
++ notification (Notification)
+
 
