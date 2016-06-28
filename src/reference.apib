@@ -245,7 +245,7 @@ List all the website types
 ## Advertiser Terms and Conditions [/reference/advertiser_terms_and_conditions]
 
 + Attributes (object)
-    + ref_advertiser_terms_and_conditions_id: 1 - The id of the advertiser terms
+    + ref_advertiser_terms_and_conditions_id: 1 (number) - The id of the advertiser terms
     + terms: these are advertiser terms - The actual terms text
     + created: 2011-01-14 10:52:28 - The date when the terms were created
 
@@ -256,3 +256,19 @@ List all the advertiser terms and conditions
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + terms_and_conditions (Advertiser Terms and Conditions)
+
+## Publisher Terms and Conditions [/reference/publisher_terms_and_conditions]
+
++ Attributes (object)
+    + ref_publisher_terms_and_conditions_id: 1 (number) - The id of the publisher terms
+    + locale: these are advertiser terms - The a locale the terms are applied
+    + terms: these are the terms, obey! - The actual terms text
+    + created: 2011-01-14 10:52:28 - The date when the terms were created
+
+### List all Publisher Terms and Conditions [GET]
+
+List all the publisher terms and conditions
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + terms_and_conditions (Publisher Terms and Conditions)
