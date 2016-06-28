@@ -1815,9 +1815,8 @@ level `conversions` array.
 
 ## Creative Common (object)
 + campaign_id: 10l176 - ID of the campaign
++ creative_type_id: 1 (number, required)
 + active (YesOrNo)
-+ creative_type_id: 1 (number)
-+ creative_type
 + custom_append_url_parameters
 + custom_prepend_url_parameters
 + tags
@@ -1825,17 +1824,17 @@ level `conversions` array.
 ## Creative Base (object)
 + Include Creative Common
 + description: Demo Text
-+ destination
++ destination: http://www.performancehorizon.com
 + default_specific_creative_id: 300396
 + creative_tracking_link
 + creative_tracking_link_rotate
 + dynamic_tracking_link
 + html_tracking_link
-+ width: 400
-+ height: 360
++ width: 400 (number, string)
++ height: 360 (number, string)
 + Include Time Range
 + preview: https://demo.prf.hn/preview/creativeref:300442
-+ advertiser_reference
++ advertiser_reference: Advertiser Reference
 + limits
 + creative_items (array[Creative Item])
 
