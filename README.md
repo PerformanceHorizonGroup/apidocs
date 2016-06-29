@@ -24,15 +24,12 @@ gem install apiaryio
 ### Preview
 You can preview the docs locally, this will open up your default browser and
 render the docs. Please give the docs time to render, they require external assets.
-
+On MacOS run:
 ```
 make
 apiary preview --path="apiary.apib"
 ```
-
-or
+On Ubuntu run:
 ```
-make
-apiary preview --output tmp.html
+./ubuntu-build
 ```
-
