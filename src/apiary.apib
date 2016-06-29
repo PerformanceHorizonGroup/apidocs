@@ -1551,10 +1551,10 @@ Alerts are used across application to notify users about events that are trigger
 
 ## Alert [/alerts/alert]
 + Attributes
-    + id: 23 - ID of the alert
+    + alert_id: 23 - ID of the alert
     + code: Example -  Code used internally for reference
     + name: Example alert - Display name of an Alert
-    + description: This alert will notify you about particular event happening in the platform (nullable, string) -  Fired when new campaign is created
+    + description: This alert will notify you about particular event (nullable, string) -  Fired when new campaign is created
     + service: ExampleAlert (string) - Name of a service in DIC
 
 ### Get All Available Alerts [GET]
@@ -1564,7 +1564,7 @@ Alerts are used across application to notify users about events that are trigger
 
 # Notifier [/alerts/notifier]
 + Attributes
-    + id: 23 - ID of a Notifier
+    + notifier_id: 23 - ID of a Notifier
     + name: Email (string) - Name of the notifier
     + service: EmailService (string) - Service registered in DIC
 
@@ -1578,7 +1578,7 @@ Alerts are used across application to notify users about events that are trigger
 
 ## Notification [/alerts/notification]
 + Attributes
-    + id: 11l16829 - ID of the notification
+    + notification_id: 11l16829 - ID of the notification
     + user_id: 3 - ID of User
     + alert_id: 70 - ID of Alert
     + notifier_id: 4 - ID of Notifier
@@ -1598,7 +1598,7 @@ Delete one or more user notification
     + Attributes
         + notifications (array)
             + (object)
-                + id: 234 (required)
+                + notification_id: 234 (required)
 
 + Response 200 (application/json; charset=utf-8)
 
@@ -1615,6 +1615,7 @@ Notification consists of combination of alert/user/notifier and settings that ar
 + Response 200 (application/json; charset=utf-8)
 
 + Response 400 (application/json; charset=utf-8)
+
 
 
 
@@ -2034,5 +2035,4 @@ Notification consists of combination of alert/user/notifier and settings that ar
 
 ## Notification Wrapper (object)
 + notification (Notification)
-
 
