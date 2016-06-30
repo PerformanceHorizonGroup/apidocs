@@ -1609,15 +1609,16 @@ Notification consists of combination of alert/user/notifier and settings that ar
 
 + Response 400 (application/json; charset=utf-8)
 
-### Update Notification [PUT]
+### Update Notification [PUT /alerts/notification/{alert_notification_id}]
 
 Notification settings can be updated
++ Parameters
+    + alert_notification_id: 10l176 - ID of the campaign
+
 + Request (application/json; charset=utf-8)
     + Attributes
-        + notifications (array)
-            + (object)
-                + alert_notifier_id: 9834
-                + Include Notification Base
+        + (object)
+            + Include Notification Base
 
 + Response 200 (application/json; charset=utf-8)
 
