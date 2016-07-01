@@ -1544,9 +1544,9 @@ level `conversions` array.
                 + conversion (Conversion)
                     + conversion_type: 3 (number)
 
-# Group Alert
+# Group Notifications
 
-Alerts are used across application to notify users about events that are triggered in the platform. Notifications are sent to users that have subscribed to an alert using a selected channel
+Alerts are used across application to notify users about events that are triggered in the platform. Notifications are sent to users that have subscribed to an alert using a selected channel.
 
 ## Alert [/alerts/alert]
 + Attributes
@@ -1581,14 +1581,14 @@ Alerts are used across application to notify users about events that are trigger
 
 ### Retrieve Notifications [GET]
 
-Retrieve all currently set notifications for a user
+Retrieve all currently set notifications
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + notifications (array[Notification Wrapper])
 
-### Delete User Notifications [DELETE /alerts/notification/{alert_notification_id}]
+### Delete Notifications [DELETE /alerts/notification/{alert_notification_id}]
 
-Delete one or more user notification
+Delete a notification
 + Parameters
     + alert_notification_id: 10l176 - ID of the notification
 
@@ -1602,20 +1602,6 @@ Notification consists of combination of alert/user/notifier and settings that ar
     + Attributes
         + notifications (array)
             + (Notification Base)
-
-+ Response 200 (application/json; charset=utf-8)
-
-+ Response 400 (application/json; charset=utf-8)
-
-### Update Notification [PUT /alerts/notification/{alert_notification_id}]
-
-Notification settings can be updated
-+ Parameters
-    + alert_notification_id: 10l176 - ID of the notification
-
-+ Request (application/json; charset=utf-8)
-    + Attributes
-        + Include Notification Base
 
 + Response 200 (application/json; charset=utf-8)
 
@@ -2017,7 +2003,6 @@ Notification settings can be updated
 + name: Example alert - Display name of an Alert
 + description: This alert is triggered when a particular event happend (nullable, string) -  Fired when new campaign is created
 
-
 ## Alert Wrapper (object)
 + alert (Alert)
 
@@ -2031,7 +2016,7 @@ Notification settings can be updated
 + alert_alert_id: 34 (required)
 + user_id: 23423 (required)
 + alert_notifier_id (required)
-+ notifier_values (array, nullable) - data specific to a notifier
++ extra_fields (array, nullable) - data specific to a notifier
     + (Notification Notifier Value)
 
 ## Notification Wrapper (object)
