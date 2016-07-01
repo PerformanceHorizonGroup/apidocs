@@ -1576,7 +1576,7 @@ Alerts are used across application to notify users about events that are trigger
     + user_id: 3 - ID of User
     + alert_alert_id: 70 - ID of Alert
     + alert_notifier_id: 4 - ID of Notifier
-    + notifier_values (array, nullable) - data specific to a notifier
+    + extra_fields (array, nullable) - data specific to a notifier
         + (Notification Notifier Value)
 
 ### Retrieve Notifications [GET]
@@ -1586,14 +1586,12 @@ Retrieve all currently set notifications for a user
     + Attributes
         + notifications (array[Notification Wrapper])
 
-### Delete User Notifications [DELETE]
+### Delete User Notifications [DELETE /alerts/notification/{alert_notification_id}]
 
 Delete one or more user notification
-+ Request (application/json; charset=utf-8)
-    + Attributes
-        + notifications (array)
-            + (object)
-                + alert_notification_id: 234 (required)
++ Parameters
+    + alert_notification_id: 10l176 - ID of the notification
+
 
 + Response 200 (application/json; charset=utf-8)
 
@@ -1613,7 +1611,7 @@ Notification consists of combination of alert/user/notifier and settings that ar
 
 Notification settings can be updated
 + Parameters
-    + alert_notification_id: 10l176 - ID of the campaign
+    + alert_notification_id: 10l176 - ID of the notification
 
 + Request (application/json; charset=utf-8)
     + Attributes
