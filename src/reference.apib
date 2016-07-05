@@ -5,7 +5,7 @@ and seldom change.
 
 ## Vertical [/reference/vertical]
 
-A vertical is a categorisation of business.
+A Vertical is a categorisation of business.
 
 + Attributes (object)
     + vertical_id: 1 (number) - ID of the vertical
@@ -35,6 +35,8 @@ List all active locales.
         + locales (array[Locale Wrapper])
 
 ## Reference Country [/reference/country]
+
+All supported countries across the platform. 
 
 + Attributes (object)
     + ref_country_id: 1 (number) - ID of the country
@@ -67,6 +69,8 @@ List all active countries.
 
 ## Creative Type [/reference/creative_type]
 
+A Creative Type describes the format of a Creatve. 
+
 + Attributes (object)
     + creative_type_id: 1 (number)  - The id of the creative type
     + creative_name: Banner  - The name of the creative type
@@ -84,6 +88,8 @@ List all the types of creative
 
 ## Reference Currency [/reference/currency]
 
+All supported currencies across the platform. 
+
 + Attributes (object)
     + currency_id: 51 (number)  - The id of the currency
     + name: Pound Sterling  - The name of the currency
@@ -100,6 +106,8 @@ List all the types of currency
 
 ## Campaign Extra Field [/reference/campaign_extra_field]
 
+All additional Campaign attributes.
+
 + Attributes (object)
     + campaign_extra_field_id: 102 (number)  - The id of the extra field
     + field_name: country  - The name of the extra field
@@ -115,6 +123,8 @@ List all the types of campaign extra fields
         + campaign_extra_fields (array[Campaign Extra Field Wrapper])
 
 ## Payment Method [/reference/payment_method]
+
+All supported methods of Publisher payment. 
 
 + Attributes (object)
     + payment_method_id: 1 (number)  - The id of the payment method
@@ -133,6 +143,8 @@ List all the types of payment methods
 
 ## Promotional Method [/reference/promotional_method]
 
+A Promotional Method is used to describe the predominant method a Publisher uses to generate traffic.
+
 + Attributes (object)
     + promotional_method_id: 1 (number)  - The id of the promo method
     + name: PPC  - The name of the promo method
@@ -147,6 +159,8 @@ List all the types of payment methods
         + promotional_methods (array[Promotional Method Wrapper])
 
 ## Publisher Extra Field [/reference/publisher_extra_field]
+
+All additional Publisher attributes.
 
 + Attributes (object)
     + publisher_extra_field_id: 10 (number)  - The id of the extra field
@@ -164,6 +178,8 @@ List all the types of publisher extra fields
 
 ## Reject Reason [/reference/reject_reason]
 
+Stock reasons for Conversions being rejected. 
+
 + Attributes (object)
     + publisher_extra_field_id: 10 (number)  - The id of the extra field
     + field_name: is_affiliate_user  - The name of the extra field
@@ -179,6 +195,8 @@ List all the types of rejection reason
         + reject_reasons (array[Reject Reason Wrapper])
 
 ## Conversion Type [/reference/conversion_type]
+
+The categorisation of a Conversion.
 
 + Attributes (object)
     + conversion_type_id: 1 (number)  - The id of the conversion type
@@ -198,6 +216,8 @@ List all the types of conversion types
 
 ## US State [/reference/us_state]
 
+All US States. 
+
 + Attributes (object)
     + code: AZ
     + printable_name: Alabama
@@ -210,7 +230,9 @@ List all the US states
     + Attributes
         + us_states (array[US States Wrapper])
 
-## Time Zone [/reference/timezone]
+## Timezone [/reference/timezone]
+
+All supported reporting Timezones
 
 + Attributes (object)
     + ref_timezone_id: 3
@@ -219,15 +241,17 @@ List all the US states
     + local_time
     + utc_offset: -36000
 
-### List all Time Zones [GET]
+### List all Timezones [GET]
 
-List all the time zones
+List all the timezones
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + timezones (array[Time Zone Wrapper])
 
 ## Website Type [/reference/website_type]
+
+Cateogrisation of a Publisher Website.
 
 + Attributes (object)
     + website_id: 1 - The id of the website type
@@ -244,6 +268,8 @@ List all the website types
 
 ## Advertiser Terms and Conditions [/reference/advertiser_terms_and_conditions]
 
+Stock Advertiser terms. 
+
 + Attributes (object)
     + ref_advertiser_terms_and_conditions_id: 1 (number) - The id of the advertiser terms
     + terms: these are advertiser terms - The actual terms text
@@ -258,6 +284,8 @@ List all the advertiser terms and conditions
         + terms_and_conditions (Advertiser Terms and Conditions)
 
 ## Publisher Terms and Conditions [/reference/publisher_terms_and_conditions]
+
+Stock Publisher terms, with associated translations. 
 
 + Attributes (object)
     + ref_publisher_terms_and_conditions_id: 1 (number) - The id of the publisher terms
