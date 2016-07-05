@@ -1,0 +1,304 @@
+# Group Reference
+
+The Reference endpoints list common entities which are used across several endpoints. These endpoints are read-only
+and seldom change.
+
+## Vertical [/reference/vertical]
+
+A Vertical is a categorisation of business.
+
++ Attributes (object)
+    + vertical_id: 1 (number) - ID of the vertical
+    + name: Downloads - The vertical name
+    + description: App downloads (string, nullable)
+
+### List all Verticals [GET]
+
+List all active verticals.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + verticals (array[Vertical Wrapper])
+
+## Reference Locale [/reference/locale]
+
+All supported Locales.
+
++ Attributes (object)
+    + code: en  - The iso code of the locale
+    + printable_name: English - The dictionary word for the locale
+
+### List all Locales [GET]
+
+List all active locales.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + locales (array[Locale Wrapper])
+
+## Reference Country [/reference/country]
+
+All supported countries across the platform.
+
++ Attributes (object)
+    + ref_country_id: 1 (number) - ID of the country
+    + iso: AD - The ISO code for the country
+    + printable_name: Andorra - The dictionary word for the locale
+    + currency_iso: EUR - The ISO of the currency
+    + population: 84000 (number)
+    + fips_code: AN
+    + iso_numeric: 020
+    + north: 42.656043
+    + south: 42.656043
+    + east: 42.656043
+    + west: 42.656043
+    + capital: Andorra la Vella
+    + continent_name: Europe
+    + continent_iso: EU
+    + area_sq_km: 468 (number)
+    + languages: ca
+    + iso3: AND
+    + geoname_id: 3041565 (number)
+    + zone: Outside EU VAT area
+
+### List all Countries [GET]
+
+List all active countries.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+         + countries (array[Country Wrapper])
+
+## Creative Type [/reference/creative_type]
+
+A Creative Type describes the format of a Creative.
+
++ Attributes (object)
+    + creative_type_id: 1 (number)  - The id of the creative type
+    + creative_name: Banner  - The name of the creative type
+    + active (YesOrNo)
+    + output_method: banner
+    + description: Image based creative - Describing what the creative
+
+### List all Creative Types [GET]
+
+List all the types of creative.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + creative_types (array[Creative Type Wrapper])
+
+## Reference Currency [/reference/currency]
+
+All supported currencies across the platform.
+
++ Attributes (object)
+    + currency_id: 51 (number)  - The id of the currency
+    + name: Pound Sterling  - The name of the currency
+    + iso: GBP - The ISO value for the currency
+    + minor_unit: 2 (number) - The number of decimal places
+
+### List all Currencies [GET]
+
+List all the types of currency.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + currencies (array[Reference Currency Wrapper])
+
+## Campaign Extra Field [/reference/campaign_extra_field]
+
+All additional Campaign attributes.
+
++ Attributes (object)
+    + campaign_extra_field_id: 102 (number)  - The id of the extra field
+    + field_name: country  - The name of the extra field
+    + field_default_value: nil - The value assigned if no value is passed in
+    + field_comment: campaign level country setting, overrides advertiser level country setting
+
+### List all Campaign Extra Fields [GET]
+
+List all the types of campaign extra fields.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + campaign_extra_fields (array[Campaign Extra Field Wrapper])
+
+## Payment Method [/reference/payment_method]
+
+All supported methods of Publisher payment.
+
++ Attributes (object)
+    + payment_method_id: 1 (number)  - The id of the payment method
+    + payment_method_code: bank_transfer  - The code of the payment method
+    + title: Bank Transfer - The title of the payment method
+    + payment_type_code: eft
+    + active (YesOrNo)
+
+### List all Payment Method [GET]
+
+List all the types of payment methods.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + payment_methods (array[Payment Method Wrapper])
+
+## Promotional Method [/reference/promotional_method]
+
+A Promotional Method is used to describe the predominant method a Publisher uses to generate traffic.
+
++ Attributes (object)
+    + promotional_method_id: 1 (number)  - The id of the promo method
+    + name: PPC  - The name of the promo method
+    + description: Pay per click - Description of the promo method
+
+### List all Promotional Method [GET]
+
+List all the types of payment methods.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + promotional_methods (array[Promotional Method Wrapper])
+
+## Publisher Extra Field [/reference/publisher_extra_field]
+
+All additional Publisher attributes.
+
++ Attributes (object)
+    + publisher_extra_field_id: 10 (number)  - The id of the extra field
+    + field_name: is_affiliate_user  - The name of the extra field
+    + field_required (YesOrNo)
+    + field_comment: set if publisher does affiliate business
+
+### List all Publisher Extra Fields [GET]
+
+List all the types of publisher extra fields.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + publisher_extra_fields (array[Publisher Extra Field Wrapper])
+
+## Reject Reason [/reference/reject_reason]
+
+Stock reasons for Conversions being rejected.
+
++ Attributes (object)
+    + publisher_extra_field_id: 10 (number)  - The id of the extra field
+    + field_name: is_affiliate_user  - The name of the extra field
+    + field_required (YesOrNo)
+    + field_comment: set if publisher does affiliate business
+
+### List all Reject Reasons [GET]
+
+List all the rejection reasons.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + reject_reasons (array[Reject Reason Wrapper])
+
+## Conversion Type [/reference/conversion_type]
+
+The categorisation of a Conversion.
+
++ Attributes (object)
+    + conversion_type_id: 1 (number)  - The id of the conversion type
+    + conversion_type: standard  - The name of the extra field
+    + description: Standard Transaction
+    + available_to_invoice (YesOrNo)
+    + available_to_selfbill (YesOrNo)
+    + exclude_from_override_rules (YesOrNo)
+
+### List all Conversion Type [GET]
+
+List all the conversion types.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + conversion_types (array[Conversion Type Wrapper])
+
+## US State [/reference/us_state]
+
+All US States.
+
++ Attributes (object)
+    + code: AZ
+    + printable_name: Alabama
+
+### List all US States [GET]
+
+List all the US states.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + us_states (array[US States Wrapper])
+
+## Timezone [/reference/timezone]
+
+All supported reporting Timezones.
+
++ Attributes (object)
+    + ref_timezone_id: 3
+    + name: Pacific/Tahiti
+    + description: `[GMT-10:00] Pacific/Tahiti`
+    + local_time
+    + utc_offset: -36000
+
+### List all Timezones [GET]
+
+List all the timezones.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + timezones (array[Timezone Wrapper])
+
+## Website Type [/reference/website_type]
+
+Categorisation of a Publisher Website.
+
++ Attributes (object)
+    + website_id: 1 - The id of the website type
+    + name: Blog - The name of the website type
+    + description (string, nullable)
+
+### List all Website Types [GET]
+
+List all the website types.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + website_types (array[Website Types Wrapper])
+
+## Advertiser Terms and Conditions [/reference/advertiser_terms_and_conditions]
+
+Stock Advertiser terms.
+
++ Attributes (object)
+    + ref_advertiser_terms_and_conditions_id: 1 (number) - The id of the advertiser terms
+    + terms: these are advertiser terms - The actual terms text
+    + created: 2011-01-14 10:52:28 - The date when the terms were created
+
+### List all Advertiser Terms and Conditions [GET]
+
+List all the advertiser terms and conditions.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + terms_and_conditions (Advertiser Terms and Conditions)
+
+## Publisher Terms and Conditions [/reference/publisher_terms_and_conditions]
+
+Stock Publisher terms, with associated translations.
+
++ Attributes (object)
+    + ref_publisher_terms_and_conditions_id: 1 (number) - The id of the publisher terms
+    + locale: these are advertiser terms - The a locale the terms are applied
+    + terms: these are the terms obey them - The actual terms text
+    + created: 2011-01-14 10:52:28 - The date when the terms were created
+
+### List all Publisher Terms and Conditions [GET]
+
+List all the publisher terms and conditions.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + terms_and_conditions (Publisher Terms and Conditions)
