@@ -22,6 +22,8 @@ List all active verticals.
 
 ## Reference Locale [/reference/locale]
 
+All supported Locales.
+
 + Attributes (object)
     + code: en  - The iso code of the locale
     + printable_name: English - The dictionary word for the locale
@@ -36,7 +38,7 @@ List all active locales.
 
 ## Reference Country [/reference/country]
 
-All supported countries across the platform. 
+All supported countries across the platform.
 
 + Attributes (object)
     + ref_country_id: 1 (number) - ID of the country
@@ -44,7 +46,7 @@ All supported countries across the platform.
     + printable_name: Andorra - The dictionary word for the locale
     + currency_iso: EUR - The ISO of the currency
     + population: 84000 (number)
-    + fips_code: AN 
+    + fips_code: AN
     + iso_numeric: 020
     + north: 42.656043
     + south: 42.656043
@@ -69,18 +71,18 @@ List all active countries.
 
 ## Creative Type [/reference/creative_type]
 
-A Creative Type describes the format of a Creatve. 
+A Creative Type describes the format of a Creative.
 
 + Attributes (object)
     + creative_type_id: 1 (number)  - The id of the creative type
     + creative_name: Banner  - The name of the creative type
     + active (YesOrNo)
-    + output_method: banner 
+    + output_method: banner
     + description: Image based creative - Describing what the creative
 
 ### List all Creative Types [GET]
 
-List all the types of creative
+List all the types of creative.
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -88,7 +90,7 @@ List all the types of creative
 
 ## Reference Currency [/reference/currency]
 
-All supported currencies across the platform. 
+All supported currencies across the platform.
 
 + Attributes (object)
     + currency_id: 51 (number)  - The id of the currency
@@ -98,7 +100,7 @@ All supported currencies across the platform.
 
 ### List all Currencies [GET]
 
-List all the types of currency
+List all the types of currency.
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -116,7 +118,7 @@ All additional Campaign attributes.
 
 ### List all Campaign Extra Fields [GET]
 
-List all the types of campaign extra fields
+List all the types of campaign extra fields.
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -124,7 +126,7 @@ List all the types of campaign extra fields
 
 ## Payment Method [/reference/payment_method]
 
-All supported methods of Publisher payment. 
+All supported methods of Publisher payment.
 
 + Attributes (object)
     + payment_method_id: 1 (number)  - The id of the payment method
@@ -135,7 +137,7 @@ All supported methods of Publisher payment.
 
 ### List all Payment Method [GET]
 
-List all the types of payment methods
+List all the types of payment methods.
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -152,7 +154,7 @@ A Promotional Method is used to describe the predominant method a Publisher uses
 
 ### List all Promotional Method [GET]
 
-List all the types of payment methods
+List all the types of payment methods.
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -170,7 +172,7 @@ All additional Publisher attributes.
 
 ### List all Publisher Extra Fields [GET]
 
-List all the types of publisher extra fields
+List all the types of publisher extra fields.
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -178,7 +180,7 @@ List all the types of publisher extra fields
 
 ## Reject Reason [/reference/reject_reason]
 
-Stock reasons for Conversions being rejected. 
+Stock reasons for Conversions being rejected.
 
 + Attributes (object)
     + publisher_extra_field_id: 10 (number)  - The id of the extra field
@@ -188,7 +190,7 @@ Stock reasons for Conversions being rejected.
 
 ### List all Reject Reasons [GET]
 
-List all the types of rejection reason
+List all the rejection reasons.
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -208,7 +210,7 @@ The categorisation of a Conversion.
 
 ### List all Conversion Type [GET]
 
-List all the types of conversion types
+List all the conversion types.
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -216,7 +218,7 @@ List all the types of conversion types
 
 ## US State [/reference/us_state]
 
-All US States. 
+All US States.
 
 + Attributes (object)
     + code: AZ
@@ -224,7 +226,7 @@ All US States.
 
 ### List all US States [GET]
 
-List all the US states
+List all the US states.
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -232,7 +234,7 @@ List all the US states
 
 ## Timezone [/reference/timezone]
 
-All supported reporting Timezones
+All supported reporting Timezones.
 
 + Attributes (object)
     + ref_timezone_id: 3
@@ -243,15 +245,15 @@ All supported reporting Timezones
 
 ### List all Timezones [GET]
 
-List all the timezones
+List all the timezones.
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + timezones (array[Time Zone Wrapper])
+        + timezones (array[Timezone Wrapper])
 
 ## Website Type [/reference/website_type]
 
-Cateogrisation of a Publisher Website.
+Categorisation of a Publisher Website.
 
 + Attributes (object)
     + website_id: 1 - The id of the website type
@@ -260,7 +262,7 @@ Cateogrisation of a Publisher Website.
 
 ### List all Website Types [GET]
 
-List all the website types
+List all the website types.
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -268,7 +270,7 @@ List all the website types
 
 ## Advertiser Terms and Conditions [/reference/advertiser_terms_and_conditions]
 
-Stock Advertiser terms. 
+Stock Advertiser terms.
 
 + Attributes (object)
     + ref_advertiser_terms_and_conditions_id: 1 (number) - The id of the advertiser terms
@@ -277,7 +279,7 @@ Stock Advertiser terms.
 
 ### List all Advertiser Terms and Conditions [GET]
 
-List all the advertiser terms and conditions
+List all the advertiser terms and conditions.
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -285,7 +287,7 @@ List all the advertiser terms and conditions
 
 ## Publisher Terms and Conditions [/reference/publisher_terms_and_conditions]
 
-Stock Publisher terms, with associated translations. 
+Stock Publisher terms, with associated translations.
 
 + Attributes (object)
     + ref_publisher_terms_and_conditions_id: 1 (number) - The id of the publisher terms
@@ -295,7 +297,7 @@ Stock Publisher terms, with associated translations.
 
 ### List all Publisher Terms and Conditions [GET]
 
-List all the publisher terms and conditions
+List all the publisher terms and conditions.
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
