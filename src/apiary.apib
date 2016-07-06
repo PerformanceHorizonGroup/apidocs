@@ -1544,9 +1544,9 @@ level `conversions` array.
                 + conversion (Conversion)
                     + conversion_type: 3 (number)
 
-# Group Notifications
+# Group Alert
 
-Alerts are used across application to notify users about events that are triggered in the platform. Notifications are sent to users that have subscribed to an alert using a selected channel.
+Alerts are used across platform to notify users about events that are triggered in it. Notifications are sent to users that have subscribed to an alert using a selected channel.
 
 ## Alert [/alerts/alert]
 + Attributes
@@ -1570,30 +1570,52 @@ Alerts are used across application to notify users about events that are trigger
     + Attributes
         + notifiers(array[Notifier Wrapper])
 
+# Alert User Setting [/alerts/setting]
++ Attributes
+    + alert_user_extra_field_id: 1 (string, required) - Alert user extra field id
+    + field_name: slack channel (string, required) - Field name
+    + alert_user_extra_info_id: 1 (string, required) - Alert user extra info id
+    + field_value: "#general" (string, required) Field value
+
+## Get All Available Settings [GET]
+
+Get matrix of all user alert related settings
++ Request (application/json; charset=utf-8)
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + settings(array[Alert User Extra Field Wrapper])
+
+## Set User Setting [POST]
+
+Update user notifier settings
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + settings (array[Alert User Extra Field Value])
+
++ Response 200 (application/json; charset=utf-8)
++ Response 400 (application/json; charset=utf-8)
+
 ## Notification [/alerts/notification]
 + Attributes
     + alert_notification_id: 11l16829 - ID of the notification
-    + user_id: 3 - ID of User
     + alert_alert_id: 70 - ID of Alert
     + alert_notifier_id: 4 - ID of Notifier
-    + extra_fields (array, nullable) - data specific to a notifier
-        + (Notification Notifier Value)
 
 ### Retrieve Notifications [GET]
 
-Retrieve all currently set notifications
+Retrieve all currently set notifications for a user
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + notifications (array[Notification Wrapper])
 
-### Delete Notifications [DELETE /alerts/notification/{alert_notification_id}]
+### Delete User Notification [DELETE /alerts/notification/{alert_notification_id}]
 
-Delete a notification
-+ Parameters
-    + alert_notification_id: 10l176 - ID of the notification
-
+Delete one or more user notification
++ Request (application/json; charset=utf-8)
 
 + Response 200 (application/json; charset=utf-8)
+
++ Response 400 (application/json; charset=utf-8)
 
 ### Create New Notification [POST]
 
@@ -2014,14 +2036,14 @@ Notification consists of combination of alert/user/notifier and settings that ar
 
 ## Notification Base (object)
 + alert_alert_id: 34 (required)
-+ user_id: 23423 (required)
-+ alert_notifier_id (required)
-+ extra_fields (array, nullable) - data specific to a notifier
-    + (Notification Notifier Value)
++ alert_notifier_id: 98 (required)
 
 ## Notification Wrapper (object)
 + notification (Notification)
 
-## Notification Notifier Value (object)
-+ alert_notification_extra_info_id: 91823
-+ field_value: 098u230h8d23y984y
+## Alert User Extra Field Wrapper(object)
++ alert_user_extra_field (Alert User Setting)
+
+## Alert User Extra Field Value (object)
++ field_name: email (string) - Field name
++ field_value: techies@performancehorizon.com (string) - Field value
