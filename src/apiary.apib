@@ -879,10 +879,14 @@ Before a Publishers can begin to generate conversions, they must be associated w
 endpoint allows the Publisher to request access to a Campaign, and to agree to any Terms and Conditions
 that the Campaign defines.
 
-## Publisher Campaigns [/user/publisher/{publisher_id}/campaign]
+## Publisher Campaigns [/user/publisher/{publisher_id}/campaign/{status}]
 
 + Parameters
     + publisher_id: 1l1007802 - ID of the publisher
+    + status: (string, optional) - The status of the publisher on the campaign
+        + a - approved
+        + p - pending
+        + r - rejected
 
 ### List all Publisher Campaigns [GET]
 
@@ -891,6 +895,23 @@ View all Campaigns that the Publisher is associated with, along with the status 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + campaigns (array[Publisher Campaign Wrapper])
+
+## Publisher Campaign Tracking [/user/publisher/{publisher_id}/campaign/{status}/tracking]
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+    + status: (string) - The status of the publisher on the campaign
+        + a - approved
+        + p - pending
+        + r - rejected
+
+### List all Publisher Campaign Tracking Links [GET]
+
+View all Campaigns that the Publisher is associated with, along with the status of any Participation and their tracking details if applicable.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + campaigns (array[Publisher Campaign Tracking Wrapper])
 
 ### Create Publisher Campaigns [POST]
 
@@ -1906,6 +1927,13 @@ level `conversions` array.
 ## Publisher Campaign Wrapper (object)
 + campaign (Campaign)
     + publisher_status (Status)
+
+## Publisher Campaign Tracking Wrapper (object)
++ campaign (Campaign)
+    + publisher_status (Status)
+    + tracking_link: `http://demo.prf.hn/click/camref:i9sh`
+    + camref: `i9sh`
+    + cpc_tracking_link: `http://demo.prf.hn/click/camref:i9sh/type:cpc`
 
 ## Invoice Wrapper (object)
 + invoice (Invoice)
