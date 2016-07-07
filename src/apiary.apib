@@ -443,6 +443,22 @@ Update the specified Advertiser.
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Advertiser Wrapper)
 
+## Advertiser Campaigns [/user/advertiser/{advertiser_id}/campaign/{?status}]
+
+### List all Advertiser Campaigns [GET]
+
+This endpoint will output a listing of all Campaigns that reside under the provided Advertiser on  Network and the output is contextual based on the permissions of the User making the request to the endpoint.
+A limited Campaign schema will be utilised for any Campaign that the User does not have appropriate permissions to view.
+
++ Parameters
+    + advertiser_id: 10l110 - ID of the advertiser
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 5 (number)
+        + execution_time: `"0.08001 seconds"`
+        + campaigns (array[Campaign Wrapper])
+
 # Group Campaign
 
 A Campaign is owned by an Advertiser and an Advertiser may have multiple Campaigns. A Campaign represents an entity
