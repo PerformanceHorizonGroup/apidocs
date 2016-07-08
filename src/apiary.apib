@@ -1416,6 +1416,29 @@ View all Creative for the specified Campaign.
     + Attributes
         + creatives (array[Creative Wrapper])
 
+## List all Available Feeds [GET /user/publisher/{publisher_id}/feed{?campaign_id,active}]
+
+View all Feeds for the specified Publisher.
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+    + campaign_id: `10l176` (optional) - ID of the campaign to restrict output to
+    + active: y (enum[string], optional)
+        + y
+        + n
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number)
+        + execution_time: `0.53595 seconds`
+        + campaigns (array)
+            + (object)
+                + campaign
+                    + title: `SportsBetting` - The name of the campaign
+                    + campaign_id: `10l176`
+                    + feeds (array)
+                        + feed (Publisher Feed Base)
+
 # Group Campaign Creative
 
 An Advertiser may wish to offer pre-generated Creative so that the Publishers can advertise their brand easily.
