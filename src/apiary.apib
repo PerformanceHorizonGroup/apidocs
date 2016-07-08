@@ -384,7 +384,7 @@ A User can create one or more Advertiser accounts. A User can also have access t
 this is determined by the User's permissions. A Network admin may choose to grant a User access to multiple
 entities within their Network.
 
-## Advertisers
+## Advertisers [/user/advertiser]
 
 ### List all Advertisers [GET /user/advertiser{?limit,offset}]
 
@@ -404,7 +404,7 @@ A limited Advertiser schema will be utilised for any Advertiser that the User do
         + execution_time: `0.23640 seconds`
         + advertisers (array[Advertiser Wrapper])
 
-### Create Advertiser [POST /user/advertiser]
+### Create Advertiser [POST]
 
 Create a new Advertiser account attached to the authenticated User.
 
