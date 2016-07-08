@@ -1627,6 +1627,32 @@ Notification consists of combination of alert/user/notifier and settings that ar
 
 + Response 400 (application/json; charset=utf-8)
 
+# Messages [/alerts/messages]
+
+Messages are created by Notification Center Notifier for WebApp Notifications
+
+## Get All Messages for Current User [GET]
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + messages (array)
+            + Attributes
+                + message_id: 111111l1 (string) - Internal Message ID
+                + user_id: 1111111l3 (string) - Recipient
+                + content: New campaign has been created (string) - Message to end-user
+                + status: read (enum) - Status
+                    + new - Newly created message
+                    + read - Message has been read
+                + created_at (string) - When it took place
+
+## Mark Messages as read [POST]
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + message_id (array) - Message IDs to be marked as read
+            + 11111l1 (string)
+            + 11111l55 (string)
+
 # Data Structures
 
 ## User Base (object)
