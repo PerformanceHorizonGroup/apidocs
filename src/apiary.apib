@@ -900,14 +900,14 @@ object within a `publishers` array.
 # Group Publisher Campaign
 
 Before a Publishers can begin to generate conversions, they must be associated with a Campaign. The Publisher Campaign
-endpoint allows the Publisher to request access to a Campaign, and to agree to any Terms and Conditions
-that the Campaign defines.
+endpoints allow the Publisher to request access to a Campaign, and to view details of all Campaigns that they are
+associated with.
 
 ## Publisher Campaigns [/user/publisher/{publisher_id}/campaign/{status}]
 
 + Parameters
     + publisher_id: 1l1007802 - ID of the publisher
-    + status: (enum, optional) - The status of the publisher on the campaign
+    + status: (enum[string], optional) - The status of the publisher on the campaign
         + a - approved
         + p - pending
         + r - rejected
@@ -919,23 +919,6 @@ View all Campaigns that the Publisher is associated with, along with the status 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + campaigns (array[Publisher Campaign Wrapper])
-
-## Publisher Campaign Tracking [/user/publisher/{publisher_id}/campaign/{status}/tracking]
-
-+ Parameters
-    + publisher_id: `1l1007802` (string, required) - ID of the publisher
-    + status: (enum, required) - The status of the publisher on the campaign
-        + a - approved
-        + p - pending
-        + r - rejected
-
-### List all Publisher Campaign Tracking Links [GET]
-
-View all Campaigns that the Publisher is associated with, along with the status of any Participation and their tracking details if applicable.
-
-+ Response 200 (application/json; charset=utf-8)
-    + Attributes
-        + campaigns (array[Publisher Campaign Tracking Wrapper])
 
 ### Create Publisher Campaigns [POST]
 
@@ -960,6 +943,23 @@ object within a `campaigns` array.
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + campaigns (array[Publisher Campaign Wrapper])
+
+## Publisher Campaign Tracking [/user/publisher/{publisher_id}/campaign/{status}/tracking]
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+    + status: (enum[string]) - The status of the publisher on the campaign
+        + a - approved
+        + p - pending
+        + r - rejected
+
+### List all Publisher Campaign Tracking Links [GET]
+
+View all Campaigns that the Publisher is associated with, along with the status of any Participation and their tracking details if applicable.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + campaigns (array[Publisher Campaign Tracking Wrapper])
 
 # Group Invoice
 
