@@ -386,14 +386,22 @@ entities within their Network.
 
 ## Advertisers [/user/advertiser]
 
-### List all Advertisers [GET]
+### List all Advertisers [GET /user/advertiser{?limit,offset}]
 
 One or more Advertisers can reside on a Network. This endpoint will output a listing of all Advertisers who reside on
 the Network and the output is contextual based on the permissions of the User making the request to the endpoint.
 A limited Advertiser schema will be utilised for any Advertiser that the User does not have appropriate permissions to view.
 
++ Parameters
+    + limit: 100 (number, optional)
+    + offset: 0 (number, optional)
+
 + Response 200 (application/json; charset=utf-8)
     + Attributes
+        + count: 86 (number)
+        + limit: 100 (number)
+        + offset: 0 (number)
+        + execution_time: `0.23640 seconds`
         + advertisers (array[Advertiser Wrapper])
 
 ### Create Advertiser [POST]
@@ -442,6 +450,22 @@ Update the specified Advertiser.
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Advertiser Wrapper)
+
+## Advertiser Campaigns [/user/advertiser/{advertiser_id}/campaign]
+
+### List all Advertiser Campaigns [GET]
+
+This endpoint will output a listing of all Campaigns that reside under the provided Advertiser on  Network and the output is contextual based on the permissions of the User making the request to the endpoint.
+A limited Campaign schema will be utilised for any Campaign that the User does not have appropriate permissions to view.
+
++ Parameters
+    + advertiser_id: 10l110 - ID of the advertiser
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 5 (number)
+        + execution_time: `0.08001 seconds`
+        + campaigns (array[Campaign Wrapper])
 
 # Group Campaign
 
@@ -876,13 +900,17 @@ object within a `publishers` array.
 # Group Publisher Campaign
 
 Before a Publishers can begin to generate conversions, they must be associated with a Campaign. The Publisher Campaign
-endpoint allows the Publisher to request access to a Campaign, and to agree to any Terms and Conditions
-that the Campaign defines.
+endpoints allow the Publisher to request access to a Campaign, and to view details of all Campaigns that they are
+associated with.
 
-## Publisher Campaigns [/user/publisher/{publisher_id}/campaign]
+## Publisher Campaigns [/user/publisher/{publisher_id}/campaign/{status}]
 
 + Parameters
     + publisher_id: 1l1007802 - ID of the publisher
+    + status: a (enum[string], optional) - The status of the publisher on the campaign
+        + a - approved
+        + p - pending
+        + r - rejected
 
 ### List all Publisher Campaigns [GET]
 
@@ -915,6 +943,23 @@ object within a `campaigns` array.
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + campaigns (array[Publisher Campaign Wrapper])
+
+## Publisher Campaign Tracking [/user/publisher/{publisher_id}/campaign/{status}/tracking]
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+    + status: a (enum[string]) - The status of the publisher on the campaign
+        + a - approved
+        + p - pending
+        + r - rejected
+
+### List all Publisher Campaign Tracking Links [GET]
+
+View all Campaigns that the Publisher is associated with, along with the status of any Participation and their tracking details if applicable.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + campaigns (array[Publisher Campaign Tracking Wrapper])
 
 # Group Invoice
 
@@ -1391,6 +1436,29 @@ View all Creative for the specified Campaign.
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + creatives (array[Creative Wrapper])
+
+## List all Available Feeds [GET /user/publisher/{publisher_id}/feed{?campaign_id,active}]
+
+View all Feeds for the specified Publisher.
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+    + campaign_id: `10l176` (optional) - ID of the campaign to restrict output to
+    + active: y (enum[string], optional)
+        + y
+        + n
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number)
+        + execution_time: `0.53595 seconds`
+        + campaigns (array)
+            + (object)
+                + campaign
+                    + title: `SportsBetting` - The name of the campaign
+                    + campaign_id: `10l176`
+                    + feeds (array)
+                        + feed (Publisher Feed Base)
 
 # Group Campaign Creative
 
@@ -1906,6 +1974,13 @@ level `conversions` array.
 ## Publisher Campaign Wrapper (object)
 + campaign (Campaign)
     + publisher_status (Status)
+
+## Publisher Campaign Tracking Wrapper (object)
++ campaign (Campaign)
+    + publisher_status (Status)
+    + tracking_link: `http://demo.prf.hn/click/camref:i9sh`
+    + camref: `i9sh`
+    + cpc_tracking_link: `http://demo.prf.hn/click/camref:i9sh/type:cpc`
 
 ## Invoice Wrapper (object)
 + invoice (Invoice)
