@@ -1293,13 +1293,27 @@ when most use cases demand an aggregation of data across a defined time period. 
 aggregation endpoint will instantly total all headline stats for a given pivot to offer near instant summation of the
 data. These endpoints support the `.csv` format.
 
-## Aggregate Advertiser [GET /reporting/report_advertiser/campaign/{campaign_id}/overview/{pivot}{?start_date,end_date}]
+## Aggregate Advertiser [/reporting/report_advertiser/campaign/{campaign_id}/overview/{pivot}{?start_date,end_date}]
+
+### Aggregate Advertiser Overview [GET /reporting/report_advertiser/campaign/{campaign_id}/overview{?start_date,end_date}]
+
+Return the default aggregation stats within the requested time period.
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+    + start_date: `2016-02-30T05:15:32Z` (required)
+    + end_date: `2016-03-10T19:02:35Z` (required)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Publishers Overview Wrapper)
+
+### Aggregate Advertiser Pivot [GET]
 
 Return the aggregation stats for the requested `pivot` within the requested time period.
 
 + Parameters
     + campaign_id: 10l176 - ID of the campaign
-    + pivot: country (enum[string])
+    + pivot: country (enum[string], nullable)
         + primary - All Publishers
         + adref - All advertiser references referenced through tracking
         + product - All tracked item categories
@@ -1315,13 +1329,27 @@ Return the aggregation stats for the requested `pivot` within the requested time
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Aggregated Report)
 
-## Aggregate Publisher [GET /reporting/report_publisher/publisher/{publisher_id}/overview/{pivot}{?start_date,end_date}]
+## Aggregate Publisher [/reporting/report_publisher/publisher/{publisher_id}/overview/{pivot}{?start_date,end_date}]
+
+### Aggregate Publisher Overview [GET /reporting/report_publisher/publisher/{publisher_id}/overview{?start_date,end_date}]
+
+Return the default aggregation stats within the requested time period.
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+    + start_date: `2016-02-30T05:15:32Z` (required)
+    + end_date: `2016-03-10T19:02:35Z` (required)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Campaigns Overview Wrapper)
+
+### Aggregate Publisher Pivot [GET /reporting/report_publisher/publisher/{publisher_id}/overview{?start_date,end_date}]
 
 Return the aggregation stats for the requested `pivot` within the requested time period.
 
 + Parameters
     + publisher_id: 1l1007802 - ID of the publisher
-    + pivot: country (enum[string])
+    + pivot: country (enum[string], nullable)
         + primary - All Campaigns
         + pubref - All publisher references referenced through tracking
         + product - All tracked item categories
@@ -2075,3 +2103,15 @@ level `conversions` array.
 
 ## Website Types Wrapper (object)
 + website_type (Website Type)
+
+## Campaigns Overview Wrapper (object)
++ (Default Overview Wrapper)
+    + campaigns (array)
+        + (object)
+            + campaign (Aggregated Overview)
+
+## Publishers Overview Wrapper (object)
++ (Default Overview Wrapper)
+    + publishers (array)
+        + (object)
+            + publisher (Aggregated Overview)
