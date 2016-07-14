@@ -13,12 +13,33 @@ instructions below and hit us with a pull request.
 
 ## Local Install (MacOS)
 
-### Dependencies
+### Dependencies 
 
-```
+* Ruby 1.8 +
+* Brew
+
+### Instructions
+
+**1** - Clone this repository
+
+**2** - Install Node.js, NPM and NVM globally by running:
+
+```bash
 brew install node npm nvm
-npm install gem hercule
+```
+
+**3**  - Install the apiaryio Ruby Gem globally:
+```
+# With RVM or rbenv
 gem install apiaryio
+
+# Without RVM or rbenv
+sudo gem install apiaryio
+```
+
+**4** . Install the Node.js modules. Run the below in the directory that this repository was cloned into:
+```
+npm install gem hercule
 ```
 
 ### Preview
