@@ -30,10 +30,10 @@ brew install node npm nvm
 
 **3**  - Install the apiaryio Ruby Gem globally:
 ```
-#with RVM or rbenv
+# With RVM or rbenv
 gem install apiaryio
 
-#without RVM or rbenv
+# Without RVM or rbenv
 sudo gem install apiaryio
 ```
 
