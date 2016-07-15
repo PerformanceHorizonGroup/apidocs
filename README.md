@@ -39,7 +39,7 @@ sudo gem install apiaryio
 
 **4** . Install the Node.js modules. Run the below in the directory that this repository was cloned into:
 ```
-npm install gem hercule
+npm install
 ```
 
 ### Preview
