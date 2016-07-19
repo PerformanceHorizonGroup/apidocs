@@ -684,15 +684,12 @@ Only outputs Commission offers for the specified Voucher.
 
 ### Create a Commission [POST]
 
-Create new Commission offers, you can nest multiple new Commissions within a `commissions` array. The relevant
-`commission_level` must be passed to inform the endpoint which level the Commission belongs. If the level is not
-`campaign` then the associated `reference_id` should be passed to define the entity at the chosen level.
+Create new Commission offers, you can nest multiple new Commissions within a `commissions` array
 
 + Request (application/json; charset=utf-8)
     + Attributes
         + commissions (array)
             + (Commission Base)
-                + commission_level (required)
                 + reference_id
 
 + Response 200 (application/json; charset=utf-8)
@@ -1720,12 +1717,10 @@ level `conversions` array.
 + One Of
     + commission_rate: 4
     + commission_value
-    + commission_value_cpc
 + Include Time Range
 + country (Country)
-+ vertical_id: 10 (number, required)
-+ vertical_name: Other (required)
-+ conversion_type: 10 (number, required)
++ vertical: 10 (number)
++ conversion_type: 10 (number)
 + sku
 + customer_type: new (enum)
     + new
