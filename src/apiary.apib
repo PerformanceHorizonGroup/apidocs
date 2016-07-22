@@ -1613,6 +1613,630 @@ level `conversions` array.
                 + conversion (Conversion)
                     + conversion_type: 3 (number)
 
+# Group Communication
+The communication tool allows advertisers to communicate with their publishers by building HTML emails and sending out in bulk to selected publishers or types of publisher.
+
+## Communication [/{entity_type}/{entity_type_id}/{communication_type}/{communication_id}]
+
+### Get Communications [GET]
+Get a list of communications
+
++ Parameters
+    + entity_type (required, string) ... the type of object to attach communication to.
+        
+        + This parameter describes the object to return communications for, e.g. a campaign
+
+        + Values
+            + `campaign`
+            + `network`
+            + `campaign_group`
+            
+    + entity_type_id (required, string) ... the id of the entity_type object.
+    
+    + communication_type (required, string) ... the type of communication
+        
+        + This parameter describes the type of communication, news or email.
+        + Email: Send an email to publishers' registered email addresses
+        + News: Internal messages which are currently only available to advertisers.
+
+        + Values
+            + `email`
+            + `news`
+            
+    + communication_id (optional, string) ... the identifier of a specific communication object.  Will return all objects if not set.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number)
+        + execution_time: `0.23640 seconds`
+        + email_items (array[Email])
+
+### Create Communication [POST]
+Create or update a communication object
+
+Publisher filters can be defined for a communication, to limit the number of recipients to a certain type of publisher.  The filters can be accessed by sending a `publisher_filter_id` as specified in the request parameters.
+
+| publisher_filter_id  | Description                                  | Notes                                                                                                                                                |
+|------------------------|------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------|
+| `1`                      | Publisher Vertical                          | To obtain a list of relevant publisher verticals, see [Publisher Vertical Filter](#comms_pub_vertical)           |
+| `2`                      | Publisher Operating Country          | To obtain a list of relevant publisher country codes, see [Publisher Country Filter](#comms_pub_country)  |
+
+Custom Publishers can be defined in order to send a communication to specific publishers.  This is sent through in the `custom_publishers` request parameter, which should contain an array of specific publisher ids to send the communication to.  These publishers will be added in addition to any publisher filters built, regardless of whether they match the filter conditions.
+
++ Parameters
+    + entity_type (required, string) ... the type of object to attach communication to.
+        
+        + This parameter describes the object which the communication is related to, e.g. a campaign
+
+        + Values
+            + `campaign`
+            + `network`
+            + `campaign_group`
+            
+    + entity_type_id (required, string) ... the identifier of the entity_type object.
+    
+    + communication_type (required, string) ... the type of communication
+        
+        + This parameter describes the type of communication, news or email.
+        + Email: Send an email to publishers' registered email addresses
+        + News: Internal messages which are currently only available to advertisers.
+
+        + Values
+            + `email`
+            + `news`
+            
+    + communication_id (optional, string) ... the id of the communication object.  If this is set, it will update the object with this id.  Otherwise it will create a new communication object.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + publish_date: 2020-08-21 10:00
+        + translations: (array[Translation])
+        + from_name: PH
+        + from_address: ph@performancehorizon.com
+        + reply_to_address: ph@performancehorizon.com
+        + status: a
+        + publisher_filter (array[Filter])
+        + custom_publishers (array)
+            
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + job: (array[Job])
+
+### Delete Communication [POST]
+Delete a communication object.  This action can only be performed on a communication which hasn't already been sent.
+
++ Parameters
+    + entity_type (required, string) ... the type of object the communication is related to.
+        
+        + This parameter describes the object which the communication is related to, e.g. a campaign
+
+        + Values
+            + `campaign`
+            + `network`
+            + `campaign_group`
+            
+    + entity_type_id (required, string) ... the identifier of the entity_type object.
+    
+    + communication_type (required, string) ... the type of communication
+        
+        + This parameter describes the type of communication, news or email.
+        + Email: Send an email to publishers' registered email addresses
+        + News: Internal messages which are currently only available to advertisers.
+
+        + Values
+            + `email`
+            + `news`
+            
+    + communication_id (optional, string) ... the identifier of the communication object.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + action: delete
+        + email_id: 111111l2
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number)
+        + execution_time: `0.23640 seconds`
+        + email_items (array[Email])
+
+## Communication Templates [/communication/campaign/{campaign_id}/template]
+
+Templates allow you to save previously created email bodies, including translations you have added.  These are saved on a campaign-basis.
+
++ Attributes (object)
+    + communication_template_id: 11l16829 - ID of the template
+    + campaign_id: 300659
+    + template_name: Template No. 1
+    + communication_template_locale: (array)
+        + communication_template_locale_id: 11l11111
+        + communication_template_id: 11l16829
+        + locale: en
+        + body: <p>Message 1</p> - The email body for this locale (language)
+    
+### Get Templates [GET]
+
++ Parameters
+
+    + campaign_id (required, string) ... the id of the campaign the template is associated with
+
++ Response 200
+
+    + Body
+    
+            {
+                "count": 2,
+                "execution_time": "0.38117 seconds",
+                "templates": [
+                    {
+                        "template": {
+                            "communication_template_id": "111111l3",
+                            "campaign_id": 300659,
+                            "template_name": "Template No. 1",
+                            "communication_template_locale": [
+                                {
+                                    "communication_template_locale_id": "111011l2",
+                                    "communication_template_id": "111111l3",
+                                    "locale": "en",
+                                    "body": "<p>Message 1</p>"
+                                },
+                                {
+                                    "communication_template_locale_id": "101111l3",
+                                    "communication_template_id": "111111l3",
+                                    "locale": "fr",
+                                    "body": "<p>Mesagé 1</p>"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "template": {
+                            "communication_template_id": "111111l4",
+                            "campaign_id": 300659,
+                            "template_name": "Template No. 2",
+                            "communication_template_locale": [
+                                {
+                                    "communication_template_locale_id": "111101l4",
+                                    "communication_template_id": "111111l4",
+                                    "locale": "en",
+                                    "body": "<p>Message 2</p>"
+                                },
+                                {
+                                    "communication_template_locale_id": "110001l5",
+                                    "communication_template_id": "111111l4",
+                                    "locale": "fr",
+                                    "body": "<p>Mesagé 2</p>"
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+    
+### Create Template [POST]
+
++ Parameters
+
+    + campaign_id (required, string) ... the id of the campaign the template is associated with
+    
++ Request (application/json)
+
+            {
+                "title": "New Template",
+                "template": [
+                    "en": {
+                        "locale": "en",
+                        "body": "<p>Message</p>"
+                    }
+                ]
+            }
+
++ Response 200
+
+            {
+                "execution_time": "3.81551 seconds",
+                "template": {
+                    "communication_template_id": "111111l2",
+                    "advertiser_id": 1,
+                    "campaign_id": 300659,
+                    "template_title": "New Template"
+                }
+            }
+            
+### Update Template [POST]
+
++ Parameters
+
+    + campaign_id (required, string) ... the id of the campaign the template is associated with
+    
++ Request (application/json)
+
+            {
+                "title": "New Template",
+                "communication_template_id": "111111l2",
+                "template": [
+                    "en": {
+                        "locale": "en",
+                        "body": "<p>Updated Message Body</p>"
+                    }
+                ]
+            }
+
++ Response 200
+
+            {
+                "execution_time": "3.81551 seconds",
+                "template": {
+                    "communication_template_id": "111111l2",
+                    "advertiser_id": 1,
+                    "campaign_id": 300659,
+                    "template_title": "New Template"
+                }
+            }
+            
+### Delete Template [POST]
+
++ Parameters
+
+    + campaign_id (required, string) ... the id of the campaign the template is associated with
+    
++ Request (application/json)
+
+            {
+                "action": "delete",
+                "communication_template_id": "11l111"
+            }
+
++ Response 200
+
+            {
+                "status": "successful"
+            }
+            
+
+## Communication Metrics [/communication/campaign/{campaign_id}/metrics/summary]
+
+### Get Metrics [GET]
+
++ Parameters
+
+    + communication_id (required, string) ... the id of the communication the template is associated with
+    + campaign_id (required, string) ... the id of the campaign the template is associated with
+
++ Response 200
+
+    + Body
+            {
+                "execution_time": "1.10802 seconds",
+                "communication_summary":  {
+                    "en":  {
+                        "Recipients":  1,
+                        "TotalOpened":  0,
+                        "Clicks": 0,
+                        "Unsubscribed": 0,
+                        "Bounced": 0,
+                        "UniqueOpened": 0,
+                        "SpamComplaints": 0,
+                        "WebVersionURL": "http:\/\/createsend.com\/t\/r-AFC1BF3F3DAB25152540EF23F30FEDED",
+                        "WebVersionTextURL": "http:\/\/createsend.com\/t\/r-AFC1BF3F3DAB25152540EF23F30FEDED\/t",
+                        "WorldviewURL": "http:\/\/phg.createsend.com\/reports\/wv\/r\/AFC1BF3F3DAB25152540EF23F30FEDED",
+                        "Forwards": 0,
+                        "Likes": 0,
+                        "Mentions": 0
+                    },
+                    "summary": {
+                        "Recipients": 1,
+                        "TotalOpened": 0,
+                        "Clicks": 0,
+                        "Unsubscribed": 0,
+                        "Bounced": 0,
+                        "UniqueOpened": 0,
+                        "SpamComplaints": 0,
+                        "Forwards": 0,
+                        "Likes": 0,
+                        "Mentions": 0
+                    }
+                }
+            }
+
+## Preview Communication [/communication/advertiser/{advertiser_id}/campaign_preview]
+
+### Preview Communication [POST]
+Send an email preview of a communication.  Rather than building a list of publisher recipients, the communication is sent out only to the addresses in the email_list request parameter
+
++ Parameters
+    + advert (required, string) ... the type of object to attach communication to.
+        
+        + This parameter describes the object which the communication is related to, e.g. a campaign
+
+        + Values
+            + `campaign`
+            + `network`
+            + `campaign_group`
+            
+    + entity_type_id (required, string) ... the identifier of the entity_type object.
+    
+    + communication_type (required, string) ... the type of communication
+        
+        + This parameter describes the type of communication, news or email.
+        + Email: Send an email to publishers' registered email addresses
+        + News: Internal messages which are currently only available to advertisers.
+
+        + Values
+            + `email`
+            + `news`
+            
+    + communication_id (optional, string) ... the id of the communication object.  If this is set, it will update the object with this id.  Otherwise it will create a new communication object.
+
++ Request (application/json)
+
+            {
+                "publish_date": "immediately",
+                "translations": [
+                    {
+                        "locale": "en",
+                        "title": "Subject",
+                        "body": "<p>Message</p>",
+                        "is_default": true
+                    }
+                ],
+                "from_name": "PH",
+                "from_address": "ph@performancehorizon.com",
+                "reply_to_address": "ph@performancehorizon.com",
+                "status": "a",
+                "email_list": [
+                    "ph@performancehorizon.com"
+                ]
+            }
+            
++ Response 200
+
+    + Body
+
+            {
+                "job": [
+                    {
+                        "email": {
+                            "job_id": "111111l2",
+                            "created_at": 2016-07-18 12:25:39,
+                            "completed_at": "",
+                            "created_by": 3,
+                            "created_by_uri": "communication/advertiser/1/campaign_preview",
+                            "status": "created",
+                            "percentage_complete": "",
+                            "reference": ""
+                        }
+                    }
+                ]
+            }
+
+
+## Publisher Status Filter [/communication/filters/campaign/{campaign_id}/filters/status]
+
+### Get Relevant Publisher Status [GET]
+This will return a list of possible publisher participation statuses for the campaign.
+
++ Parameters
+
+    + campaign_id (required, string) ... the campaignID
+
++ Response 200
+
+    + Body
+    
+            {
+                "statuses": [
+                    {
+                        "id": "",
+                        "text": "All"
+                    },
+                    {
+                        "id": "p",
+                        "text": "Pending"
+                    }
+                ]
+            }
+
+## Publisher Country Filter [/communication/filters/campaign/{campaign_id}/filters/countries]
+
+### Get Relevant Countries [GET]
+This will return a list of operating countries which the campaign's publishers are associated with.
+
++ Parameters
+
+    + campaign_id (required, string) ... the campaignID
+
++ Response 200
+
+    + Body
+    
+            {
+                "count": 2,
+                "execution_time": "1.18706 seconds",
+                "countries": [
+                    {
+                        "country": {
+                            "ref_country_id": 57,
+                            "iso": "DE",
+                            "printable_name": "Germany",
+                            "currency_iso": "EUR",
+                            "population": 81802257,
+                            "fips_code": "GM",
+                            "iso_numeric": 276,
+                            "north": 55.055637,
+                            "south": 47.275776,
+                            "east": 15.039889,
+                            "west": 5.865639,
+                            "capital": "Berlin",
+                            "continent_name": "Europe",
+                            "continent_iso": "EU",
+                            "area_sq_km": 357021,
+                            "languages": "de",
+                            "iso3": "DEU",
+                            "geoname_id": 2921044,
+                            "zone": "EU"
+                        }
+                    },
+                    {
+                        "country": {
+                            "ref_country_id": 77,
+                            "iso": "GB",
+                            "printable_name": "United Kingdom",
+                            "currency_iso": "GBP",
+                            "population": 62348447,
+                            "fips_code": "UK",
+                            "iso_numeric": 826,
+                            "north": 59.360249,
+                            "south": 49.906193,
+                            "east": 1.759,
+                            "west": "-8.623555",
+                            "capital": "London",
+                            "continent_name": "Europe",
+                            "continent_iso": "EU",
+                            "area_sq_km": 244820,
+                            "languages": "en-GB,cy-GB,gd",
+                            "iso3": "GBR",
+                            "geoname_id": 2635167,
+                            "zone": "UK"
+                        }
+                    }
+                ]
+            }
+
+## Publisher Vertical Filter [/communication/filters/campaign/{campaign_id}/filters/vertical]
+
+### Get Relevant Verticals [GET]
+This will return a list of verticals which the campaign's publishers are associated with.  This will include any verticals which are custom to that network.
+
++ Parameters
+
+    + campaign_id (required, string) ... the campaignID
+
++ Response 200
+
+    + Body
+    
+            {
+                "count": 2,
+                "execution_time": "1.14603 seconds",
+                "verticals": [
+                    {
+                        "vertical": {
+                            "vertical_id": 2,
+                            "name": "Retail",
+                            "description": null
+                        }
+                    },
+                    {
+                        "vertical": {
+                            "vertical_id": 1,
+                            "name": "B2B",
+                            "description": null
+                        }
+                    }
+                ]
+            }
+            
+## Publisher All Filters [/communication/filters/campaign/{campaign_id}/filters/all_filters]
+
+### Get All Filters [GET]
+This will return a list of countries, statuses and verticals for the campaign's publishers.  This will combine the above 3 outputs into one request.
+
++ Parameters
+
+    + campaign_id (required, string) ... the campaignID
+
++ Response 200
+
+    + Body
+
+            {
+                "count": 3,
+                "execution_time": "1.14603 seconds",
+                "filters": [
+                    {
+                        "countries": [
+                            {
+                                "country": {
+                                    "ref_country_id": 57,
+                                    "iso": "DE",
+                                    "printable_name": "Germany",
+                                    "currency_iso": "EUR",
+                                    "population": 81802257,
+                                    "fips_code": "GM",
+                                    "iso_numeric": 276,
+                                    "north": 55.055637,
+                                    "south": 47.275776,
+                                    "east": 15.039889,
+                                    "west": 5.865639,
+                                    "capital": "Berlin",
+                                    "continent_name": "Europe",
+                                    "continent_iso": "EU",
+                                    "area_sq_km": 357021,
+                                    "languages": "de",
+                                    "iso3": "DEU",
+                                    "geoname_id": 2921044,
+                                    "zone": "EU"
+                                }
+                            },
+                            {
+                                "country": {
+                                    "ref_country_id": 77,
+                                    "iso": "GB",
+                                    "printable_name": "United Kingdom",
+                                    "currency_iso": "GBP",
+                                    "population": 62348447,
+                                    "fips_code": "UK",
+                                    "iso_numeric": 826,
+                                    "north": 59.360249,
+                                    "south": 49.906193,
+                                    "east": 1.759,
+                                    "west": "-8.623555",
+                                    "capital": "London",
+                                    "continent_name": "Europe",
+                                    "continent_iso": "EU",
+                                    "area_sq_km": 244820,
+                                    "languages": "en-GB,cy-GB,gd",
+                                    "iso3": "GBR",
+                                    "geoname_id": 2635167,
+                                    "zone": "UK"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "verticals": [
+                            {
+                                "vertical": {
+                                    "vertical_id": 2,
+                                    "name": "Retail",
+                                    "description": null
+                                }
+                            },
+                            {
+                                "vertical": {
+                                    "vertical_id": 1,
+                                    "name": "B2B",
+                                    "description": null
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "statuses": [
+                            {
+                                "id": "",
+                                "text": "All"
+                            },
+                            {
+                                "id": "p",
+                                "text": "Pending"
+                            }
+                        ]
+                    }
+                ]
+            }
+            
 :[](reference.apib)
 
 # Data Structures
@@ -1937,6 +2561,46 @@ level `conversions` array.
     + (object)
         + creative_id: 300441 - ID of the creative
         + creative_item_id: 300396 - ID of the creative item
+
+## Email (object)
+    + email_id: 111111l2
+    + reference_type: campaign
+    + reference_id: 300659
+    + status: a
+    + publish_date: 2015-09-06 10:50:00
+    + archive_date: 2015-09-06 10:50:00
+    + created: 2015-09-04 11:19:47
+    + created_by: 3
+    + default_locale: en
+    + publisher_status: p
+    + from_address: ph@performancehorizon.com
+    + from_name: PH
+    + reply_to_address: ph@performancehorizon.com
+    + translations: (array[Translation])
+    + filters: (array[Filter])
+    + custom_publishers: (array)
+    
+
+## Translation (object)
+    + locale: en,
+    + title: ii,
+    + body: ll,
+    + is_default: true,
+    + static: campaign/300659/email/111111l2/static/111111l2
+    
+## Filter (object)
+    + publisher_filter_id: 111111l2
+    + publisher_filter_value: (array)
+
+## Job (object)
+    + job_id: 111111l2
+    + created_at: 2016-07-18 12:25:39,
+    + completed_at: 2016-07-18 12:25:39,
+    + created_by: 3
+    + created_by_uri: campaign/300659/communication
+    + status: created
+    + percentage_complete: 0
+    + reference: ref1
 
 :[](common.apib)
 
