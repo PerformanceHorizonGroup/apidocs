@@ -1645,81 +1645,11 @@ Get a list of communications
             
     + communication_id (optional, string) ... the identifier of a specific communication object.  Will return all objects if not set.
 
-+ Response 200
-
-    + Body
-
-            {
-                "count": 6,
-                "execution_time": "0.60339 seconds",
-                "email_items": [
-                    {
-                        "email": {
-                            "email_id": "111111l2",
-                            "reference_type": "campaign",
-                            "reference_id": 300659,
-                            "status": "a",
-                            "publish_date": "2015-09-06 10:50:00",
-                            "archive_date": "2015-09-06 10:50:00",
-                            "created": "2015-09-04 11:19:47",
-                            "created_by": 3,
-                            "default_locale": "en",
-                            "publisher_status": "p",
-                            "from_address": "ph@performancehorizon.com",
-                            "from_name": "PH",
-                            "reply_to_address": "ph@performancehorizon.com",
-                            "translations": {
-                                "en": {
-                                    "locale": "en",
-                                    "title": "ii",
-                                    "body": "ll",
-                                    "is_default": "true",
-                                    "static": "campaign/300659/email/111111l2/static/111111l2."
-                                }
-                            },
-                            "filters": [
-                                [
-                                    {
-                                        "publisher_filter_id": 2,
-                                        "publisher_filter_value": [
-                                            "DE"
-                                        ]
-                                    }
-                                ]
-                            ],
-                            "custom_publishers": []
-                        }
-                    },
-                    {
-                        "email": {
-                            "email_id": "111111l3",
-                            "reference_type": "campaign",
-                            "reference_id": 300659,
-                            "status": "a",
-                            "publish_date": "2015-08-21 10:00:00",
-                            "archive_date": "2015-09-21 10:00:00",
-                            "created": "2015-09-07 09:34:18",
-                            "created_by": 3,
-                            "default_locale": "en",
-                            "publisher_status": null,
-                            "from_address": "ph@performancehorizon.com",
-                            "from_name": "PH",
-                            "reply_to_address": "ph@performancehorizon.com",
-                            "translations": {
-                                "en": {
-                                    "locale": "en",
-                                    "title": "test",
-                                    "body": "<p>JP Test1234</p>",
-                                    "is_default": "true",
-                                    "static": "campaign/300659/email/111111l3/static/111111l3."
-                                }
-                            },
-                            "filters": [],
-                            "custom_publishers": []
-                        }
-                    }
-                ]
-            }
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number)
+        + execution_time: `0.23640 seconds`
+        + email_items (array[Email])
 
 ### Create Communication [POST]
 Create or update a communication object
@@ -1757,66 +1687,20 @@ Custom Publishers can be defined in order to send a communication to specific pu
             
     + communication_id (optional, string) ... the id of the communication object.  If this is set, it will update the object with this id.  Otherwise it will create a new communication object.
 
-+ Request (application/json)
-
-            {
-                "publish_date": "2020-08-21 10:00",
-                "translations": [
-                    {
-                        "locale": "en",
-                        "title": "Subject",
-                        "body": "<p>Message</p>",
-                        "is_default": true
-                    }
-                ],
-                "from_name": "PH",
-                "from_address": "ph@performancehorizon.com",
-                "reply_to_address": "ph@performancehorizon.com",
-                "status": "a",
-                "publisher_filter": [
-                    [
-                        {
-                            "publisher_filter_id": "2",
-                            "publisher_filter_value": [
-                                "GB",
-                                "FR"
-                            ]
-                        },
-                        {
-                            "publisher_filter_id": "1",
-                            "publisher_filter_value": [
-                                "2",
-                                "3"
-                            ]
-                        }
-                    ]
-                ],
-                "custom_publishers": [
-                    "1",
-                    "2"
-                ]
-            }
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + publish_date: 2020-08-21 10:00
+        + translations: (array[Translation])
+        + from_name: PH
+        + from_address: ph@performancehorizon.com
+        + reply_to_address: ph@performancehorizon.com
+        + status: a
+        + publisher_filter (array[Filter])
+        + custom_publishers (array)
             
-+ Response 200
-
-    + Body
-
-            {
-                "job": [
-                    {
-                        "email": {
-                            "job_id": "111111l2",
-                            "created_at": "2016-07-18 12:25:39",
-                            "completed_at": "",
-                            "created_by": 3,
-                            "created_by_uri": "campaign/300659/communication",
-                            "status": "created",
-                            "percentage_complete": "",
-                            "reference": ""
-                        }
-                    }
-                ]
-            }
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + job: (array[Job])
 
 ### Delete Communication [POST]
 Delete a communication object.  This action can only be performed on a communication which hasn't already been sent.
@@ -1845,49 +1729,16 @@ Delete a communication object.  This action can only be performed on a communica
             
     + communication_id (optional, string) ... the identifier of the communication object.
 
-+ Request (application/json)
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + action: delete
+        + email_id: 111111l2
 
-            {
-                "action": "delete",
-                "email_id": "111111l2"
-            }
-            
-+ Response 200
-
-    + Body
-
-            {
-                "email": [
-                    {
-                        "email": {
-                            "email_id": "111111l2",
-                            "reference_type": "campaign",
-                            "reference_id": 0001,
-                            "status": "r",
-                            "publish_date": "2020-08-21 10:00",
-                            "archive_date": null,
-                            "created": "2015-09-07 00:00:00",
-                            "created_by": 3,
-                            "default_locale": "en",
-                            "publisher_status": null,
-                            "publisher_filter": null,
-                            "publisher_filter_id": null,
-                            "from_address": "phg@phg.com",
-                            "from_name": "PHG",
-                            "reply_to_address": "phg@phg.com",
-                            "translations": {
-                                "en": {
-                                    "locale": "en",
-                                    "title": "Subject",
-                                    "body": "<p>Message</p>",
-                                    "is_default": "true",
-                                    "static": "campaign/300659/email/111111l2/static/111111l2.html"
-                                }
-                            }
-                        }
-                    }
-                ]
-            }
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number)
+        + execution_time: `0.23640 seconds`
+        + email_items (array[Email])
 
 ## Communication Templates [/communication/campaign/{campaign_id}/template]
 
@@ -2710,6 +2561,46 @@ This will return a list of countries, statuses and verticals for the campaign's 
     + (object)
         + creative_id: 300441 - ID of the creative
         + creative_item_id: 300396 - ID of the creative item
+
+## Email (object)
+    + email_id: 111111l2
+    + reference_type: campaign
+    + reference_id: 300659
+    + status: a
+    + publish_date: 2015-09-06 10:50:00
+    + archive_date: 2015-09-06 10:50:00
+    + created: 2015-09-04 11:19:47
+    + created_by: 3
+    + default_locale: en
+    + publisher_status: p
+    + from_address: ph@performancehorizon.com
+    + from_name: PH
+    + reply_to_address: ph@performancehorizon.com
+    + translations: (array[Translation])
+    + filters: (array[Filter])
+    + custom_publishers: (array)
+    
+
+## Translation (object)
+    + locale: en,
+    + title: ii,
+    + body: ll,
+    + is_default: true,
+    + static: campaign/300659/email/111111l2/static/111111l2
+    
+## Filter (object)
+    + publisher_filter_id: 111111l2
+    + publisher_filter_value: (array)
+
+## Job (object)
+    + job_id: 111111l2
+    + created_at: 2016-07-18 12:25:39,
+    + completed_at: 2016-07-18 12:25:39,
+    + created_by: 3
+    + created_by_uri: campaign/300659/communication
+    + status: created
+    + percentage_complete: 0
+    + reference: ref1
 
 :[](common.apib)
 
