@@ -1614,519 +1614,238 @@ level `conversions` array.
                     + conversion_type: 3 (number)
 
 # Group Publisher Tags
-Publisher tags allows you to categorise your publishers by assigning tags to group them together.
+Publisher tags allows you to categorize your publishers by assigning tags to group them together.
 
-## Publisher Tagging endpoints [/campaign/{campaign_id}/publisher_tag{.json|.xml}]
+## Publisher Tags [/campaign/{campaign_id}/publisher_tag]
 
 ### Read Publisher Tags [GET]
-
-View all publisher tags for the specified campaign.
+Get all publisher tags on the specified campaign.
 
 + Parameters
-  + campaign_id: 300015 - Unique campaign identifier
+    + campaign_id: (string, required) - The id of the campaign which the publisher tags are saved against
 
-+ Response 200 Successful read with no results (application/json; charset=utf-8)
-{
-    "count": 2,
-    "execution_time": "0.71595 seconds",
-    "publisher_tags": [
-        {
-            "publisher_tag": {
-                "publisher_tag_id": "111111l11",
-                "name": "example"
-            }
-        },
-        {
-            "publisher_tag": {
-                "publisher_tag_id": "111111l12",
-                "name": "demo"
-            }
-        }
-    ],
-    errors: []
-}
-
-+ Response 404 (application/json; charset=utf-8)
-{
-  "error": {
-    "message": "Invalid campaign id.",
-    "type": "404"
-  }
-}
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (object)
+      + count: 1 (number) - Number of tags recovered
+      + execution_time: `0.23640 seconds`
+      + publisher_tags (array[Publisher Tag]) - Recovered tags list
+      + errors (array) - Empty error list
 
 ### Create Publisher Tags [POST]
+Create publisher tags on the specified campaign.
 
-Create publisher tags for the specified campaign.
-
-Publisher tag names must:
-
-1. Be unique on the same campaign.
-2. Be under 256 characters.
-3. Don't be numeric. You can add numbers as part of a text string but not on their own.
++ Validation rules
+    + Publisher tag names must be unique on the same campaign.
+    + Publisher tag names must be under 256 characters.
+    + Publisher tag names must not be numeric. You can add numbers as part of a text string but not on their own.
 
 + Parameters
-  + campaign_id: 300015 - Unique campaign identifier
+    + campaign_id: (string, required) - The id of the campaign which the publisher tags are saved against
 
 + Request (application/json; charset=utf-8)
-{
-    "publisher_tags": [
-        {
-            "name": "tag 1"
-        },
-        {
-            "name": "tag 2"
-        }
-    ]
-}
+    + Attributes
+      + publisher_tags (array[Publisher Tag Create])
 
 + Response 201 (application/json; charset=utf-8)
-{
-    "count": 2,
-    "execution_time": "0.71595 seconds",
-    "publisher_tags": [
-        {
-            "publisher_tag": {
-                "publisher_tag_id": "111111l2",
-                "name": "tag 1"
-            },
-            "publisher_tag": {
-                "publisher_tag_id": "111111l2",
-                "name": "tag 2"
-            }
-        }
-    ],
-    "errors": []
-}
+    + Attributes
+      + count: 1 (number) - Number of successfully created publisher tags
+      + execution_time: `0.23640 seconds`
+      + publisher_tags (array[Publisher Tag]) - Created publisher tags list
+      + errors (array[])
 
 + Response 207 (application/json; charset=utf-8)
-{
-    "count": 1,
-    "execution_time": "0.71595 seconds",
-    "publisher_tags": [
-        {
-            "publisher_tag": {
-                "publisher_tag_id": "111111l2",
-                "name": "tag 1"
-            }
-        }
-    ],
-    "errors": [
-        {
-            "data": {
-                "name": "tag 2"
-            },
-            "error": {
-                "type": "validation fail",
-                "message": "Publisher tag 'tag 1' already exists on campaign '1'"
-            }
-        }
-    ]
-}
-
-+ Response 404 (application/json; charset=utf-8)
-{
-  "error": {
-    "message": "Invalid campaign id.",
-    "type": "404"
-  }
-}
+    + Attributes
+      + count: 1 (number) - Number of successfully created publisher tags
+      + execution_time: `0.23640 seconds`
+      + publisher_tags (array[Publisher Tag]) - Created publisher tags list
+      + errors (array[Publisher Tag Create Error]) - Error list if something went wrong
 
 ### Update Publisher Tags [PUT]
+Change publisher tag names on the specified campaign.
 
-Update publisher tags for the specified campaign.
-
-New publisher tag names must:
-
-1. Be unique on the same campaign.
-2. Be under 256 characters.
-3. Don't be numeric. You can add numbers as part of a text string but not on their own.
++ Validation rules
+    + Publisher tag names must be unique on the same campaign.
+    + Publisher tag names must be under 256 characters.
+    + Publisher tag names must not be numeric. You can add numbers as part of a text string but not on their own.
 
 + Parameters
-  + campaign_id: 300015 - Unique campaign identifier
+    + campaign_id: (string, required) - The id of the campaign which the publisher tags are saved against
 
 + Request (application/json; charset=utf-8)
-{
-    "publisher_tags": [
-        {
-            "publisher_tag_id": "111111l2",
-            "name": "updated tag 1"
-        },
-        {
-            "publisher_tag_id": "111111l3",
-            "name": "updated tag 2"
-        }
-    ]
-}
+    + Attributes
+      + publisher_tags (array[Publisher Tag])
 
 + Response 200 (application/json; charset=utf-8)
-{
-    "count": 2,
-    "execution_time": "0.71595 seconds",
-    "publisher_tags": [
-        {
-            "publisher_tag": {
-                "publisher_tag_id": "111111l2",
-                "name": "updated tag 1"
-            },
-            "publisher_tag": {
-                "publisher_tag_id": "111111l2",
-                "name": "updated tag 2"
-            }
-        }
-    ],
-    "errors": []
-}
+    + Attributes
+      + count: 1 (number) - Number of successfully updated publisher tags
+      + execution_time: `0.23640 seconds`
+      + publisher_tags (array[Publisher Tag]) - Updated publisher tags list
+      + errors (array[])
 
 + Response 207 (application/json; charset=utf-8)
-{
-    "count": 1,
-    "execution_time": "0.71595 seconds",
-    "publisher_tags": [
-        {
-            "publisher_tag": {
-                "publisher_tag_id": "111111l2",
-                "name": "updated tag 1"
-            }
-        }
-    ],
-    "errors": [
-        {
-            "data": {
-                "name": "tag 2"
-            },
-            "error": {
-                "type": "validation fail",
-                "message": "Publisher tag 'updated tag 2' already exists on campaign '1'"
-            }
-        }
-    ]
-}
-
-+ Response 404 (application/json; charset=utf-8)
-{
-  "error": {
-    "message": "Invalid campaign id.",
-    "type": "404"
-  }
-}
+    + Attributes
+      + count: 1 (number) - Number of successfully updated publisher tags
+      + execution_time: `0.23640 seconds`
+      + publisher_tags (array[Publisher Tag]) - Updated publisher tags list
+      + errors (array[Publisher Tag Update Error]) - Error list if something went wrong
 
 ### Delete Publisher Tags [DELETE]
-
-Delete publisher tags for the specified campaign.
+Delete publisher tags on the specified campaign.
 
 + Parameters
-  + campaign_id: 300015 - Unique campaign identifier
+    + campaign_id (string, required) - The id of the campaign which the publisher tags are saved against
 
 + Request (application/json; charset=utf-8)
-{
-    "publisher_tags": [
-        {
-            "publisher_tag_id": "111111l2"
-        },
-        {
-            "publisher_tag_id": "111111l3"
-        }
-    ]
-}
+    + Attributes
+      + publisher_tags (array[Publisher Tag Delete])
 
 + Response 200 (application/json; charset=utf-8)
-{
-    "count": 2,
-    "execution_time": "0.71595 seconds",
-    "publisher_tags": [
-        {
-            "publisher_tag": {
-                "publisher_tag_id": "111111l2",
-                "name": "tag 1"
-            },
-            "publisher_tag": {
-                "publisher_tag_id": "111111l2",
-                "name": tag 2"
-            }
-        }
-    ],
-    "errors": []
-}
+    + Attributes
+      + count: 1 (number) - Number of successfully deleted publisher tags
+      + execution_time: `0.23640 seconds`
+      + publisher_tags (array[Publisher Tag]) - Deleted publishers tags list
+      + errors (array[])
 
 + Response 207 (application/json; charset=utf-8)
-{
-    "count": 1,
-    "execution_time": "0.71595 seconds",
-    "publisher_tags": [
-        {
-            "publisher_tag": {
-                "publisher_tag_id": "111111l2",
-                "name": "tag 1"
-            }
-        }
-    ],
-    "errors": [
-        {
-            "data": {
-                "name": "tag 2"
-            },
-            "error": {
-                "type": "validation fail",
-                "message": "message": "Publisher tag with a publisher_tag_id of 111111l2 cannot be deleted, as it does not exist."
-            }
-        }
-    ]
-}
-
-+ Response 404 (application/json; charset=utf-8)
-{
-  "error": {
-    "message": "Invalid campaign id.",
-    "type": "404"
-  }
-}
+    + Attributes
+      + count: 1 (number) - Number of successfully deleted publisher tags
+      + execution_time: `0.23640 seconds`
+      + publisher_tags (array[Publisher Tag]) - Deleted publishers tags list
+      + errors (array[Publisher Tag Delete Error]) - Error list if something went wrong
 
 ## Publisher Tag Associations [/campaign/{campaign_id}/publisher_tag_association]
-+ Attributes (object)
-    + publisher_tag_association_id: 1l1000001 - ID of the association
-    + publisher_tag_id: 1l1000013 - ID of the publisher tag
-    + publisher_id: 1 - ID of the publisher
 
 ### Get Publisher Tag Associations [GET]
 Get a list of publisher tag associations to see which tags are assigned to publishers.
-+ Parameters
-    + campaign_id (required, string) ... the id of the campaign which the publisher tags are saved against
 
-+ Response 200
-    + Body
-            {
-                "count": 2,
-                "execution_time": "0.71595 seconds",
-                "publisher_tag_associations": [
-                    {
-                        "publisher_tag_association": {
-                            "publisher_tag_association_id": "111111l1",
-                            "publisher_tag_id": "111111l11",
-                            "publisher_id": "3"
-                        }
-                    },
-                    {
-                        "publisher_tag_association": {
-                            "publisher_tag_association_id": "111111l2",
-                            "publisher_tag_id": "111111l12",
-                            "publisher_id": "3"
-                        }
-                    }
-                ]
-            }
++ Parameters
+    + campaign_id (string, required) - the id of the campaign which the publisher tags are saved against
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of recovered publisher tag associations
+        + execution_time: `0.23640 seconds`
+        + publisher_tag_associations (array[Publisher Tag Association]) - Publisher tag associations list
+        + errors (array[])
+
 ### Create Publisher Tag Association [POST]
-Create an association object.
+Create an association between a publisher and an existing tag.
+
 + Validation rules
-    + The publisher_tag_id in the request must exist on this campaign
-    + The publisher_id must be present and valid
+    + The publisher_tag_id in the request must exist on the specified campaign
+    + The publisher_id must be present, valid, and exist on the specified campaign
     + The association between the publisher_id and publisher_tag_id must not already exist
-+ Parameters
-    + campaign_id (required, string) ... the id of the campaign which the publisher tags are saved against
-+ Request (application/json)
-        {
-            "publisher_tag_associations": [
-                {
-                    "publisher_tag_id": "111111l11",
-                    "publisher_id": "2"
-                },
-                {
-                    "publisher_tag_id": "111111l11",
-                    "publisher_id": "3"
-                }
-            ]
-        }
 
-+ Response 201
-    + Body
-            {
-                "count": 2,
-                "execution_time": "0.71595 seconds",
-                "publisher_tag_associations": [
-                    {
-                        "publisher_tag_association": {
-                            "publisher_tag_association_id": "111111l2",
-                            "publisher_tag_id": "111111l11",
-                            "publisher_id": "2"
-                        }
-                    },
-                    {
-                        "publisher_tag_association": {
-                            "publisher_tag_association_id": "111111l3",
-                            "publisher_tag_id": "111111l11",
-                            "publisher_id": "3"
-                        }
-                    }
-                ],
-                "errors": []
-            }
-+ Response 207
-    + Body
-            {
-                "count": 1,
-                "execution_time": "0.71595 seconds",
-                "publisher_tag_associations": [
-                    {
-                        "publisher_tag_association": {
-                            "publisher_tag_association_id": "111111l2",
-                            "publisher_tag_id": "111111l11",
-                            "publisher_id": "2"
-                        }
-                    }
-                ],
-                "errors": [
-                    {
-                        "data": {
-                            "publisher_tag_id": "111111l11",
-                            "publisher_id": "3"
-                        },
-                        "error": {
-                            "type": "validation fail",
-                            "message": "Publisher '3' is already associated with tag '111111l11'"
-                        }
-                    }
-                ]
-            }
-+ Response 400
-    + Body
-            {
-                "count": 0,
-                "execution_time": "0.71595 seconds",
-                "publisher_tag_associations": [],
-                "errors": [
-                    {
-                        "data": {
-                            "publisher_tag_id": "111111l11",
-                            "publisher_id": "3"
-                        },
-                        "error": {
-                            "type": "validation fail",
-                            "message": "Publisher '3' is already associated with tag '111111l11'"
-                        }
-                    },
-                    {
-                        "data": {
-                            "publisher_tag_id": "111111l11",
-                            "publisher_id": "2"
-                        },
-                        "error": {
-                            "type": "validation fail",
-                            "message": "Publisher '2' is already associated with tag '111111l11'"
-                        }
-                    }
-                ]
-            }
++ Parameters
+    + campaign_id (string, required) - the id of the campaign which the publisher tags are saved against
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + publisher_tag_associations (array[Publisher Tag Association Create])
+
++ Response 201 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of successfully created publisher tag associations
+        + execution_time: `0.23640 seconds`
+        + publisher_tag_associations (array[Publisher Tag Association]) - Created publisher tag associations list
+        + errors (array[])
+
++ Response 207 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of successfully created publisher tag associations
+        + execution_time: `0.23640 seconds`
+        + publisher_tag_associations (array[Publisher Tag Association]) - Created publisher tag associations list
+        + errors (array[Publisher Tag Association Create Error]) - Error list if something went wrong
+
 ### Delete Publisher Tag Association [DELETE]
-Delete an association object
+Delete an association between a publisher and an existing tag.
+
 + Validation rules
-    + The publisher_tag_association_id in the request must exist on this campaign
+    + The publisher_tag_association_id in the request must exist on the specified campaign
+
 + Parameters
-    + campaign_id (required, string) ... the id of the campaign which the publisher tags are saved against
-+ Request (application/json)
-        {
-            "publisher_tag_associations": [
-                {
-                    "publisher_tag_association_id": "111111l2"
-                },
-                {
-                    "publisher_tag_association_id": "111111l3"
-                }
-            ]
-        }
+    + campaign_id (string, required) - the id of the campaign which the publisher tags are saved against
 
-+ Response 201
-    + Body
-            {
-                "count": 2,
-                "execution_time": "0.71595 seconds",
-                "publisher_tag_associations": [
-                    {
-                        "publisher_tag_association": {
-                            "publisher_tag_association_id": "111111l2",
-                            "publisher_tag_id": "111111l11",
-                            "publisher_id": "3"
-                        },
-                        "publisher_tag_association": {
-                            "publisher_tag_association_id": "111111l3",
-                            "publisher_tag_id": "111111l11",
-                            "publisher_id": "4"
-                        }
-                    }
-                ],
-                "errors": []
-            }
-+ Response 207
-    + Body
-            {
-                "count": 1,
-                "execution_time": "0.71595 seconds",
-                "publisher_tag_associations": [
-                    {
-                        "publisher_tag_association": {
-                            "publisher_tag_association_id": "111111l2",
-                            "publisher_tag_id": "111111l11",
-                            "publisher_id": "3"
-                        }
-                    }
-                ],
-                "errors": [
-                    {
-                        "data": {
-                            "publisher_tag_association_id": "111111l3"
-                        },
-                        "error": {
-                            "type": "validation fail",
-                            "message": "Publisher tag association id '111111l3' does not exist on this campaign"
-                        }
-                    }
-                ]
-            }
-+ Response 400
-    + Body
-            {
-                "count": 0,
-                "execution_time": "0.71595 seconds",
-                "publisher_tag_associations": [],
-                "errors": [
-                    {
-                        "data": {
-                            "publisher_tag_association_id": "111111l2"
-                        },
-                        "error": {
-                            "type": "validation fail",
-                            "message": "Publisher tag association id '111111l2' does not exist on this campaign"
-                        }
-                    },
-                    {
-                        "data": {
-                            "publisher_tag_association_id": "111111l3"
-                        },
-                        "error": {
-                            "type": "validation fail",
-                            "message": "Publisher tag association id '111111l3' does not exist on this campaign"
-                        }
-                    }
-                ]
-            }
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + publisher_tag_associations (array[Publisher Tag Association Delete])
 
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of successfully deleted publisher tag associations
+        + execution_time: `0.23640 seconds`
+        + publisher_tag_associations (array[Publisher Tag Association]) - Deleted publisher tag associations list
+        + errors (array[])
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
++ Response 207 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of successfully deleted publisher tag associations
+        + execution_time: `0.23640 seconds`
+        + publisher_tag_associations (array[Publisher Tag Association]) - Deleted publisher tag associations list
+        + errors (array[Publisher Tag Association Delete Error]) - Error list if something went wrong
 
 :[](reference.apib)
 
 # Data Structures
+
+## Publisher Tag (object)
+  + publisher_tag_id: 1l1000001 - ID of the Publisher Tag
+  + name: TOP5 2016 Q1 - Name of the Publisher Tag
+
+## Publisher Tag Create (object)
+  + name: 1l1000013 - Name of the new Publisher Tag
+
+## Publisher Tag Create Error (object)
+  + data - The data which was passed through
+    + name: New
+  + error
+    + type: validation fail - The type of error thrown
+    + message: Publisher tag 'New' already exists on campaign 1. - A plain-text message to describe the error
+
+## Publisher Tag Update Error (object)
+  + data - The data which was passed through
+    + publisher_tag_id: 1l1000004
+    + name: New
+  + error
+    + type: validation fail - The type of error thrown
+    + message: Publisher tag 'New' already exists on campaign 1. - A plain-text message to describe the error
+
+## Publisher Tag Delete (object)
+  + publisher_tag_id: 1l1000001 - ID of the Publisher Tag
+
+## Publisher Tag Delete Error (object)
+  + data - The data which was passed through
+    + publisher_tag_id: 1l1000004
+  + error
+    + type: validation fail - The type of error thrown
+    + message: Publisher tag with a publisher_tag_id of 1l1000004 cannot be deleted, as it does not exist. - A plain-text message to describe the error
+
+## Publisher Tag Association (object)
+  + publisher_tag_association_id: 1l1000001 - ID of the association
+  + publisher_tag_id: 1l1000013 - ID of the publisher tag
+  + publisher_id: 1 - ID of the publisher
+
+## Publisher Tag Association Create (object)
+  + publisher_tag_id: 1l1000013 - ID of the publisher tag
+  + publisher_id: 1 - ID of the publisher
+
+## Publisher Tag Association Create Error (object)
+  + data - The data which was passed through
+    + publisher_tag_id: 1l1000004
+    + publisher_id: 3
+  + error
+    + type: validation fail - The type of error thrown
+    + message: Publisher 3 is already associated with tag 1l1000004.. - A plain-text message to describe the error
+
+## Publisher Tag Association Delete (object)
+  + publisher_tag_association_id: 1l1000001 - ID of the association
+
+## Publisher Tag Association Delete Error (object)
+  + data - The data which was passed through
+    + publisher_tag_association_id: 1l1000008
+  + error
+    + type: validation fail - The type of error thrown
+    + message: Publisher tag association id 1l1000008 does not exist on this campaign. - A plain-text message to describe the error
 
 ## User Base (object)
 + user_name: demomaster (required) - Unique user account name
