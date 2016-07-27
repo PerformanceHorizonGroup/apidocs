@@ -1622,7 +1622,7 @@ Publisher tags allows you to categorize your publishers by assigning tags to gro
 Get all publisher tags on the specified campaign.
 
 + Parameters
-    + campaign_id: (string, required) - The id of the campaign which the publisher tags are saved against
+    + campaign_id: 12 (string, required) - The id of the campaign which the publisher tags are saved against
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (object)
@@ -1640,7 +1640,7 @@ Create publisher tags on the specified campaign.
     + Publisher tag names must not be numeric. You can add numbers as part of a text string but not on their own.
 
 + Parameters
-    + campaign_id: (string, required) - The id of the campaign which the publisher tags are saved against
+    + campaign_id: 12 (string, required) - The id of the campaign which the publisher tags are saved against
 
 + Request (application/json; charset=utf-8)
     + Attributes
@@ -1669,7 +1669,7 @@ Change publisher tag names on the specified campaign.
     + Publisher tag names must not be numeric. You can add numbers as part of a text string but not on their own.
 
 + Parameters
-    + campaign_id: (string, required) - The id of the campaign which the publisher tags are saved against
+    + campaign_id: 12 (string, required) - The id of the campaign which the publisher tags are saved against
 
 + Request (application/json; charset=utf-8)
     + Attributes
@@ -1693,7 +1693,7 @@ Change publisher tag names on the specified campaign.
 Delete publisher tags on the specified campaign.
 
 + Parameters
-    + campaign_id (string, required) - The id of the campaign which the publisher tags are saved against
+    + campaign_id: 12 (string, required) - The id of the campaign which the publisher tags are saved against
 
 + Request (application/json; charset=utf-8)
     + Attributes
@@ -1719,7 +1719,7 @@ Delete publisher tags on the specified campaign.
 Get a list of publisher tag associations to see which tags are assigned to publishers.
 
 + Parameters
-    + campaign_id (string, required) - the id of the campaign which the publisher tags are saved against
+    + campaign_id: 12 (string, required) - the id of the campaign which the publisher tags are saved against
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -1737,7 +1737,7 @@ Create an association between a publisher and an existing tag.
     + The association between the publisher_id and publisher_tag_id must not already exist
 
 + Parameters
-    + campaign_id (string, required) - the id of the campaign which the publisher tags are saved against
+    + campaign_id: 12 (string, required) - the id of the campaign which the publisher tags are saved against
 
 + Request (application/json; charset=utf-8)
     + Attributes
@@ -1764,7 +1764,7 @@ Delete an association between a publisher and an existing tag.
     + The publisher_tag_association_id in the request must exist on the specified campaign
 
 + Parameters
-    + campaign_id (string, required) - the id of the campaign which the publisher tags are saved against
+    + campaign_id: 12 (string, required) - the id of the campaign which the publisher tags are saved against
 
 + Request (application/json; charset=utf-8)
     + Attributes
@@ -1835,7 +1835,7 @@ Delete an association between a publisher and an existing tag.
     + publisher_id: 3
   + error
     + type: validation fail - The type of error thrown
-    + message: Publisher 3 is already associated with tag 1l1000004.. - A plain-text message to describe the error
+    + message: Publisher 3 is already associated with tag 1l1000004. - A plain-text message to describe the error
 
 ## Publisher Tag Association Delete (object)
   + publisher_tag_association_id: 1l1000001 - ID of the association
