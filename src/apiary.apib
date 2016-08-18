@@ -1548,17 +1548,15 @@ level `conversions` array.
 
 Alerts are used across platform to notify users about events that are triggered in it. Notifications are sent to users that have subscribed to an alert using a selected channel.
 
-## Alert [/alerts/alert]
+## Alert Group [/alerts/group]
 + Attributes
-    + alert_alert_id: 23 - ID of the alert
-    + code: Example -  Code used internally for reference
-    + name: Example alert - Display name of an Alert
+    + alert_alert_group_id: 23 - ID of the alert grup
     + description: This alert will notify you about particular event (nullable, string) -  Fired when new campaign is created
 
 ### Get All Available Alerts [GET]
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + alerts (array[Alert Wrapper])
+        + alerts (array[Alert Group Wrapper])
 
 # Notifier [/alerts/notifier]
 + Attributes
@@ -1598,7 +1596,7 @@ Update user notifier settings
 ## Notification [/alerts/notification]
 + Attributes
     + alert_notification_id: 11l16829 - ID of the notification
-    + alert_alert_id: 70 - ID of Alert
+    + alert_alert_group_id: 70 - ID of Alert
     + alert_notifier_id: 4 - ID of Notifier
 
 ### Retrieve Notifications [GET]
@@ -1636,7 +1634,7 @@ Messages are created by Notification Center Notifier for WebApp Notifications
 + Request (application/json)
     + Attributes
         + status (array, enum, nullable) - Filter messages by statuses
-            + new - Newly created message
+            + unread - Newly created message
             + read - Message has been read
             + dismissed - Message has been dismissed
         + limit: 5 (number, nullable) - Used for pagination
@@ -1650,7 +1648,7 @@ Messages are created by Notification Center Notifier for WebApp Notifications
                 + user_id: 1111111l3 (string) - Recipient
                 + content: New campaign has been created (string) - Message to end-user
                 + status: read (enum) - Status
-                    + new - Newly created message
+                    + unread - Newly created message
                     + read - Message has been read
                     + dismissed - Message has been dismissed
                 + created_at (string) - When it took place
@@ -1663,7 +1661,7 @@ Messages are created by Notification Center Notifier for WebApp Notifications
             + 1111111l1 (string)
             + 1111111l55 (string)
         + status (enum) - Message status
-            + new - Newly created message
+            + unread - Newly created message
             + read - Message has been read
             + dismissed - Message has been dismissed
 
@@ -2057,14 +2055,13 @@ Messages are created by Notification Center Notifier for WebApp Notifications
 ## Campaign Group Account Wrapper (object)
 + campaign_group (Campaign Group)
     + permissions (Permissions)
-
 ## Alert Base (object)
 + code: Example -  Code used internally for reference
 + name: Example alert - Display name of an Alert
 + description: This alert is triggered when a particular event happend (nullable, string) -  Fired when new campaign is created
 
-## Alert Wrapper (object)
-+ alert (Alert)
+## Alert Group Wrapper (object)
++ alert_group (Alert Group)
 
 ## Notifier Base (object)
 + name: Email (string) - Name of the notifier
@@ -2073,7 +2070,7 @@ Messages are created by Notification Center Notifier for WebApp Notifications
 + notifier (Notifier)
 
 ## Notification Base (object)
-+ alert_alert_id: 34 (required)
++ alert_alert_group_id: 34 (required)
 + alert_notifier_id: 98 (required)
 
 ## Notification Wrapper (object)
