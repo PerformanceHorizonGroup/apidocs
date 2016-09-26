@@ -1633,25 +1633,18 @@ Messages are created by Notification Center Notifier for WebApp Notifications
 
 + Request (application/json)
     + Attributes
-        + status (array, enum, nullable) - Filter messages by statuses
-            + unread - Newly created message
-            + read - Message has been read
-            + dismissed - Message has been dismissed
+        + status (array[Alert Message Status], Alert Message Status, nullable) - Filter messages by statuses
         + limit: 5 (number, nullable) - Used for pagination
         + offset: 0 (number, nullable) - Limit for pagination
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + messages (array)
-            + Attributes
-                + message_id: 111111l1 (string) - Internal Message ID
-                + user_id: 1111111l3 (string) - Recipient
-                + content: New campaign has been created (string) - Message to end-user
-                + status: read (enum) - Status
-                    + unread - Newly created message
-                    + read - Message has been read
-                    + dismissed - Message has been dismissed
-                + created_at (string) - When it took place
+            + message_id: 111111l1 (string) - Internal Message ID
+            + user_id: 1111111l3 (string) - Recipient
+            + content: New campaign has been created (string) - Message to end-user
+            + status: read (Alert Message Status) - Status
+            + created_at (string) - When it took place
 
 ## Mark Messages with status [POST]
 
@@ -1660,10 +1653,35 @@ Messages are created by Notification Center Notifier for WebApp Notifications
         + message_id (array) - Message IDs to be marked as read
             + 1111111l1 (string)
             + 1111111l55 (string)
-        + status (enum) - Message status
-            + unread - Newly created message
-            + read - Message has been read
-            + dismissed - Message has been dismissed
+        + status (Alert Message Status) - Message status
+
++ Response 200 (application/json; charset=utf-8)
+
+## Get Simple Messages For Feed [GET /alerts/messages_for_feed]
+
+Fetches ungrouped messages for current user in feed format
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + limit: 10 (number, nullable) - Number of messages to fetch
+        + status (Alert Message Status, nullable) - Message status
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + messages (array[Alert Simple Feed Message])
+
+
+## Get Grouped Messages For Feed [GET /alerts/grouped_messages_for_feed]
+
+Fetches grouped messages for current user in feed format
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + limit: 10 (number, nullable) - Number of messages to fetch
+        + status (Alert Message Status, nullable) - Message status
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + messages (array[Alert Grouped Feed Message])
+
 
 # Data Structures
 
@@ -2086,3 +2104,27 @@ Messages are created by Notification Center Notifier for WebApp Notifications
     + slack_channel
     + email_address
 + field_value: techies@performancehorizon.com (string) - Field value
+
+## Alert Message Status (enum)
++ unread - Newly created message
++ read - Message has been read
++ dismissed - Message has been dismissed
++ to_be_actioned - Messages action have to be triggered to mark this message as read
+
+## Alert Simple Feed Message (object)
++ content: `Publisher Leadsbox has just created 1 TQ(s)` (string) - Message content
++ created_at: `2016-09-26 11:34:08` (string) - Message timestamp
++ link: `http://phgma.dev/v2/url/111111l8` (string) - Action url
++ message_id: `111111l8` (string) - Identifier of message
++ status (Alert Message Status) - Message status
+
+## Alert Grouped Feed Message (object)
++ content: `Publisher Leadsbox has just created 1 TQ(s)` (string) - Content when display as single message 
++ created_at: `2016-09-26 11:34:08` (string) - Latest message timestamp
++ group_content: `:count TQs have been submitted for your review` (string) - Content when display as group 
++ group_link: `http://phgma.dev/v2/url/111111l8` (string) - Action url when display as single message
++ grouping_key: `5campaign300659` (string) - Key to group messages
++ link: `http://phgma.dev/v2/url/111111l8` (string) - Action url when display as single message 
++ message_ids: `111111l8` (array[string]) - Identifiers of messages in group
++ status (Alert Message Status) - Message status
+
