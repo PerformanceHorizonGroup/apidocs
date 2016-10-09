@@ -961,6 +961,24 @@ View all Campaigns that the Publisher is associated with, along with the status 
     + Attributes
         + campaigns (array[Publisher Campaign Tracking Wrapper])
 
+# Group Consolidation Item
+
+Before an Advertiser can generate Invoices they must be able to see the currenty approved sales totals that are currently available for invoicing
+
+## Consolidation Items [/user/advertiser/{advertiser_id}/campaign/{campaign_id}/consolidation_item]
+
+ + Parameters
+    + advertiser_id: 10l110 - Id of the advertiser
+    + campaign_id: 10l176 - Id of the campaign
+
+### List all invoiceable currencies [GET]
+
+List all of the available, invoiceable, currencies for the given campaign
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + consolidation_items (array[Consolidation Item Wrapper])
+
 # Group Invoice
 
 So that Publishers can receive payment for all approved conversion events they have generated across an Advertiser's
@@ -1938,6 +1956,14 @@ level `conversions` array.
         + creative_id: 300441 - ID of the creative
         + creative_item_id: 300396 - ID of the creative item
 
+## Consolidation Item (object)
++ commission: 406.593 (number)
++ currency: GBP
++ gp: 40.293 (number)
++ no_items: 1 (number)
++ publisher_commission: 366.3 (number)
++ value: 666 (number)
+
 :[](common.apib)
 
 ## User Wrapper (object)
@@ -2051,3 +2077,6 @@ level `conversions` array.
 
 ## Website Types Wrapper (object)
 + website_type (Website Type)
+
+## Consolidation Item Wrapper (object)
++ consolidation_item (Consolidation Item)
