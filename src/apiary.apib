@@ -1784,6 +1784,29 @@ Delete an association between a publisher and an existing tag.
         + publisher_tag_associations (array[Publisher Tag Association]) - Deleted publisher tag associations list
         + errors (array[Publisher Tag Association Delete Error]) - Error list if something went wrong
 
+## Publisher Tag Search [/campaign/{campaign_id}/publisher_tag_search]
+
+### Search Publishers [GET]
+Get all publishers tagged with the specified tags.
+
++ Parameters
+    + campaign_id: 12 (string, required) - The id of the campaign which tags belong.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + tag_id (array[], required)
+            + 10 (string) - Tag Id
+            + 12 (string) - Tag Id
+        + method: or (string) - Search method, allowed values are 'and' | 'or'. Default is 'or'.
+        + offset: 75 (number) - Record offset from start of full results
+        + limit: 25 (number) - Number of records to return
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (object)
+      + count: 1 (number) - Number of publishers recovered
+      + execution_time: `0.23640 seconds`
+      + publishers (array[Publisher Search Result]) - Search result
+
 :[](reference.apib)
 
 # Data Structures
@@ -1846,6 +1869,9 @@ Delete an association between a publisher and an existing tag.
   + error
     + type: validation fail - The type of error thrown
     + message: Publisher tag association id 1l1000008 does not exist on this campaign. - A plain-text message to describe the error
+
+## Publisher Search Result (object)
+  + publisher_id: 1l1000001 - Publisher id
 
 ## User Base (object)
 + user_name: demomaster (required) - Unique user account name
