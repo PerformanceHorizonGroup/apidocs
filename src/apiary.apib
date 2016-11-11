@@ -877,6 +877,27 @@ must explicitly agree to these if they are to be fully approved on the Campaign.
 
 View all Publishers Participating on the Campaign.
 
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + offset: 75 (number) - Record offset from start of full results
+        + limit: 25 (number) - Number of records to return
+        + show_user_address: true (string) - Show the user address in the results. Any value (even false) set this value to true
+        + operating_country: UK (string) - Filter results by operating country
+        + company_name: Performance Horizon (string) - Filter results by company name
+        + created_start: `2010-07-01` (string) - Filter results by creation date greater than the provided value
+        + created_end: `2010-08-01` (string) - Filter results by creation date lower than the provided value
+        + account_name: myaccount (string) - Filter results by account name
+        + campaign_status: a (string) - Filter results by campaign status. Allowed values are p (pending), r (rejected), f (failed), a (approved), m (mixed), t (acceptance)
+        + contact_email: contact@email.com (string) - Filter results by contact email
+        + contact_locale: en (string) - Filter results by contact locale
+        + contact_name: mycontactname (string) - Filter results by contact name
+        + reporting_identifier: 1942 (string) - Filter results by reporting identifier
+        + tracking_link: `http://prf.local/click/camref:a` (string) - Filter results by tracking link
+        + tag_search_method: or (string) - Search method for tags. Allowed values are 'and' | 'or'. Default is 'or'.
+        + tag_id (array[], required) - Filter results by tags
+            + 10 (string) - Tag Id
+            + 12 (string) - Tag Id
+
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + publishers (array[Participating Publisher Wrapper])
