@@ -1,18 +1,18 @@
 # Group Report Views
 
-## Report Views [/reporting/views]
+## Report Views [/report/views/{report_view_id}]
 
 ### List all report views [GET]
 
-## Report View [/reporting/view/{report_view_id}]
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + (array)
+            + report_view (Report View)
 
 ### Get a report view [GET]
 
 + Parameters
     + report_view_id: 38 (string, required) - Id of the report view
-
-+ Request (application/json; charset=utf-8)
-    + Attributes
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -22,6 +22,9 @@
 
 + Request (application/json; charset=utf-8)
     + Attributes
+        + name: `My lovely report view` (string, required)
+        + default: false (boolean, optional)
+        + view_settings: (string, required) - Must be a valid JSON string
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -34,6 +37,9 @@
 
 + Request (application/json; charset=utf-8)
     + Attributes
+        + name: `My new name` (string, optional)
+        + default: false (boolean, optional)
+        + view_settings: (string, required) - Must be a valid JSON string
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -43,9 +49,6 @@
 
 + Parameters
     + report_view_id: 38 (string, required) - Id of the report view
-
-+ Request (application/json; charset=utf-8)
-    + Attributes
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
