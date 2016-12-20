@@ -1591,6 +1591,7 @@ Update user notifier settings
         + settings (array[Alert User Extra Field Value])
 
 + Response 200 (application/json; charset=utf-8)
+    + Attributes (array[Alert Setting Response Entry])
 + Response 400 (application/json; charset=utf-8)
 
 ## Notification [/alerts/notification]
@@ -1619,9 +1620,10 @@ Delete one or more user notification
 
 Notification consists of combination of alert/user/notifier and settings that are specific to the notifier itself.
 + Request (application/json; charset=utf-8)
-    + Attributes (Notification Base)
+    + Attributes (Notification Base With Extra Fields)
 
 + Response 200 (application/json; charset=utf-8)
+    + Attributes (Notification Base)
 
 + Response 400 (application/json; charset=utf-8)
 
@@ -1655,7 +1657,7 @@ Messages are created by Notification Center Notifier for WebApp Notifications
             + 1111111l55 (string)
         + status (Alert Message Status) - Message status
 
-+ Response 200 (application/json; charset=utf-8)
++ Response 200 (text/html; charset=utf-8)
 
 ## Get Simple Messages For Feed [GET /alerts/messages_for_feed]
 
@@ -2088,8 +2090,15 @@ Fetches grouped messages for current user in feed format
 + notifier (Notifier)
 
 ## Notification Base (object)
-+ alert_alert_group_id: 34 (required)
-+ alert_notifier_id: 98 (required)
++ user_id: 3,
++ alert_alert_id: 1,
++ alert_alert_group_id: 1,
++ alert_notifier_id: 1,
++ extra_fields (array)
+    + alert_notifier_extra_field_id: 2,
+    + field_value: +48790251519
+
+## Notification Base With Extra Fields (Notification Base)
 
 ## Notification Wrapper (object)
 + notification (Notification)
@@ -2099,11 +2108,17 @@ Fetches grouped messages for current user in feed format
 
 ## Alert User Extra Field Value (object)
 + field_name (enum)
-    + phone
     + slack_apikey
     + slack_channel
     + email_address
-+ field_value: techies@performancehorizon.com (string) - Field value
+    + mobile_token
++ field_value: +48123456789 (string) - Field value
+
+## Alert Setting Response Entry
++ alert_user_extra_field_id: 1 (string, required) - Alert user extra field id
++ field_name: slack channel (string, required) - Field name
++ alert_user_extra_info_id: 1 (string, required) - Alert user extra info id
++ field_value: "#general" (string, required) Field value
 
 ## Alert Message Status (enum)
 + unread - Newly created message
