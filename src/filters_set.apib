@@ -1,0 +1,55 @@
+# Group Filters Set
+
+## Report Filters Set [/report/filters_set/{filters_set_id}]
+
+### List all filters sets [GET]
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + (object)
+            + filters_set (Filters Set)
+
+### Get a filters set [GET]
+
++ Parameters
+    + filters_set_id: 38 (string, required) - Id of the filters set
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + filters_set (Filters Set)
+
+### Create a filters set [POST]
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + name: `My lovely filters set` (string, required)
+        + default: false (boolean, optional)
+        + set_data: (string, required) - Must be a valid JSON string
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + filters_set (Filters Set)
+
+### Update a filters set [PUT]
+
++ Parameters
+    + filters_set_id: 38 (string, required) - Id of the filters set
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + name: `My new name` (string, optional)
+        + default: false (boolean, optional)
+        + set_data: (string, required) - Must be a valid JSON string
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + filters_set (Filters Set)
+
+### Delete a filters set [DELETE]
+
++ Parameters
+    + filters_set_id: 38 (string, required) - Id of the filters set
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + filters_set (Filters Set)
