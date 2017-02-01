@@ -1,0 +1,61 @@
+# Group Publisher Database
+
+The Database endpoint gathers information about a Publisher's client base. It is mostly relevant to lead generation Publishers.
+
+## Publisher Databases [/user/publisher/{publisher_id}/database]
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+
+### List all Publisher Databases [GET]
+
+Return the details of all Databases attached to the Publisher account.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + databases (array[Publisher Database Wrapper])
+
+### Create Publisher Database [POST]
+
+Create one or more Databases against the Publisher entity. Each Database is sent as an array within a top level `databases`
+array.
+
++ Request Single (application/json; charset=utf-8)
+    + Attributes (Publisher Database Base)
+
++ Request Multiple (application/json; charset=utf-8)
+    + Attributes
+        + databases (array[Publisher Database Base])
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + databases (array[Publisher Database Wrapper])
+
+### Update Publisher Databases [PUT]
+
+Update one or more Databases against the Publisher entity. Each Database is sent as an array within a top level `databases`
+array and must contain its associated `database_id`.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + databases (array)
+            + (object)
+                + database_id: 111111l300347 - ID of the publisher database
+                + Include Publisher Database Base
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + databases (array[Publisher Database Wrapper])
+
+## Publisher Database [/user/publisher/{publisher_id}/database/{database_id}]
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+    + database_id: 111111l300347 - ID of the publisher database
+
+### Retrieve a Publisher Database [GET]
+
+Outputs the specified Publisher Database.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Publisher Database Wrapper)

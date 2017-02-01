@@ -1,0 +1,61 @@
+# Group Publisher Website
+
+The Website endpoint gathers information about a Publisher's Web properties, and its related information.
+
+## Publisher Websites [/user/publisher/{publisher_id}/website]
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+
+### List all Publisher Websites [GET]
+
+Return the details of all Websites attached to the Publisher account.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + websites (array[Publisher Website Wrapper])
+
+### Create Publisher Website [POST]
+
+Create one or more Websites against the Publisher entity. Each Website is sent as an array within a top level `websites`
+array.
+
++ Request Single (application/json; charset=utf-8)
+    + Attributes (Publisher Website Base)
+
++ Request Multiple (application/json; charset=utf-8)
+    + Attributes
+        + websites (array[Publisher Website Base])
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + websites (array[Publisher Website Wrapper])
+
+### Update Publisher Websites [PUT]
+
+Update one or more Websites against the Publisher entity. Each Website is sent as an array within a top level
+`websites` array and must contain its associated `website_id`.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + websites (array)
+            + (object)
+                + website_id: 11l18694 - ID of the publisher website
+                + Include Publisher Website Base
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + websites (array[Publisher Website Wrapper])
+
+## Publisher Website [/user/publisher/{publisher_id}/website/{website_id}]
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+    + website_id: 11l18694 - ID of the publisher website
+
+### Retrieve a Publisher Website [GET]
+
+Outputs the specified publisher website.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Publisher Website Wrapper)
