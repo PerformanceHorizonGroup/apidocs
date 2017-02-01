@@ -1,0 +1,42 @@
+# Group Campaign Bonus
+
+The bonus endpoint allows the Campaign owner to allocate a one off bonus Conversion to a Publisher.
+
+## Create a Bonus Conversion [POST /user/advertiser/{advertiser_id}/campaign/{campaign_id}/bonus_conversion]
+
+Create one or more Bonus Conversions against the Campaign entity. Each Bonus is sent as an array within a top
+level `conversions` array.
+
++ Parameters
+    + advertiser_id: 10l110 - ID of the advertiser
+    + campaign_id: 10l176 - ID of the campaign
+
++ Attributes
+    + conversions (array)
+        + (object)
+            + publisher_id: 1l1007802 (required) - ID of the publisher
+            + commission: 100.99 (number, required)
+            + value (number, optional, nullable)
+            + override (number)
+            + currency (Currency)
+            + country (Country, optional)
+            + dispute_id (string, optional, nullable)
+            + conversion_time: `2015-03-28 11:08:52` (string, optional, nullable)
+            + conversionref (string, optional, nullable)
+            + adref (string, optional, nullable)
+            + pubref (string, optional, nullable)
+            + approve (YesOrNo)
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + conversions (array)
+            + (object)
+                + publisher_id: 1l1007802 (required) - ID of the publisher
+                + commission: 100.99 (number, required)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + conversions (array)
+            + (object)
+                + conversion (Conversion)
+                    + conversion_type: 3 (number)

@@ -1,0 +1,59 @@
+# Group Publisher Creative
+
+A Publisher may wish to use pre-generated Creative when promoting an Advertiser.
+
+## List all Creatives on each participating Campaign [GET /user/publisher/{publisher_id}/creative]
+
+View a summary of all Creatives available on each participating Campaign.
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + campaign_creatives (array)
+            + (object)
+                + campaign_creative
+                    + campaign_id: 10l176 - ID of the campaign
+                    + creatives
+                        + Banner: 1 (number)
+                        + HTML: 1 (number)
+                        + Email: 1 (number)
+                        + Text Link: 1 (number)
+                        + Feed: 1 (number)
+                        + HTML Form: 1 (number)
+
+## List all Creatives on a Campaign [GET /user/publisher/{publisher_id}/campaign/{campaign_id}/creative]
+
+View all Creative for the specified Campaign.
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+    + campaign_id: 10l176 - ID of the campaign
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + creatives (array[Creative Wrapper])
+
+## List all Available Feeds [GET /user/publisher/{publisher_id}/feed{?campaign_id,active}]
+
+View all Feeds for the specified Publisher.
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+    + campaign_id: `10l176` (optional) - ID of the campaign to restrict output to
+    + active: y (enum[string], optional)
+        + y
+        + n
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number)
+        + execution_time: `0.53595 seconds`
+        + campaigns (array)
+            + (object)
+                + campaign
+                    + title: `SportsBetting` - The name of the campaign
+                    + campaign_id: `10l176`
+                    + feeds (array)
+                        + feed (Publisher Feed Base)

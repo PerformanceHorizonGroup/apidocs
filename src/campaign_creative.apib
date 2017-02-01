@@ -1,0 +1,46 @@
+# Group Campaign Creative
+
+An Advertiser may wish to offer pre-generated Creative so that the Publishers can advertise their brand easily.
+It is possible to categorise Creative with tags and there are 3 distinct Creative formats: Image, HTML and Text.
+
+## Campaign Creative [/campaign/{campaign_id}/creative]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+
+### List all Creatives for Campaign [GET]
+
+View all Creative for the specified Campaign.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + creatives (array[Creative Wrapper])
+
+### Create Campaign Creatives [POST]
+
+Create one or more Creatives against the Campaign entity. Each Creative is sent as an array within a top level
+`creatives` array.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + creatives (array[Creative Base])
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + creatives (array[Creative Wrapper])
+
+### Update Campaign Creatives [PUT]
+
+Update one or more Creatives against the Campaign entity. Each Creative is sent as an array within a top level
+`creatives` array and must contain its associated `creative_id`.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + creatives (array)
+            + (object)
+                + creative_id: 300441 - ID of the creative
+                + Include Creative Base
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + creatives (array[Creative Wrapper])
