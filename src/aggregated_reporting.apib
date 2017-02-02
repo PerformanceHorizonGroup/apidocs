@@ -5,13 +5,13 @@ when most use cases demand an aggregation of data across a defined time period. 
 aggregation endpoint will instantly total all headline stats for a given pivot to offer near instant summation of the
 data. These endpoints support the `.csv` format.
 
-## Aggregate Advertiser [GET /reporting/report_advertiser/campaign/{campaign_id}/overview/{pivot}{?start_date,end_date}]
+## Aggregate Advertiser [GET /reporting/report_advertiser/campaign/{campaign_id}/overview/{pivot}/range/{sort}{?start_date,end_date}]
 
 Return the aggregation stats for the requested `pivot` within the requested time period.
 
 + Parameters
     + campaign_id: 10l176 - ID of the campaign
-    + pivot: country (enum[string])
+    + pivot: country (enum[string]) - The chosen entity to aggregate on
         + primary - All Publishers
         + adref - All advertiser references referenced through tracking
         + product - All tracked item categories
@@ -21,13 +21,23 @@ Return the aggregation stats for the requested `pivot` within the requested time
         + agent - The type of device used
         + custref - Optional customer identifiers referenced in tracking
         + self - Totals for the Campaign
+    + sort: conversion - How to rank the entities (in descending order)
+        + click - The number of clicks
+        + conversion - The number of conversions
+        + commission - The amount of commission
+        + ordervalue - The amount of order value (revenue)
     + start_date: `2016-02-30T05:15:32Z` (required)
     + end_date: `2016-03-10T19:02:35Z` (required)
+    + multipivot: `multipivot[country][]=US&multipivot[country][]=JP&multipivot[product][]=Flights` (array, optional) - A GET array which allows you to apply multiple filters to a chosen pivot, the provided example filters the output entities by those that occur in the United States and Japan and have a product category of Flights
+    + convert_currency: USD (optional) - Whether to add an additional currency node to the output, totalling all tracked currencies into the specified conversion currency
+    + short: y (enum[string], optional) - If used in conjunction with `convert_currency` this will only show the currency conversion node
+        + y - Only show converted currency node
+        + n - Show all currency nodes including converted node
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Aggregated Report)
 
-## Aggregate Publisher [GET /reporting/report_publisher/publisher/{publisher_id}/overview/{pivot}{?start_date,end_date}]
+## Aggregate Publisher [GET /reporting/report_publisher/publisher/{publisher_id}/overview/{pivot}/range/{sort}{?start_date,end_date}]
 
 Return the aggregation stats for the requested `pivot` within the requested time period.
 
@@ -45,6 +55,11 @@ Return the aggregation stats for the requested `pivot` within the requested time
         + self - Totals for the Campaign
     + start_date: `2016-02-30T05:15:32Z` (required)
     + end_date: `2016-03-10T19:02:35Z` (required)
+    + multipivot: `multipivot[country][]=US&multipivot[country][]=JP&multipivot[product][]=Flights` (array, optional) - A GET array which allows you to apply multiple filters to a chosen pivot, the provided example filters the output entities by those that occur in the United States and Japan and have a product category of Flights
+    + convert_currency: USD (optional) - Whether to add an additional currency node to the output, totalling all tracked currencies into the specified conversion currency
+    + short: y (enum[string], optional) - If used in conjunction with `convert_currency` this will only show the currency conversion node
+        + y - Only show converted currency node
+        + n - Show all currency nodes including converted node
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Aggregated Report)
