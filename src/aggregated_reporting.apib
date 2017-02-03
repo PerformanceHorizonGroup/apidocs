@@ -5,7 +5,9 @@ when most use cases demand an aggregation of data across a defined time period. 
 aggregation endpoint will instantly total all headline stats for a given pivot to offer near instant summation of the
 data. These endpoints support the `.csv` format.
 
-## Aggregate Advertiser [GET /reporting/report_advertiser/campaign/{campaign_id}/overview/{pivot}/range/{sort}{?start_date,end_date}]
+## Aggregate Advertiser [/reporting/report_advertiser/campaign/{campaign_id}/overview/{pivot}/range/{sort}{?start_date,end_date}]
+
+### Aggregate Advertiser Overview [GET]
 
 Return the aggregation stats for the requested `pivot` within the requested time period.
 
@@ -35,9 +37,11 @@ Return the aggregation stats for the requested `pivot` within the requested time
         + n - Show all currency nodes including converted node
 
 + Response 200 (application/json; charset=utf-8)
-    + Attributes (Aggregated Report)
+    + Attributes (Advertiser Overview Country Wrapper)
 
-## Aggregate Publisher [GET /reporting/report_publisher/publisher/{publisher_id}/overview/{pivot}/range/{sort}{?start_date,end_date}]
+## Aggregate Publisher [/reporting/report_publisher/publisher/{publisher_id}/overview/{pivot}/range/{sort}{?start_date,end_date}]
+
+### Aggregate Publisher Overview [GET]
 
 Return the aggregation stats for the requested `pivot` within the requested time period.
 
@@ -62,4 +66,4 @@ Return the aggregation stats for the requested `pivot` within the requested time
         + n - Show all currency nodes including converted node
 
 + Response 200 (application/json; charset=utf-8)
-    + Attributes (Aggregated Report)
+    + Attributes (Publisher Overview Country Wrapper)
