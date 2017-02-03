@@ -1,0 +1,196 @@
+## Click (object)
++ click_id: 111111l100057
++ cookie_id: 111111l38040
++ campaign_id: 10l176 - ID of the campaign
++ publisher_id: 1l1007802 - ID of the publisher
++ publisher_name: Demo
++ type (enum)
+    + standard
+    + batch
+    + cpc
++ status (enum)
+    + fresh
+    + stale
+    + used
+    + nibbled
++ set_time: `2015-03-28 11:08:52`
++ set_ip: 127.0.0.1
++ last_used: `2015-03-28 11:08:52`
++ last_ip: 127.0.0.1
++ referer
++ country (Country)
++ creative_id: 0 (number)
++ creative_type: 0 (number)
++ specific_creative_id: 0 (number)
++ ref_device_id: 1 (number)
++ ref_traffic_source_id: 1 (number)
+
+## Conversion (object)
++ conversion_id: 111111l726240
++ cookie_id: 111111l38040
++ campaign_id: 10l176 - ID of the campaign
++ publisher_id: 1l1007802 - ID of the publisher
++ publisher_name: Demo
++ campaign_title: Demo Campaign
++ click (Click)
++ conversion_time: `2016-04-10 13:08:15`,
++ last_modified: `2016-04-10 13:08:16`
++ currency (Currency)
++ currency_original (Currency)
++ currency_conversion_rate
++ customer_type
++ conversion_type: 1 (number)
++ conversion_reference: `AUTO-570a968f38b55`,
++ advertiser_reference
++ customer_reference
++ source_referer
++ referer_ip: 127.0.0.1
++ user_agent: Mozilla
++ country (Country)
++ creative_id: 0 (number)
++ creative_type: 0 (number)
++ specific_creative_id: 0 (number)
++ ref_device_id: 1 (number)
++ ref_traffic_source_id: 1 (number)
++ ref_partnership_model_id: 2 (number)
++ ref_conversion_metric_id: 2 (number)
++ ref_user_context_id: 3 (number)
++ was_disputed: false (boolean)
++ conversion_lag: 33 (number)
++ conversion_items (array[Conversion Item])
++ conversion_value
+    + conversion_value_id: 111111l726195
+    + conversion_status (Conversion Status)
+    + value: 915.26 (number)
+    + commission: 2013.572 (number)
+    + publisher_commission: 1830.52 (number)
+
+## Conversion Item (object)
++ conversion_item_id: 111111l1107235 - ID of the conversion item
++ sku: 855779
++ category: Promotion
++ item_value: 915.26 (number)
++ item_commission: 2013.572 (number)
++ item_publisher_commission: 1830.52 (number)
++ item_status (Conversion Status)
++ invoice_id
++ last_update: `2016-04-10 13:08:16`
++ item_status_id: 1 (number)
++ reject_reason
++ voucher_codes (array)
+
+## Advertiser Click Wrapper (object)
++ unique_click_count: 28 (number)
++ start_date_time: `2016-02-30 05:15:32`
++ end_date_time: `2016-03-10 19:02:35`
++ clicks (array)
+    + (object)
+        + click (Click)
+            + advertiser_reference
+
+## Publisher Click Wrapper (object)
++ unique_click_count: 28 (number)
++ start_date_time: `2016-02-30 05:15:32`
++ end_date_time: `2016-03-10 19:02:35`
++ clicks (array)
+    + (object)
+        + click (Click)
+            + publisher_reference
+
+## Advertiser Conversion Wrapper (object)
++ total_conversion_count (object)
+    + GBP: 97 (number)
++ total_commission_value (object)
+    + GBP: 39417.7684 (number)
++ total_publisher_commission (object)
+    + GBP: 35804.7927 (number)
++ total_value (object)
+    + GBP: 186166.28 (number)
++ conversions (array)
+    + (object)
+        + conversion_data (Conversion)
+            + conversion (Conversion)
+                + advertiser_reference (string)
+
+## Publisher Conversion Wrapper (object)
++ total_conversion_count
+    + GBP: 97 (number)
++ total_commission_value
+    + GBP: 39417.7684 (number)
++ total_publisher_commission
+    + GBP: 35804.7927 (number)
++ total_value
+    + GBP: 186166.28 (number)
++ conversions (array)
+    + (object)
+        + conversion_data (Conversion)
+            + publisher_reference (string)
+            + conversion (Conversion)
+                + publisher_reference (string)
+
+## Default Overview Wrapper (object)
++ start_date_time: `2016-02-30 05:15:32`
++ end_date_time: `2016-03-10 19:02:35`
++ total_impression_count: 0 (number)
++ total_click_count: 30242 (number)
++ total_conversion_count
+    + GBP: 97 (number)
++ total_commission_value
+    + GBP: 39417.7684 (number)
++ total_order_value
+    + GBP: 186166.28 (number)
++ total_rejection_rate (Aggregated Rejection)
++ total_quantity: 0 (number)
++ total_clickthrough_rate: 0 (number)
++ total_ordersize_avg: 1 (number)
++ count: 43 (number)
+
+## Aggregated Rejection (object)
++ percentage: 93.83 (number)
++ all_conversions_count: 4395 (number)
++ rejected_conversions_count: 4124 (number)
+
+## Aggregated Currency (object)
++ commissions: 1693.846
++ conversions: 266
++ ordervalue: 112400.52
++ quantity: 266
++ ordervalue_avg: 422.5583
++ conversion_rate: 1.8529
++ earnings_per_click: 0.118
++ ordersize_avg: 1
+
+## Aggregated Overview Base (object)
++ impression: 0 (number)
++ clicks: 825 (number)
++ quantity_all: 0 (number)
++ rejection_rate (Aggregated Rejection)
++ clickthrough_rate: 0 (number)
++ ordersize_avg: 0 (number)
+
+## Aggregated Overview Advertiser (object)
++ Include Aggregated Overview Base
++ currency (object)
+    + GBP (Aggregated Currency)
+        + publisher_commission: 1539.86
+
+## Aggregated Overview Publisher (object)
++ Include Aggregated Overview Base
++ currency (object)
+    + GBP (Aggregated Currency)
+
+## Advertiser Overview Country Wrapper (object)
++ Include Default Overview Wrapper
++ total_publisher_commission_value
+    + GBP: 35804.7927 (number)
++ countrys (array)
+    + (object)
+        + country (Aggregated Overview Advertiser)
+            + country_iso: GB
+
+## Publisher Overview Country Wrapper (object)
++ Include Default Overview Wrapper
++ countrys (array)
+    + (object)
+        + country (Aggregated Overview Publisher)
+            + country_iso: GB

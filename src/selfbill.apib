@@ -1,0 +1,56 @@
+# Group Selfbill
+
+Once funds have been received from the Advertiser, Performance Horizon will allocate all Commissions to the relevant Publishers.
+
+## Selfbills [/user/publisher/{publisher_id}/selfbill]
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+
+### List all Selfbills [GET]
+
+View all Selfbills that have been created.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + selfbills (array[Selfbill Wrapper])
+
+## Selfbill [/user/publisher/{publisher_id}/selfbill/{publisher_self_bill_id}]
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+    + publisher_self_bill_id: 1011l5403
+
++ Attributes
+    + publisher_id: 1l1007802 - ID of the publisher
+    + publisher_self_bill_id: 1011l5403
+    + publisher_self_bill_reference (string, optional, nullable)
+    + creation_date: `2012-07-25 14:22:35`
+    + payment_date (string, optional, nullable)
+    + timestamp: `2012-07-25 14:22:35`
+    + payment_batch_id (string, optional, nullable)
+    + status: created (enum)
+    + tracked_net_value: 430.17 (number)
+    + tracked_currency (Currency)
+    + paid_currency (Currency)
+    + selfbill_currency (Currency)
+    + majority_received_currency (Currency)
+    + net_value: 430.17 (number)
+    + vat_value: 0 (number)
+    + withheld_tax: 0 (number)
+    + total_value: 430.17 (number)
+    + items_in_bill: 5 (number)
+    + publisher_payment_detail_set_id: 111111l80 (string, optional, nullable)
+    + payment_detail_set_id: 24 (number)
+    + self_bill_reference: `S-1l1007802-1011l5403`
+    + legal_entity (Country)
+    + vat_rate: 0 (number)
+    + download (nullable) - URL for PDF download
+    + item_download (nullable) - URL for CSV item download
+
+### View a Selfbill [GET]
+
+View an individual Selfbill.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Selfbill Wrapper)

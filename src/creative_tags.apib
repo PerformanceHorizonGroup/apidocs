@@ -1,0 +1,62 @@
+# Group Creative Tags
+
+Creative Tags allows an Advertiser to organise their Creatives in a flexible structure.
+
+## Creative Tag [/campaign/{campaign_id}/creative/tags]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+
+### List all Creative Tags for Campaign [GET]
+
+View all Creative Tags for the specified Campaign.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + creative_tags (array[Creative Tag Wrapper])
+
+### Create Campaign Creative Tags [POST]
+
+Create one or more Creative Tags against the Campaign entity. Each Tag is sent as an array within a top level `tags` array.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + tags (array)
+            + (Creative Tag Base)
+                + name: promo (required)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + creative_tags (array[Creative Tag Wrapper])
+
+### Update Campaign Creative Tags [PUT]
+
+Update one or more Creative Tags against the Campaign entity. Each Tag is sent as an array within a top level `tags`
+array and must contain its associated `creative_tag_id`.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + tags (array)
+            + (object)
+                + creative_tag_id: 111111l2 - ID of the creative tag
+                + Include Creative Tag Base
+                + name: promotion (required)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + creative_tags (array[Creative Tag Wrapper])
+
+## Delete Campaign Creative Tags [DELETE]
+
+Delete one or more Creative Tags against the Campaign entity. Each Tag is sent as an array within a top level `tags`
+array and must contain its associated `creative_tag_id`.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + tags (array)
+            + (object)
+                + creative_tag_id: 111111l2 - ID of the creative tag
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + creative_tags (array[Creative Tag Wrapper])

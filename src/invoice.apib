@@ -1,0 +1,60 @@
+# Group Invoice
+
+So that Publishers can receive payment for all approved conversion events they have generated across an Advertiser's
+Campaigns, the Advertiser must raise an Invoice and send payment to Performance Horizon. Once the payment has cleared,
+all funds will be deposited into the relevant Publisher accounts.
+
+## Invoices [/user/advertiser/{advertiser_id}/invoice]
+
++ Parameters
+    + advertiser_id: 10l110 - ID of the advertiser
+
+### List all Invoices [GET]
+
+View all Invoices that have been created.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + invoices (array[Invoice Wrapper])
+
+## Invoice [/user/advertiser/{advertiser_id}/invoice/{invoice_id}]
+
++ Parameters
+    + advertiser_id: 10l110 - ID of the advertiser
+    + invoice_id: 1101l1536 - ID of the invoice
+
++ Attributes
+    + invoice_id: 1101l1536 - ID of the invoice
+    + campaign_id: 10l176 - ID of the campaign
+    + merchant_invoice_id (string, optional, nullable) - Optional merchant reference
+    + creation_date: `2015-12-14 22:58:25`
+    + payment_date
+    + status: created (enum)
+        + created
+        + sent
+        + paid
+    + currency (Currency)
+    + paid_currency (Currency)
+    + invoice_net_value: 770.84 (number)
+    + invoice_vat_value: 0 (number)
+    + invoice_total_value: 770.84 (number)
+    + payment_reference (string, optional, nullable) - Optional payment reference
+    + publisher_commission: 700.76 (number)
+    + publisher_override: 70.08 (number)
+    + set_start_date: `2015-08-30`
+    + set_end_date: `2015-12-09`
+    + set_timezone (Timezones)
+    + invoiced: All
+    + average_conversion_age: 14 (number)
+    + invoice_reference: `I-10l176-1101l1536`
+    + vat_rate: 0 (number)
+    + `payment_due_by_date`
+    + download (nullable) - URL for PDF download
+    + item_download (nullable) - URL for CSV item download
+
+### Retrieve an Invoice [GET]
+
+View an individual Invoice.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Invoice Wrapper)

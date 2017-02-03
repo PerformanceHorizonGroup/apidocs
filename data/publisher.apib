@@ -1,0 +1,115 @@
+## Publisher (object)
++ publisher_id: 1l1007802 - ID of the publisher
++ Include Publisher Base
++ network_status (Status)
++ network_id: 1l1000003 - ID of the network this publisher belongs to
++ network_notes (string, optional, nullable)
++ campaign_select (string, optional, nullable)
++ is_affiliate_user (YesOrNo)
++ foreign_identifier (string, optional, nullable)
++ reporting_identifier (string, optional, nullable)
++ gst_registered (string, optional, nullable)
++ us_tax_state (string, optional, nullable)
++ abn (string, optional, nullable)
++ websites (array[Publisher Website])
++ databases (array[Publisher Database])
++ legal_entity (Country)
+
+## Publisher Update (object)
++ promotional_method: 9 (number, required)
++ description: Top performance (string, optional, nullable) - Description of the publisher
+
+## Publisher Base (object)
++ account_name: publisher123 (required)
++ vertical_name: Other (string, optional)
++ vertical: 10 (number, required)
++ promotional_method_name: Portal (string, optional)
++ promotional_method: 10 (number, required)
++ vat_number: 974997534 (number, optional, nullable)
++ uk_vat_registered (YesOrNo)
++ description (string, optional, nullable) - Description of the publisher
++ company_name: Demo Publisher
++ company_division (string, optional, nullable)
++ operating_country (Country)
++ Include Time Info
++ default_currency (Currency)
++ Include Phone
++ contact_name: Pete Cheyne
++ contact_email: demo@performancehorizon.com
++ contact_locale (Locale)
++ im_provider: Skype  (string, optional, nullable)
++ im_username: elisangis  (string, optional, nullable)
++ Include Signup IP
++ is_lead_user (YesOrNo, nullable)
++ is_foreign_network (YesOrNo, nullable)
+
+## Publisher Website Base (object)
++ website_url: http://www.performancehorizon.com (required)
++ description: Demo Publisher website
++ website_type: 9 (number, required)
++ website_vertical: 10 (number, required)
++ website_country (Country)
++ website_name (nullable)
++ website_vertical_name: Technical
++ website_type_name: PPC
++ active (YesOrNo)
+
+## Publisher Website (object)
++ website_id: 11l18694 - ID of the publisher website
++ publisher_id: 1l1007802 - ID of the publisher the website belongs to
++ Include Publisher Website Base
+
+## Publisher Database Base (object)
++ database_name: PHG Test Database (required)
++ creation_method: Email (required)
++ size: 53000 (number, required)
++ male: 50 (number)
++ female: 50 (number)
++ min_age: 25 (number)
++ max_age: 77 (number)
+
+## Publisher Database (object)
++ database_id: 111111l300347 - ID of the publisher database
++ publisher_id: 1l1007802 - ID of the publisher the database belongs to
++ Include Publisher Database Base
+
+## Publisher Feed Base (object)
++ campaign_feeds_id: `1011l10`
++ name: `UK Destinations` - The name of the product feed
++ filename: `uk_destinations.csv`
++ location: `http://www.performancehorizon.com/` - Where the file is located
++ updated: 1432228514 (number)
++ campaign_id: `10l176`
++ title: `SportBetting` - The name of the campaign
++ creative_id: `300441`
++ location_compressed: `http://www.performancehorizon.com/` - Where the compressed file is located
++ filesize: 581427 (number)
++ filesize_compressed: 27691 (number)
++ last_processed: 1432235983 (number)
+
+## Publisher Wrapper (object)
++ publisher (Publisher)
+
+## Publisher Website Wrapper (object)
++ website (Publisher Website)
+
+## Publisher Database Wrapper (object)
++ database (Publisher Database)
+
+## Participating Publisher Wrapper (object)
++ publisher (Publisher)
+    + campaign_status (Status)
+
+## Publisher Campaign Wrapper (object)
++ campaign (Campaign)
+    + publisher_status (Status)
+
+## Publisher Extra Field Wrapper (object)
++ publisher_extra_field (Publisher Extra Field)
+
+## Publisher Campaign Tracking Wrapper (object)
++ campaign (Campaign)
+    + publisher_status (Status)
+    + tracking_link: `http://demo.prf.hn/click/camref:i9sh`
+    + camref: `i9sh`
+    + cpc_tracking_link: `http://demo.prf.hn/click/camref:i9sh/type:cpc`

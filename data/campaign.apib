@@ -1,0 +1,80 @@
+## Campaign Base (object)
++ One Of
+    + default_commission_rate: 5
+    + default_commission_value: 20
++ advertiser_id: 10l110 (required) - ID of the advertiser the campaign should belong to
++ title: PHG Aff Demo (required)
++ destination_url: http://www.performancehorizon.com (required)
++ vertical_id: 10 (number)
++ vertical_name: Other
++ test_mode (YesOrNo)
++ tracking_method: s2s (enum)
+    + pixel
+    + api
+    + s2s
++ allow_third_party_pixel (YesOrNo)
++ campaign_logo: http://performancehorizon.com/logo.png (string, optional, nullable)
++ hidden_campaign (YesOrNo)
++ default_currency (Currency)
++ tq_auto_approve: 60 (number)
++ campaign_notes
++ description (object, optional, nullable)
+    + en: Awesome new campaign (string)
++ terms (object, optional, nullable)
+    + en (object)
+        + terms: Important campaign terms and conditions (string)
++ cookie_period (number)
++ multiple_conversions_per_click: n (enum)
+    + y
+    + n
+    + 2 (number)
+    + 3 (number)
+    + 4 (number)
+    + 5 (number)
+    + 6 (number)
+    + 7 (number)
+    + 8 (number)
+    + 9 (number)
+    + 10 (number)
++ unique_conversion_refs: y (enum)
+    + y
+    + n
+    + ignore
++ allow_deep_linking (YesOrNo)
++ append_url_parameters
++ prepend_url_string: `http://google.com` (string, optional, nullable) - Prepend all destination URLs
++ associated_campaigns
++ auto_rejected_ips (string, optional, nullable)
++ secure_tracking (YesOrNo)
+
+## Campaign Update
++ title: PHG Aff Demo (optional)
++ destination_url: http://www.performancehorizon.com (optional)
+
+## Campaign Group (object)
++ campaign_group_id : 10l110
++ title : Example Group - title of the campaign group
++ advertiser_id : 10l110 - id of owning advertiser account
++ week_start : monday
++ reporting_timezone : GMT
++ default_currency : GBP
++ campaigns (array[Campaign Base])
+
+## Campaign Feed Base (object)
++ name: Sample Feed (required)
++ active (YesOrNo)
++ location (required)
++ location_local
++ fetch_frequency: 3600 (number)
++ filesize: 0 (number)
++ dynamic: 0 (number)
++ action
+
+## Campaign Wrapper (object)
++ campaign (Campaign)
+
+## Campaign Extra Field Wrapper (object)
++ campaign_extra_field (Campaign Extra Field)
+
+## Campaign Feed Wrapper (object)
++ feed (Campaign Feed)

@@ -1,0 +1,63 @@
+# Group Publisher Campaign
+
+Before a Publishers can begin to generate conversions, they must be associated with a Campaign. The Publisher Campaign
+endpoints allow the Publisher to request access to a Campaign, and to view details of all Campaigns that they are
+associated with.
+
+## Publisher Campaigns [/user/publisher/{publisher_id}/campaign/{status}]
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+    + status: a (enum[string], optional) - The status of the publisher on the campaign
+        + a - approved
+        + p - pending
+        + r - rejected
+
+### List all Publisher Campaigns [GET]
+
+View all Campaigns that the Publisher is associated with, along with the status of any Participation.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + campaigns (array[Publisher Campaign Wrapper])
+
+### Create Publisher Campaigns [POST]
+
+Request access to one or more Campaigns. If a Campaign has any custom Terms and Conditions then the Publisher must
+agree to these terms when requesting access. This is achieved by passing the latest `terms_id` from the relevant
+Campaign object.
+​
+On certain Campaigns, you may find that a Publisher will be auto-approved. However, some Advertisers will stipulate
+that they wish to review all Participations. Therefore, once access is requested the Publisher will be shown as
+pending until this decision is made.
+​
+Create new Participations by passing each `campaign_id` along with the relevant `terms_id` (if applicable) in an
+object within a `campaigns` array.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + campaigns (array)
+            + (object)
+                + campaign_id: 10l176 - ID of the campaign
+                + terms_id: 111111l8
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + campaigns (array[Publisher Campaign Wrapper])
+
+## Publisher Campaign Tracking [/user/publisher/{publisher_id}/campaign/{status}/tracking]
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+    + status: a (enum[string]) - The status of the publisher on the campaign
+        + a - approved
+        + p - pending
+        + r - rejected
+
+### List all Publisher Campaign Tracking Links [GET]
+
+View all Campaigns that the Publisher is associated with, along with the status of any Participation and their tracking details if applicable.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + campaigns (array[Publisher Campaign Tracking Wrapper])
