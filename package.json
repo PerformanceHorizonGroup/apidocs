@@ -1,0 +1,23 @@
+{
+  "name": "phg-apidocs",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.org/PerformanceHorizonGroup/apidocs.svg?branch=master)](https://travis-ci.org/PerformanceHorizonGroup/apidocs)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PerformanceHorizonGroup/apidocs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PerformanceHorizonGroup/apidocs/issues"
+  },
+  "homepage": "https://github.com/PerformanceHorizonGroup/apidocs#readme",
+  "dependencies": {
+    "gem": "^2.1.5",
+    "hercule": "^3.0.5"
+  }
+}

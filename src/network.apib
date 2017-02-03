@@ -1,0 +1,26 @@
+# Group Network
+
+All API calls are contextual to the User that is making the request, and all User accounts are associated with the
+Network that they are created on. Each network has a unique `application_user_key`.
+
+## Network [/network]
+
++ Attributes (object)
+    + network_id: 1l1000003 - ID of the network
+    + network_name: PHG - Name of the network
+    + network_description: PHG Network - Description of the network
+    + network_notes: Internal PHG Network - Any additional notes for the network
+    + network_application_id: 2
+    + auto_approve_publishers (YesOrNo)
+    + default_campaign_id
+    + cm_client_id: b4d0d85c2cff813cdce092c261b2b200
+    + network_contact_email
+    + network_locale (Locale)
+
+### List Networks [GET]
+
+Retrieve the details of the authenticated Network.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + networks (array[Network Wrapper])

@@ -1,0 +1,52 @@
+# Group Campaign Feed
+
+An Advertiser may want to offer a selection of product feeds to their Publishers on a specific Campaign.
+When a Feed is created, it will be periodically downloaded and parsed for all Publishers who participate on the
+Campaign to ensure their tracking links are inserted for all anchor links within the product feed.
+Any text based file format is supported.
+
+## Campaign Feed [/campaign/{campaign_id}/feed]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+
++ Attributes (object)
+    + feed_id: 1111l13 - ID of the campaign feed
+    + Include Campaign Feed Base
+    + updated: 1378980455 (number)
+    + last_processed: 1378980455 (number)
+
+### List all Campaign Feeds [GET]
+
+Return the details of all Feeds attached to the Campaign.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + feeds (array[Campaign Feed Wrapper])
+
+### Create a Campaign Feed [POST]
+
+Create one or more Feeds against the Campaign entity. Each Feed is sent as an array within a top level `feeds` array.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + feeds (array[Campaign Feed Base])
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + feeds (array[Campaign Feed Wrapper])
+
+### Update a Campaign Feed [PUT]
+
+Update one or more `feeds` against the Campaign entity. Each Feed is sent as an array within a top level `feeds`
+array and must contain its associated `feed_id`.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + feeds (array)
+            + (Campaign Feed Base)
+                + feed_id: 300092 - ID of the campaign feed
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + feeds (array[Campaign Feed Wrapper])

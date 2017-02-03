@@ -1,0 +1,67 @@
+## Alert Base (object)
++ code: Example -  Code used internally for reference
++ name: Example alert - Display name of an Alert
++ description: This alert is triggered when a particular event happened (nullable, string) -  Fired when new campaign is created
+
+## Alert Group Wrapper (object)
++ alert_group (Alert Group)
+
+## Notifier Base (object)
++ name: Email (string) - Name of the notifier
+
+## Notifier Wrapper (object)
++ notifier (Notifier)
+
+## Notification Base (object)
++ user_id: 3,
++ alert_alert_id: 1,
++ alert_alert_group_id: 1,
++ alert_notifier_id: 1,
++ extra_fields (array)
+    + alert_notifier_extra_field_id: 2,
+    + field_value: +48790251519
+
+## Notification Base With Extra Fields (Notification Base)
+
+## Notification Wrapper (object)
++ notification (Notification)
+
+## Alert User Extra Field Wrapper(object)
++ alert_user_extra_field (Alert User Setting)
+
+## Alert User Extra Field Value (object)
++ field_name (enum)
+    + slack_apikey
+    + slack_channel
+    + email_address
+    + mobile_token
++ field_value: +48123456789 (string) - Field value
+
+## Alert Setting Response Entry
++ alert_user_extra_field_id: 1 (string, required) - Alert user extra field id
++ field_name: slack channel (string, required) - Field name
++ alert_user_extra_info_id: 1 (string, required) - Alert user extra info id
++ field_value: "#general" (string, required) Field value
+
+## Alert Message Status (enum)
++ unread - Newly created message
++ read - Message has been read
++ dismissed - Message has been dismissed
++ to_be_actioned - Messages action have to be triggered to mark this message as read
+
+## Alert Simple Feed Message (object)
++ content: `Publisher Leadsbox has just created 1 TQ(s)` (string) - Message content
++ created_at: `2016-09-26 11:34:08` (string) - Message timestamp
++ link: `http://phgma.dev/v2/url/111111l8` (string) - Action url
++ message_id: `111111l8` (string) - Identifier of message
++ status (Alert Message Status) - Message status
+
+## Alert Grouped Feed Message (object)
++ content: `Publisher Leadsbox has just created 1 TQ(s)` (string) - Content when display as single message
++ created_at: `2016-09-26 11:34:08` (string) - Latest message timestamp
++ group_content: `:count TQs have been submitted for your review` (string) - Content when display as group
++ group_link: `http://phgma.dev/v2/url/111111l8` (string) - Action url when display as single message
++ grouping_key: `5campaign300659` (string) - Key to group messages
++ link: `http://phgma.dev/v2/url/111111l8` (string) - Action url when display as single message
++ message_ids: `111111l8` (array[string]) - Identifiers of messages in group
++ status (Alert Message Status) - Message status

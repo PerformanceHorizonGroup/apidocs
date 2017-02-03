@@ -1,0 +1,36 @@
+# Group Network Publisher
+
+An Advertiser can view all Publishers who are created on their network. This endpoint is not specific to a Campaign,
+therefore it pools all available Publishers who have been created or are able to access their Network.
+​
+It is also possible to accept new Publishers onto the Network, or to reject any approved or pending Publishers
+from the Network. If a Publisher is rejected from the Network, they will be automatically rejected from all participating Campaigns.
+
+## Network Publisher [/network/{network_id}/publisher]
+
++ Parameters
+    + network_id: 1l1000003 - ID of the network
+
+### List all Publishers on the Network [GET]
+
+View all Publishers on the Network.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + publishers (array[Publisher Wrapper])
+
+### Update Publisher's Network status [POST]
+
+Update the `network_status` of a Publisher by passing each `publisher_id` along with the relevant `network_status`
+in an object within a `publishers` array.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + publishers (array)
+            + (object)
+                + network_status (Status, required)
+                + publisher_id: 1l1007802 (required) - ID of the publisher
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + publishers (array[Publisher Wrapper])

@@ -1,0 +1,108 @@
+## Phone (object)
++ phone: 01595725007 (required) - Primary contact telephone number
++ phone_area: +44 (nullable) - Phone prefix to declare country or region
+
+## Signup IP (object)
++ signup_ip: 178.23.129.160 (required)
+
+## Time Info (object)
++ reporting_timezone (Timezones)
++ week_start: Monday
+
+## Time Range (object)
++ start_date_time: `2013-08-31 15:00:00` (string, optional, nullable)
++ end_date_time: `2013-09-30 15:00:00` (string, optional, nullable)
+
+## Status (enum)
++ a - Approved
++ p - Pending
++ r - Rejected
++ n
+
+### Sample
++ a
+
+## Conversion Status (enum)
++ pending
++ accepted
++ rejected
+
+### Sample
++ pending
+
+## Created (object)
++ created_at: `2016-04-07 04:21:51`
++ created_by: 300621 - ID of the user who created the job
+
+## YesOrNo (enum)
++ y - yes
++ n - no
+
+### Sample
++ y
+
+## Country (enum)
++ GB - Great Britain
++ JP - Japan
++ NL - Netherlands
+
+### Sample
++ GB
+
+## Locale (enum)
++ en - English
+
+### Sample
++ en
+
+## Timezones (enum)
++ Australia/Sydney
++ UTC
++ Europe/London
++ CET
++ GMT
+
+### Sample
++ Australia/Sydney
+
+## Currency (enum)
++ GBP - Great Britain Pounds
++ USD - United States Dollars
++ EUR - Euros
++ JPY - Japanese Yen
+
+### Sample
++ GBP
+
+## Job (object)
++ job_id: 111111l470 - ID of the job
++ completed_at: `2016-04-07 04:21:52` (string, optional, nullable)
++ Include Created
++ created_by_uri
++ status (enum)
+    + complete
+    + created
+    + active
++ percentage_complete: 100 (number)
++ reference (nullable)
++ response_within_retention: true (boolean)
++ estimated_completion (nullable)
++ time_elapsed (number)
++ Include Hypermedia
+
+## Hypermedia (object)
++ response: /job/111111l1177306/response.json (string, optional, nullable) - The raw response
++ update: /job/111111l1177306.json (string, optional, nullable) - The update URI
+
+## Address (object)
++ address1: Gardegasse 11 (required) - 1st line of the address
++ address2: Top 7 (nullable) - 2nd line of the address
++ address3: London (nullable) - 3rd line of the address
++ address4 (nullable) - 4th line of the address
++ country (Country, required) - Country of the address
++ postcode: `A-101` (required) - Postcode/Zipcode attached to the address
+
+## Term (object)
++ terms: This is terms document
++ terms_id: 1100l119
+

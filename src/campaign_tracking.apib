@@ -1,0 +1,23 @@
+# Group Campaign Tracking
+
+To track conversions on a Campaign, all conversion data must be passed to the PHG tracking API. There are 2
+distinct methods of passing this data, via an image/pixel tag (which emulates a HTTP GET), and via a direct API call
+(GET or POST). This endpoint is intended as a quick reference to the syntax of the tracking calls, the actual
+tracking implementation should be performed in co-operation with the Performance Horizon Integration team.
+
+### View Example [GET /campaign/{campaign_id}/tracking]
+
+View example tracking code for all unique Commission categories.
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + tracking_code
+            + pixel_tracking
+                + default_conversion: `<img src="http://demo.prf.hn/conversion/campaign:10l176/value:[xx:xx]/conversionref:[xxxxx]" height="1" width="2" />`
+                + categories (object)
+            + api_tracking
+                + default_conversion: `http://demo.prf.hn/conversion/clickref:[xxxxx]/campaign:10l176/value:[xx:xx]/conversionref:[xxxxx]`
+                + categories (object)

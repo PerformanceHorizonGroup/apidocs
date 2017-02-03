@@ -1,0 +1,32 @@
+# Group Job
+
+Some endpoints are extremely data intensive. Rather than force users who interact with the API to implement long
+running scripts against these heavy endpoints, the API has a concept of Jobs.
+
+For example, a large Report export request may cover 100,000,000 records, and the generation of this export may be
+dependent on a FIFO queue. Therefore it could take several hours before the report is ready. The Job endpoint will
+provide instant acknowledgement that a request was received for a significant payload, and will provide details
+about the progress of the backgrounded, asynchronous request.
+
+The Job endpoint can be used to periodically request updates on its progress and once finished, it will reference
+the location of the final response in its Hypermedia object.
+
+## Job [/job/{job_id}]
+
+### List all Jobs [GET /job]
+
+Return the details of all Jobs created by the authenticated User.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + jobs (array[Job Wrapper])
+
+### View a Single Job [GET]
+
+Retrieve the details of the specified Job.
+
++ Parameters
+    + job_id: 111111l1177306 - ID of the job
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Job Wrapper)
