@@ -1,0 +1,35 @@
+# Group Participating Publishers
+
+Before Publishers can generate conversions for a Campaign, they must be approved to do so. A Publisher can apply to
+be part of a Campaign, or the Advertiser can choose to add the Publisher(s) of their choice to their own Campaign.
+Furthermore, if an Advertiser has stipulated their own unique set of Campaign Terms and Conditions, the Publisher
+must explicitly agree to these if they are to be fully approved on the Campaign.
+
+## Participating Publishers [/campaign/{campaign_id}/publisher]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+
+### List all Participating Publishers [GET]
+
+View all Publishers Participating on the Campaign.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + publishers (array[Participating Publisher Wrapper])
+
+### Create a Participating Publisher [POST]
+
+Create new Participations by passing each `publisher_id` along with the relevant `campaign_status` in an
+object within a `publishers` array.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + publishers (array)
+            + (object)
+                + publisher_id: 1l1007802 - ID of the publisher
+                + campaign_status (Status)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + publishers (array[Participating Publisher Wrapper])

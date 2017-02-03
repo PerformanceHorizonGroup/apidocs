@@ -1,0 +1,31 @@
+## Commission Group Base (object)
++ name: Fansites 3% (required)
++ campaign_id: 10l176 (required) - ID of the campaign
++ description
++ Include Time Range
++ publishers (array) - IDs of the publishers to be associated with the group
+
+## Commission Base (object)
++ One Of
+    + commission_rate: 4
+    + commission_value
+    + commission_value_cpc
++ Include Time Range
++ country (Country)
++ vertical_id: 10 (number, required)
++ vertical_name: Other (required)
++ conversion_type: 10 (number, required)
++ sku
++ customer_type: new (enum)
+    + new
+    + existing
++ category
++ customer_reference
++ advertiser_reference
++ update_description: Promotional Period
+
+## Commission Wrapper (object)
++ commission (Commission)
+
+## Commission Group Wrapper (object)
++ commission_group (Commission Group)

@@ -1,0 +1,64 @@
+# Group Commission Group
+
+A Campaign owner can organise Publishers into Groups. These Groups can be used for Reporting purposes, Communication
+filters, Commission offers and Voucher Code allocation.
+
+## Commission Groups [/campaign/{campaign_id}/commission_group]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+
+### List all Commission Groups [GET]
+
+View all Groups with all associated Publishers.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + commission_groups (array[Commission Group Wrapper])
+
+### Create Commission Groups [POST /commission_group]
+
+Create new Groups by passing each Group object within a `commission_groups` array. A `name` and `campaign_id`
+must be passed, and to add Publishers into the Group pass them in a `publishers` array.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + commission_groups (array)
+            + (Commission Group Base)
+                + name: Top Sites 2% (required)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Commission Group Wrapper)
+
+### Update Commission Groups [PUT /commission_group]
+
+Update Groups by referencing the `commission_group_id` in each Group object within the `commission_groups` array.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + commission_groups (array)
+            + (Commission Group Base)
+                + commission_group_id: 10l169 - ID of the commission group
+                + name: Top Sites 4% (required)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Commission Group Wrapper)
+
+## Commission Group [/campaign/{campaign_id}/commission_group/{commission_group_id}]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+    + commission_group_id: 10l169 - ID of the commission group
+
++ Attributes (object)
+    + commission_group_id: 10l169 - ID of the commission group
+    + Include Commission Group Base
+    + active (YesOrNo)
+    + last_modified: `2015-04-10 01:59:54`
+
+### Retrieve a Commission Group [GET]
+
+Outputs the specified Group.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Commission Group Wrapper)

@@ -1,0 +1,117 @@
+# Group Campaign
+
+A Campaign is owned by an Advertiser and an Advertiser may have multiple Campaigns. A Campaign represents an entity
+which the Advertiser uses to represent something that they wish to allow Publishers the chance to promote.
+A Campaign dictates what products/events/conversions can be promoted, and lets the Publishers understand what
+Commission they would earn for generating sales/events/conversions. The Advertiser has complete control over their
+Campaigns and dictates which Publishers they accept onto the Campaign to promote their services.
+
+## Campaigns [/campaign]
+
+### List all Campaigns [GET]
+
+Return the details of all Campaigns attached to the Network account and visible to the authenticated User.
+The output is contextual based on the permissions of the User making the request to the endpoint. A limited Campaign
+schema will be utilised for any Campaign that the User does not have appropriate permissions to view.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + campaigns (array[Campaign Wrapper])
+
+### Create a Campaign [POST]
+
+To create a new Campaign, the Advertiser must pass their associated `advertiser_id`.
+
++ Request (application/json; charset=utf-8)
+    + Attributes (Campaign Base)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Campaign Wrapper)
+
+## Campaign [/campaign/{campaign_id}]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+
++ Attributes (object)
+    + campaign_id: 10l176 - ID of the campaign
+    + status (Status)
+    + Include Campaign Base
+    + Include Time Info
+    + conversion_type: sale
+    + default_override: 10 (number)
+    + payment_date (string, optional, nullable)
+    + network_fee (string, optional, nullable)
+    + restricted_deep_linking (YesOrNo)
+    + extra_restricted_deep_linking
+    + cookie_status (string, optional, nullable)
+    + ip_tracking_time: 0 (number)
+    + conversion_hiatus_period: 7 (number)
+    + force_approve_period: 0 (number)
+    + invoice_address_1 (string, optional, nullable)
+    + invoice_address_2 (string, optional, nullable)
+    + invoice_address_3 (string, optional, nullable)
+    + invoice_address_4 (string, optional, nullable)
+    + invoice_address_country (string, optional, nullable)
+    + invoice_address_postcode (string, optional, nullable)
+    + auto_approve_publisher (YesOrNo)
+    + recurring_payment_setup (YesOrNo)
+    + dont_invoice (YesOrNo)
+    + dont_consolidate (YesOrNo)
+    + deferred_lead_submission (string, optional, nullable)
+    + invoice_contact (string, optional, nullable)
+    + invoice_company (string, optional, nullable)
+    + invoice_only (string, optional, nullable)
+    + pay_publisher_directly (YesOrNo)
+    + budget_summary_interval (number, optional, nullable)
+    + budget_summary_start_time (string, optional, nullable)
+    + lead_confirmation_url_success
+    + lead_confirmation_url_fail
+    + tracking_subdomain (string, optional, nullable)
+    + campaign_languages (object, optional, nullable)
+    + tq_enabled (YesOrNo)
+    + tq_enabled_publishers
+    + is_cpc (YesOrNo)
+    + commissions (array)
+    + campaign_overloads (array)
+    + campaign_currency_conversions (array)
+
+### Retrieve a Campaign [GET]
+
+Outputs the specified Campaign.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Campaign Wrapper)
+
+### Update a Campaign [PUT]
+
+Update the specified Campaign.
+
++ Request (application/json; charset=utf-8)
+    + Attributes (Campaign Update)
+        + campaign_id: 10l176 (required) - ID of the campaign
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Campaign Wrapper)
+
+### Delete a Campaign [POST]
+
+To delete a specific campaign, you must pass 3 required parameters:
+
+1. `'action' => 'delete'`
+2. `'campaign_id' => ''`
+3. `'retire_reason' => 'some excuse'`.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + campaign_id: 10l176 (required) - ID of the campaign
+        + action: delete (required)
+        + retire_reason: No longer needed (string, required)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Campaign Wrapper)
+        + status (object)
+            + status: Deleted
+            + message: Campaign successfully deleted
+            + retire_reason: No longer needed
+            + campaign_id: 10l176

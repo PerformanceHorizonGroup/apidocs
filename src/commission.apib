@@ -1,0 +1,142 @@
+# Group Commission
+
+To further expand on the the `default_commission` specified in the Campaign object, extra Campaign Commission offers
+can be created to reward specific actions, products, and types of conversion. An unlimited number of Commissions can
+be set up however each Commission offer must be unique. You cannot have 2 active Commissions for the same event.
+Commissions can be defined at four separate levels, these are:
+
+​
+1. Campaign level: these Commissions apply to all Publishers, it is regarded as the base level for all actions that
+match the Commission offer.
+
+​2. Group level: Commissions apply to all Publishers in a predefined Commission Group.
+
+​3. Publisher level: Commissions that apply to a specific Publisher.
+
+​4. Voucher Code level: Commissions apply to a specified Voucher Code.
+
+## Commission [/campaign/{campaign_id}/commission]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+
++ Attributes (object)
+    + commission_id: 300092 - ID of the commission
+    + campaign_id: 10l176
+    + reference_id: 10l176
+    + reference_type: campaign (enum)
+        + campaign
+        + participation
+        + group
+        + voucher
+    + Include Commission Base
+    + sale_type: simple
+    + override: 10
+    + override_type: override
+    + active (YesOrNo)
+    + default_commission: false
+
+### List all Campaign level Commissions [GET /campaign/{campaign_id}/campaign/{campaign_id}/commission]
+
+Only outputs Commission offers for the Campaign level.
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + commissions (array)
+            + (object)
+                + commission (Commission)
+                    + reference_type: campaign
+
+### List all Publisher level Commissions [GET /campaign/{campaign_id}/publisher/{publisher_id}/commission]
+
+Only outputs Commission offers for the specified Publisher.
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+    + publisher_id: 1l1007802 - ID of the publisher
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + commissions (array)
+            + (object)
+                + commission (Commission)
+                    + reference_type: participation
+
+### List all Group level Commissions [GET /campaign/{campaign_id}/commission_group/{commission_group_id}/commission]
+
+Only outputs Commission offers for the specified Group.
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+    + commission_group_id: 10l169 - ID of the commission group
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + commissions (array)
+            + (object)
+                + commission (Commission)
+                    + reference_type: group
+
+### List all Voucher level Commissions [GET /campaign/{campaign_id}/voucher_code/{voucher_code_id}/commission]
+
+Only outputs Commission offers for the specified Voucher.
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+    + voucher_code_id: 111111l1000015 - ID of the voucher
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + commissions (array)
+            + (object)
+                + commission (Commission)
+                    + reference_type: voucher
+
+### Create a Commission [POST]
+
+Create new Commission offers, you can nest multiple new Commissions within a `commissions` array. The relevant
+`commission_level` must be passed to inform the endpoint which level the Commission belongs. If the level is not
+`campaign` then the associated `reference_id` should be passed to define the entity at the chosen level.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + commissions (array)
+            + (Commission Base)
+                + commission_level (required)
+                + reference_id
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + commission (array[Commission Wrapper])
+
+### Update a Commission [PUT]
+
+To modify Commission offers, add the relevant `commission_id` into each array within the `commissions` array.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + commissions (array)
+            + (Commission Base)
+                + commission_id: 300092 - ID of the commission
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + commission (array[Commission Wrapper])
+
+### Retrieve all Commissions [GET]
+
+Returns the details of all unique Commission offers, with any specific Campaign, Group, Publisher (participation),
+Voucher overrides nested into each. This endpoint removes the need to query a specific level individually.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + commissions (array)
+            + (object)
+                + commission (Commission)
+                    + reference_type: campaign
+            + (object)
+                + commission (Commission)
+                    + reference_type: voucher

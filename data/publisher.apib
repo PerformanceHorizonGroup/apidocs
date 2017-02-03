@@ -1,3 +1,20 @@
+## Publisher (object)
++ publisher_id: 1l1007802 - ID of the publisher
++ Include Publisher Base
++ network_status (Status)
++ network_id: 1l1000003 - ID of the network this publisher belongs to
++ network_notes (string, optional, nullable)
++ campaign_select (string, optional, nullable)
++ is_affiliate_user (YesOrNo)
++ foreign_identifier (string, optional, nullable)
++ reporting_identifier (string, optional, nullable)
++ gst_registered (string, optional, nullable)
++ us_tax_state (string, optional, nullable)
++ abn (string, optional, nullable)
++ websites (array[Publisher Website])
++ databases (array[Publisher Database])
++ legal_entity (Country)
+
 ## Publisher Update (object)
 + promotional_method: 9 (number, required)
 + description: Top performance (string, optional, nullable) - Description of the publisher
@@ -56,117 +73,6 @@
 + publisher_id: 1l1007802 - ID of the publisher the database belongs to
 + Include Publisher Database Base
 
-## Publisher (object)
-+ publisher_id: 1l1007802 - ID of the publisher
-+ Include Publisher Base
-+ network_status (Status)
-+ network_id: 1l1000003 - ID of the network this publisher belongs to
-+ network_notes (string, optional, nullable)
-+ campaign_select (string, optional, nullable)
-+ is_affiliate_user (YesOrNo)
-+ foreign_identifier (string, optional, nullable)
-+ reporting_identifier (string, optional, nullable)
-+ gst_registered (string, optional, nullable)
-+ us_tax_state (string, optional, nullable)
-+ abn (string, optional, nullable)
-+ websites (array[Publisher Website])
-+ databases (array[Publisher Database])
-+ legal_entity (Country)
-
-## Phone (object)
-+ phone: 01595725007 (required) - Primary contact telephone number
-+ phone_area: +44 (nullable) - Phone prefix to declare country or region
-
-## Signup IP (object)
-+ signup_ip: 178.23.129.160 (required)
-
-## Time Info (object)
-+ reporting_timezone (Timezones)
-+ week_start: Monday
-
-## Time Range (object)
-+ start_date_time: `2013-08-31 15:00:00` (string, optional, nullable)
-+ end_date_time: `2013-09-30 15:00:00` (string, optional, nullable)
-
-## Status (enum)
-+ a - Approved
-+ p - Pending
-+ r - Rejected
-+ n
-
-### Sample
-+ a
-
-## Job (object)
-+ job_id: 111111l470 - ID of the job
-+ completed_at: `2016-04-07 04:21:52` (string, optional, nullable)
-+ Include Created
-+ created_by_uri
-+ status (enum)
-    + complete
-    + created
-    + active
-+ percentage_complete: 100 (number)
-+ reference (nullable)
-+ response_within_retention: true (boolean)
-+ estimated_completion (nullable)
-+ time_elapsed (number)
-+ Include Hypermedia
-
-## Created (object)
-+ created_at: `2016-04-07 04:21:51`
-+ created_by: 300621 - ID of the user who created the job
-
-## YesOrNo (enum)
-+ y - yes
-+ n - no
-
-### Sample
-+ y
-
-## Country (enum)
-+ GB - Great Britain
-+ JP - Japan
-+ NL - Netherlands
-
-### Sample
-+ GB
-
-## Locale (enum)
-+ en - English
-
-### Sample
-+ en
-
-## Timezones (enum)
-+ Australia/Sydney
-+ UTC
-+ Europe/London
-+ CET
-+ GMT
-
-### Sample
-+ Australia/Sydney
-
-## Currency (enum)
-+ GBP - Great Britain Pounds
-+ USD - United States Dollars
-+ EUR - Euros
-+ JPY - Japanese Yen
-
-### Sample
-+ GBP
-
-## Publisher Wrapper (object)
-+ publisher (Publisher)
-
-## Job Wrapper (object)
-+ job (Job)
-
-## Hypermedia (object)
-+ response: /job/111111l1177306/response.json (string, optional, nullable) - The raw response
-+ update: /job/111111l1177306.json (string, optional, nullable) - The update URI
-
 ## Publisher Feed Base (object)
 + campaign_feeds_id: `1011l10`
 + name: `UK Destinations` - The name of the product feed
@@ -180,3 +86,30 @@
 + filesize: 581427 (number)
 + filesize_compressed: 27691 (number)
 + last_processed: 1432235983 (number)
+
+## Publisher Wrapper (object)
++ publisher (Publisher)
+
+## Publisher Website Wrapper (object)
++ website (Publisher Website)
+
+## Publisher Database Wrapper (object)
++ database (Publisher Database)
+
+## Participating Publisher Wrapper (object)
++ publisher (Publisher)
+    + campaign_status (Status)
+
+## Publisher Campaign Wrapper (object)
++ campaign (Campaign)
+    + publisher_status (Status)
+
+## Publisher Extra Field Wrapper (object)
++ publisher_extra_field (Publisher Extra Field)
+
+## Publisher Campaign Tracking Wrapper (object)
++ campaign (Campaign)
+    + publisher_status (Status)
+    + tracking_link: `http://demo.prf.hn/click/camref:i9sh`
+    + camref: `i9sh`
+    + cpc_tracking_link: `http://demo.prf.hn/click/camref:i9sh/type:cpc`

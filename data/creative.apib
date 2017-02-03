@@ -1,0 +1,62 @@
+## Creative Common (object)
++ campaign_id: 10l176 - ID of the campaign
++ creative_type_id: 1 (number, required)
++ active (YesOrNo)
++ custom_append_url_parameters
++ custom_prepend_url_parameters
++ tags
+
+## Creative Base (object)
++ Include Creative Common
++ description: Demo Text
++ destination: http://www.performancehorizon.com
++ default_specific_creative_id: 300396
++ creative_tracking_link
++ creative_tracking_link_rotate
++ dynamic_tracking_link
++ html_tracking_link
++ width: 400 (number)
++ height: 360 (number)
++ Include Time Range
++ preview: https://demo.prf.hn/preview/creativeref:300442
++ advertiser_reference: Promotion July 2016
++ limits
++ creative_items (array[Creative Item])
+
+## Creative (object)
++ creative_id: 300441 - ID of the creative
++ Include Creative Base
++ Include Created
+
+## Creative Item (object)
++ creative_item_id: 300396 - ID of the creative item
++ Include Creative Common
++ description
++ specific_destination
++ img_url: `https://demophgconsole.performancehorizon.com/upload/4fdf4b3879da1funny-animals-page.jpg`
++ content_type: image/jpeg
++ filename: `4fdf4b3879da1funny-animals-page.jpg`
++ preview: https://demo.prf.hn/preview/screativeref:300396
++ Include Created
+
+## Creative Tag Base (object)
++ name: logo (required)
+
+## Creative Tag (object)
++ creative_tag_id: 111111l2 - ID of the creative tag
++ campaign_id: 10l176 - ID of the campaign
++ Include Creative Tag Base
++ Include Created
++ creatives (array)
+    + (object)
+        + creative_id: 300441 - ID of the creative
+        + creative_item_id: 300396 - ID of the creative item
+
+## Creative Wrapper (object)
++ creative (Creative)
+
+## Creative Tag Wrapper (object)
++ creative_tag (Creative Tag)
+
+## Creative Type Wrapper (object)
++ creative_type (Creative Type)
