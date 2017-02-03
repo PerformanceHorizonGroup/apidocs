@@ -24,7 +24,8 @@ instructions below and hit us with a pull request.
 
 **2** - Install Node.js, NPM and NVM globally by running:
 
-```bash
+```
+bash
 brew install node npm nvm
 ```
 
@@ -46,9 +47,14 @@ npm install
 You can preview the docs locally, this will open up your default browser and
 render the docs. Please give the docs time to render, they require external assets.
 
+#### MacOS
 ```
-make
-apiary preview --path="apiary.apib"
+make && apiary preview --path="apiary.apib"
+````
+
+#### Ubuntu
+```
+./ubuntu-build
 ````
 
 ### Contributing
