@@ -106,6 +106,20 @@ List all the types of currency.
     + Attributes
         + currencies (array[Reference Currency Wrapper])
 
+## Reference Currency Country [/reference/currency/country]
+
+All supported currency and country combinations for payment types.
+
++ Attributes (object)
+    + currency_country (object)
+        + currency_iso (object)
+            + AED - The ISO value for the currency
+                + country_iso (array[Country]) - An array of ISO values for the compatible currencies
+
+### List all Country Currency Combinations [GET]
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (array[Reference Currency Country])
+
 ## Campaign Extra Field [/reference/campaign_extra_field]
 
 All additional Campaign attributes.
