@@ -1,11 +1,17 @@
 # Group Filter Sets
 
-## Report Filter Sets [/report/{campaign_id}/filter_sets/{filter_set_id}]
+## Report Filter Sets [/report/filter_sets/{filter_set_id}]
 
-### List all filter sets [GET]
+Filter Sets can exist in two different scopes. The first one is for advertiser, and is defined by user and campaign; in that case, a campaign_id parameter is needed for any request. The second one is for publisher, and is defined by user and publisher; in that case, a publisher_id parameter is needed for any request.
 
-+ Parameters
-    + campaign_id: 7 (string, required) - Id of the campaign
+Inasmuch as campaign_id and publisher_id are used to discriminate one of the two scope types, these parameters can not be used at the same time.
+
+### List all filter sets [GET /report/filter_sets]
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + campaign_id: 7 (string, required) - Id of the campaign (Advertiser Scope)
+        + publisher_id: 7 (string, required) - Id of the publisher (Publisher Scope)
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (object)
@@ -17,8 +23,12 @@
 ### Get a filter set [GET]
 
 + Parameters
-    + campaign_id: 7 (string, required) - Id of the campaign
     + filter_set_id: 38 (string, required) - Id of the filter set
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + campaign_id: 7 (string, required) - Id of the campaign (Advertiser Scope)
+        + publisher_id: 7 (string, required) - Id of the publisher (Publisher Scope)
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -27,16 +37,15 @@
         + filter_sets (array[Filter Set]) - List with the recovered Filter Set
         + errors (array) - Empty error list
 
-### Create a filter set [POST]
-
-+ Parameters
-    + campaign_id: 7 (string, required) - Id of the campaign
+### Create a filter set [POST /report/filter_sets]
 
 + Request (application/json; charset=utf-8)
     + Attributes
         + name: `My lovely filters set` (string, required)
         + is_default: false (boolean, optional)
         + data: (string, required) - Must be a valid JSON string
+        + campaign_id: 7 (string, required) - Id of the campaign (Advertiser Scope)
+        + publisher_id: 7 (string, required) - Id of the publisher (Publisher Scope)
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -55,7 +64,6 @@
 ### Update a filter set [PUT]
 
 + Parameters
-    + campaign_id: 7 (string, required) - Id of the campaign
     + filter_set_id: 38 (string, required) - Id of the filter set
 
 + Request (application/json; charset=utf-8)
@@ -63,6 +71,8 @@
         + name: `My new name` (string, optional)
         + is_default: false (boolean, optional)
         + data: (string, optional) - Must be a valid JSON string
+        + campaign_id: 7 (string, required) - Id of the campaign (Advertiser Scope)
+        + publisher_id: 7 (string, required) - Id of the publisher (Publisher Scope)
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -81,8 +91,12 @@
 ### Delete a filter set [DELETE]
 
 + Parameters
-    + campaign_id: 7 (string, required) - Id of the campaign
     + filter_set_id: 38 (string, required) - Id of the filter set
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + campaign_id: 7 (string, required) - Id of the campaign (Advertiser Scope)
+        + publisher_id: 7 (string, required) - Id of the publisher (Publisher Scope)
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
