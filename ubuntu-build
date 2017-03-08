@@ -1,0 +1,5 @@
+hercule src/apiary.apib -o apiary.apib
+hercule src/internal.apib -o internal.apib
+
+apiary preview --output /tmp/apiary.html
+google-chrome /tmp/apiary.html

@@ -1,0 +1,93 @@
+## Access and Authentication
+The API supports two authentication protocols:
+
+1. [HTTP Basic Auth](http://en.wikipedia.org/wiki/Basic_access_authentication) over HTTPS
+2. [Oauth2 via Authorization Code Grant](http://oauthlib.readthedocs.io/en/latest/oauth2/grants/authcode.html) user flow
+
+### HTTP Basic Auth
+You must have a valid `application_key` which identifies the Network you are making requests against.
+
+Unless you are creating a User, you should make all requests in the context of a User account. Each User has their own
+unique `user_api_key` which must be sent in conjunction with the `application_key`.
+
+- Username: `application_key`
+- Password: `user_api_key`
+
+Typically, authentication via HTTP Basic is achieved by sending the `Authorization` header in the following format:
+
+```
+Authorization: Basic cDN0ZXcxNDV5M3RhZzQxbjowaHkzNGho
+```
+
+Where `cDN0ZXcxNDV5M3RhZzQxbjowaHkzNGho` is the Base64 representation of the username and password:
+
+```
+base64(username + ':' + password)
+```
+
+## Response Formats
+The default response format is `JSON`. You can specify the response format of each request, by adding a file extension
+suffix to the end of the request URI. The requested format will dictate the HTTP `Content-Type` header that is returned
+in the response. Currently, there are 3 available formats:
+
+| Format               | Header                                   | Notes                                                               |
+|----------------------|------------------------------------------|---------------------------------------------------------------------|
+| `.json`              | `Content-Type: application/json`         |                                                                     |
+| `.xml`               | `Content-Type: text/xml`                 |                                                                     |
+| `.csv`               | `Content-Type: application/octet-stream` | Only available on specific endpoints                                |
+
+## Compression
+The API is compression enabled. To control whether the API response is compressed, send the relevant
+`Accept-Encoding` HTTP header:
+
+- Request: `Accept-Encoding: gzip`
+- Response: `Content-Encoding: gzip`
+
+## Pagination
+Certain endpoints will generate large result sets. To save bandwidth and long processing times, these endpoints will
+paginate the results to reduce the strain on both client and server.
+
+Any endpoint that supports pagination will return 3 attributes to support this:
+
+- `offset` the current offset of the data returned
+- `limit` the number of results to which the output was restricted
+- `count` the total number of results available
+
+If `offset` combined with `limit` is less than the overall `count`, the results have been truncated.
+Therefore, to consume all data you will need to page through the result set.
+
+### Paging
+To paginate through a result set, you can use a combination of 2 parameters:
+
+| Parameter            | Description                          | Notes                                                               |
+|----------------------|--------------------------------------|---------------------------------------------------------------------|
+| `offset`             | Offset the results by a given amount | Integer, defaults to `0`                                            |
+| `limit`              | Limit the number of results returned | Integer, maximum limit is defined in result set headers             |
+
+For example, if an endpoint produces 500 results, only the first 300 will be returned (results `0` to `299`).
+In order to retrieve the remaining results, implement the `offset` GET param. In this example, adding `offset=300` to
+the query string parameters.
+
+There are 2 considerations when doing this:
+
+- Results begin at offset `0`. If you're retrieving a report with `limit=300`, page 2 will begin at `offset=300`,
+page 3 at `offset=600`, page 4 at `offset=900`, etc.
+- The reports you generate are based on live data, and could be subject to continuous, incremental changes. If your
+query covers a particularly busy data set, then data inserts or updates may occur between paging.
+
+### Hypermedia
+It can be cumbersome to manage pagination programmatically, especially when attempting to rapidly prototype. To provide
+some helpful assistance, the API will output a `hypermedia` node for all paginated result sets. Essentially this
+performs all necessary calculations and outputs all relevant information with absolute URI's to assist easier pagination.
+
+```
+"hypermedia": {
+    "pagination": {
+        "total_page_count": 15,
+        "first_page": "/user.json?limit=100&offset=0",
+        "last_page": "/user.json?limit=100&offset=1400",
+        "next_page": "/user.json?limit=100&offset=100",
+        "previous_page": null
+    }
+}
+```

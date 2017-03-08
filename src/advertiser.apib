@@ -1,0 +1,88 @@
+# Group Advertiser
+
+A User can create one or more Advertiser accounts. A User can also have access to one or more Advertiser accounts -
+this is determined by the User's permissions. A Network admin may choose to grant a User access to multiple
+entities within their Network.
+
+## Advertisers [/user/advertiser]
+
+### List all Advertisers [GET /user/advertiser{?limit,offset}]
+
+One or more Advertisers can reside on a Network. This endpoint will output a listing of all Advertisers who reside on
+the Network and the output is contextual based on the permissions of the User making the request to the endpoint.
+A limited Advertiser schema will be utilised for any Advertiser that the User does not have appropriate permissions to view.
+
++ Parameters
+    + limit: 100 (number, optional)
+    + offset: 0 (number, optional)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 86 (number)
+        + limit: 100 (number)
+        + offset: 0 (number)
+        + execution_time: `0.23640 seconds`
+        + advertisers (array[Advertiser Wrapper])
+
+### Create Advertiser [POST]
+
+Create a new Advertiser account attached to the authenticated User.
+
++ Request (application/json; charset=utf-8)
+    + Attributes (Advertiser Base)
+        + account_name: newadvertiser123 (required) - Unique advertiser account name
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Advertiser Wrapper)
+
+## Advertiser [/user/advertiser/{advertiser_id}]
+
++ Parameters
+    + advertiser_id: 10l110 - ID of the advertiser
+
++ Attributes (object)
+    + advertiser_id: 10l110 - ID of the advertiser
+    + Include Advertiser Base
+    + contact_email: kristin.bouveng@performancehorizon.com
+    + status (Status)
+    + pre_payment (nullable)
+    + current_balance (nullable)
+    + vat_number: GB974997534 (string, optional, nullable)
+    + default_currency (Currency)
+    + payment_currency (Currency)
+    + budget_summary_interval (nullable)
+    + budget_summary_start_time (nullable)
+
+### Retrieve an Advertiser [GET]
+
+Outputs the specified advertiser.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Advertiser Wrapper)
+
+### Update an Advertiser [POST]
+
+Update the specified Advertiser.
+
++ Request (application/json; charset=utf-8)
+    + Attributes (Advertiser Update)
+        + advertiser_id: 10l110 - ID of the advertiser
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Advertiser Wrapper)
+
+## Advertiser Campaigns [/user/advertiser/{advertiser_id}/campaign]
+
+### List all Advertiser Campaigns [GET]
+
+This endpoint will output a listing of all Campaigns that reside under the provided Advertiser on  Network and the output is contextual based on the permissions of the User making the request to the endpoint.
+A limited Campaign schema will be utilised for any Campaign that the User does not have appropriate permissions to view.
+
++ Parameters
+    + advertiser_id: 10l110 - ID of the advertiser
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 5 (number)
+        + execution_time: `0.08001 seconds`
+        + campaigns (array[Campaign Wrapper])

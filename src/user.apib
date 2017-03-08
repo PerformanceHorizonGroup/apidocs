@@ -1,0 +1,63 @@
+# Group User
+
+A User is the central entity that all API requests are authenticated against. A User can have permissions against
+multiple Publisher and Advertiser accounts.
+
+## User [/user]
+
++ Attributes (object)
+    + user_id: 11l16829 - ID of the user
+    + Include User Base
+    + network_id: 1l1000003
+    + network_name: PHG
+    + user_api_key: ZMEt5ca8
+
+### Retrieve User [GET]
+
+Retrieve the details of the authenticated user.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (User Wrapper)
+
+### Create a User [POST]
+
+This is the only API request which can be made without submitting a HTTP Basic Auth password in the Authorization header.
+The reason for this is so that a new User can be created against the requested Network. On success, a unique
+`user_api_key` will be returned which can be used in subsequent requests to perform actions as that new User.
+
++ Request (application/json; charset=utf-8)
+    + Attributes (User Base)
+        + user_name: newuser123 (required) - Unique user account name
+        + password: samplepass (required) - Password of the user
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (User Wrapper)
+
+### Update a User [POST /user/{user_id}]
+
+Update the specified user.
+
++ Parameters
+    + user_id: 11l16829 - ID of the user
+
++ Request (application/json; charset=utf-8)
+    + Attributes (User Update)
+        + user_id: 11l16829 (required) - ID of the user
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (User Wrapper)
+
+## Account [/user/account]
+
+### Retrieve Accounts [GET]
+
+Returns the Network object that the user belongs to, and all Advertiser and Publisher accounts to which they are
+associated. Also includes a permissions node to relay the available User Access Rights to that entity.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + user_accounts (array)
+            + (Network Account Wrapper)
+            + (Publisher Account Wrapper)
+            + (Advertiser Account Wrapper)
+            + (Campaign Group Account Wrapper)

@@ -1,0 +1,168 @@
+# Group Alert
+
+Alerts are used across the platform to notify users about events that are triggered through other endpoints.
+Notifications are sent to users that have subscribed to an alert using a selected channel.
+
+## Alert Group [/alerts/group]
+
+All Notifications belong to an Alert Group, for example "Campaign activity".
+
++ Attributes
+    + alert_alert_group_id: 23 - ID of the alert group
+    + description: On my Campaigns, eg. Publisher applies to join a Campaign (nullable, string)
+
+### Get All Available Alerts [GET]
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + alerts (array[Alert Group Wrapper])
+
+## Notifier [/alerts/notifier]
+
+The mechanism that a Notification is sent through, such as Email or Slack.
+
++ Attributes
+    + alert_notifier_id: 23 - ID of a Notifier
+    + name: Email (string) - Name of the notifier
+
+### Get All Available Notifiers [GET]
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + notifiers(array[Notifier Wrapper])
+
+## Alert User Setting [/alerts/setting]
+
+All User specific settings for Notifiers.
+
++ Attributes
+    + alert_user_extra_field_id: 1 (string, required) - Alert user extra field id
+    + field_name: slack channel (string, required) - Field name
+    + type: plain (enum, required) - The type of field value expected
+        + plain - String
+        + user_email - Email address
+        + array - Array of values
+    + field_value: #general (string, required) - Value for the setting, relative to the `type`
+
+### Get All Available Settings [GET]
+
+Get matrix of all user alert related settings
++ Request (application/json; charset=utf-8)
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + settings(array[Alert User Extra Field Wrapper])
+
+### Set User Setting [POST]
+
+Update user notifier settings
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + settings (array[Alert User Extra Field Value])
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (array[Alert Setting Response Entry])
++ Response 400 (application/json; charset=utf-8)
+
+## Notifications [/alerts/notification]
+
+A message delivered to a User by a Notifier of an action that has occurred or is due to occur.
+
++ Attributes
+    + alert_alert_group_id: 70 - ID of Alert
+    + alert_notifier_id: 4 - ID of Notifier
+
+### Retrieve all Notifications [GET]
+
+Retrieve all currently set Notifications for a User.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + notifications (array[Notification Wrapper])
+
+## Notification [/alerts/notification/{alert_notification_id}]
+
++ Parameters
+    + alert_notification_id: 11l16829 - ID of the Notification
+
+### Create New Notification [POST]
+
+Notification consists of combination of alert/user/notifier and settings that are specific to the Notifier itself.
+
++ Request (application/json; charset=utf-8)
+    + Attributes (Notification Base With Extra Fields)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Notification Base)
+
++ Response 400 (application/json; charset=utf-8)
+
+### Retrieve Notification [GET]
+
+Outputs the specified Notification.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Notification Wrapper)
+
+### Delete User Notification [DELETE]
+
+Delete one or more User Notifications.
+
++ Request (application/json; charset=utf-8)
+
++ Response 200 (application/json; charset=utf-8)
+
++ Response 400 (application/json; charset=utf-8)
+
+## Messages [/alerts/messages]
+
+Messages are created by the PH Notification Center Notifier for Notifications that occur in the PH Web App.
+
+### Get All Messages for Current User [GET]
+
++ Request (application/json)
+    + Attributes
+        + status (array[Alert Message Status], Alert Message Status, nullable) - Filter messages by statuses
+        + limit: 5 (number, nullable) - Used for pagination
+        + offset: 0 (number, nullable) - Limit for pagination
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + messages (array)
+            + message_id: 111111l1 (string) - Internal Message ID
+            + user_id: 1111111l3 (string) - Recipient
+            + content: New campaign has been created (string) - Message to end-user
+            + status: read (Alert Message Status) - Status
+            + created_at (string) - When it took place
+
+### Mark Messages with status [POST]
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + message_id (array) - Message IDs to be marked as read
+            + 1111111l1 (string)
+            + 1111111l55 (string)
+        + status (Alert Message Status) - Message status
+
++ Response 200 (text/html; charset=utf-8)
+
+### Get Simple Messages For Feed [GET /alerts/messages_for_feed]
+
+Fetches ungrouped messages for current user in feed format.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + limit: 10 (number, nullable) - Number of messages to fetch
+        + status (Alert Message Status, nullable) - Message status
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + messages (array[Alert Simple Feed Message])
+
+### Get Grouped Messages For Feed [GET /alerts/grouped_messages_for_feed]
+
+Fetches grouped messages for current user in feed format.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + limit: 10 (number, nullable) - Number of messages to fetch
+        + status (Alert Message Status, nullable) - Message status
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + messages (array[Alert Grouped Feed Message])
