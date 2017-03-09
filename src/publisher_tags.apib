@@ -1,0 +1,193 @@
+# Group Publisher Tags
+Publisher tags allows you to categorize your publishers by assigning tags to group them together.
+
+## Publisher Tags [/campaign/{campaign_id}/publisher_tag]
+
+### Read Publisher Tags [GET]
+Get all publisher tags on the specified campaign.
+
++ Parameters
+    + campaign_id: 12 (string, required) - The id of the campaign which the publisher tags are saved against
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (object)
+      + count: 1 (number) - Number of tags recovered
+      + execution_time: `0.23640 seconds`
+      + publisher_tags (array[Publisher Tag]) - Recovered tags list
+      + errors (array) - Empty error list
+
+### Create Publisher Tags [POST]
+Create publisher tags on the specified campaign.
+
++ Validation rules
+    + Publisher tag names must be unique on the same campaign.
+    + Publisher tag names must be under 256 characters.
+    + Publisher tag names must not be numeric. You can add numbers as part of a text string but not on their own.
+
++ Parameters
+    + campaign_id: 12 (string, required) - The id of the campaign which the publisher tags are saved against
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+      + publisher_tags (array[Publisher Tag Create])
+
++ Response 201 (application/json; charset=utf-8)
+    + Attributes
+      + count: 1 (number) - Number of successfully created publisher tags
+      + execution_time: `0.23640 seconds`
+      + publisher_tags (array[Publisher Tag]) - Created publisher tags list
+      + errors (array[])
+
++ Response 207 (application/json; charset=utf-8)
+    + Attributes
+      + count: 1 (number) - Number of successfully created publisher tags
+      + execution_time: `0.23640 seconds`
+      + publisher_tags (array[Publisher Tag]) - Created publisher tags list
+      + errors (array[Publisher Tag Create Error]) - Error list if something went wrong
+
+### Update Publisher Tags [PUT]
+Change publisher tag names on the specified campaign.
+
++ Validation rules
+    + Publisher tag names must be unique on the same campaign.
+    + Publisher tag names must be under 256 characters.
+    + Publisher tag names must not be numeric. You can add numbers as part of a text string but not on their own.
+
++ Parameters
+    + campaign_id: 12 (string, required) - The id of the campaign which the publisher tags are saved against
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+      + publisher_tags (array[Publisher Tag])
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+      + count: 1 (number) - Number of successfully updated publisher tags
+      + execution_time: `0.23640 seconds`
+      + publisher_tags (array[Publisher Tag]) - Updated publisher tags list
+      + errors (array[])
+
++ Response 207 (application/json; charset=utf-8)
+    + Attributes
+      + count: 1 (number) - Number of successfully updated publisher tags
+      + execution_time: `0.23640 seconds`
+      + publisher_tags (array[Publisher Tag]) - Updated publisher tags list
+      + errors (array[Publisher Tag Update Error]) - Error list if something went wrong
+
+### Delete Publisher Tags [DELETE]
+Delete publisher tags on the specified campaign.
+
++ Parameters
+    + campaign_id: 12 (string, required) - The id of the campaign which the publisher tags are saved against
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+      + publisher_tags (array[Publisher Tag Delete])
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+      + count: 1 (number) - Number of successfully deleted publisher tags
+      + execution_time: `0.23640 seconds`
+      + publisher_tags (array[Publisher Tag]) - Deleted publishers tags list
+      + errors (array[])
+
++ Response 207 (application/json; charset=utf-8)
+    + Attributes
+      + count: 1 (number) - Number of successfully deleted publisher tags
+      + execution_time: `0.23640 seconds`
+      + publisher_tags (array[Publisher Tag]) - Deleted publishers tags list
+      + errors (array[Publisher Tag Delete Error]) - Error list if something went wrong
+
+## Publisher Tag Associations [/campaign/{campaign_id}/publisher_tag_association]
+
+### Get Publisher Tag Associations [GET]
+Get a list of publisher tag associations to see which tags are assigned to publishers.
+
++ Parameters
+    + campaign_id: 12 (string, required) - the id of the campaign which the publisher tags are saved against
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of recovered publisher tag associations
+        + execution_time: `0.23640 seconds`
+        + publisher_tag_associations (array[Publisher Tag Association]) - Publisher tag associations list
+        + errors (array[])
+
+### Create Publisher Tag Association [POST]
+Create an association between a publisher and an existing tag.
+
++ Validation rules
+    + The publisher_tag_id in the request must exist on the specified campaign
+    + The publisher_id must be present, valid, and exist on the specified campaign
+    + The association between the publisher_id and publisher_tag_id must not already exist
+
++ Parameters
+    + campaign_id: 12 (string, required) - the id of the campaign which the publisher tags are saved against
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + publisher_tag_associations (array[Publisher Tag Association Create])
+
++ Response 201 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of successfully created publisher tag associations
+        + execution_time: `0.23640 seconds`
+        + publisher_tag_associations (array[Publisher Tag Association]) - Created publisher tag associations list
+        + errors (array[])
+
++ Response 207 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of successfully created publisher tag associations
+        + execution_time: `0.23640 seconds`
+        + publisher_tag_associations (array[Publisher Tag Association]) - Created publisher tag associations list
+        + errors (array[Publisher Tag Association Create Error]) - Error list if something went wrong
+
+### Delete Publisher Tag Association [DELETE]
+Delete an association between a publisher and an existing tag.
+
++ Validation rules
+    + The publisher_tag_association_id in the request must exist on the specified campaign
+
++ Parameters
+    + campaign_id: 12 (string, required) - the id of the campaign which the publisher tags are saved against
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + publisher_tag_associations (array[Publisher Tag Association Delete])
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of successfully deleted publisher tag associations
+        + execution_time: `0.23640 seconds`
+        + publisher_tag_associations (array[Publisher Tag Association]) - Deleted publisher tag associations list
+        + errors (array[])
+
++ Response 207 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of successfully deleted publisher tag associations
+        + execution_time: `0.23640 seconds`
+        + publisher_tag_associations (array[Publisher Tag Association]) - Deleted publisher tag associations list
+        + errors (array[Publisher Tag Association Delete Error]) - Error list if something went wrong
+
+## Publisher Tag Search [/campaign/{campaign_id}/publisher_tag_search]
+
+### Search Publishers [GET]
+Get all publishers tagged with the specified tags.
+
++ Parameters
+    + campaign_id: 12 (string, required) - The id of the campaign which tags belong.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + tag_id (array[], required)
+            + 10 (string) - Tag Id
+            + 12 (string) - Tag Id
+        + method: or (string) - Search method, allowed values are 'and' | 'or'. Default is 'or'.
+        + offset: 75 (number) - Record offset from start of full results
+        + limit: 25 (number) - Number of records to return
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (object)
+      + count: 1 (number) - Number of publishers recovered
+      + execution_time: `0.23640 seconds`
+      + publishers (array[Publisher Search Result]) - Search result
