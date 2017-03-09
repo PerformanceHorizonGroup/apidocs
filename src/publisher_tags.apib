@@ -191,3 +191,23 @@ Get all publishers tagged with the specified tags.
       + count: 1 (number) - Number of publishers recovered
       + execution_time: `0.23640 seconds`
       + publishers (array[Publisher Search Result]) - Search result
+
+### Search Tags [GET /campaign/{campaign_id}/publisher_tag_recover]
+Get all tags for each provided publisher.
+
++ Parameters
+    + campaign_id: 12 (string, required) - The id of the campaign which tags belong.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + publisher_id (array[], required)
+            + 10 (string) - Publisher Id
+            + 12 (string) - Publisher Id
+        + offset: 75 (number) - Record offset from start of full results
+        + limit: 25 (number) - Number of records to return
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (object)
+      + count: 1 (number) - Number of publishers recovered
+      + execution_time: `0.23640 seconds`
+      + publisher_tags (array[Tag Recover Result]) - Search result
