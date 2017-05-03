@@ -52,25 +52,3 @@ View all unique Meta attributes for the Campaign Group.
                 + currencies (array[Currency])
                 + meta_conversion (array)
                 + meta_item (array)
-
-## List all Reporting Meta Whitelist Keys for a Campaign [GET /campaign/{campaign_id}/reporting/meta/whitelist]
-
-View all keys that are whitelisted and that are permitted to be used as part of the Reporting on Meta functionality.
-
-+ Response 200 (application/json; charset=utf-8)
-    + Attributes
-        + whitelist
-            + 0
-                + type: conversion - Conversion level Whitelist Keys
-                + keys
-                    + 0
-                        + key: key_name_1
-                    + 1
-                        + key: key_name_2
-            + 1
-                + type: item - Item level Whitelist Keys
-                + keys
-                    + 0
-                        + key: key_name_3
-                    + 1
-                        + key: key_name_4
