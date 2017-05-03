@@ -52,27 +52,3 @@ View all unique Meta attributes for the Campaign Group.
                 + currencies (array[Currency])
                 + meta_conversion (array)
                 + meta_item (array)
-
-## List all Meta values for a Campaign [GET /campaign/{campaign_id}/meta/values]
-
-View all meta values for keys in meta key whitelist.
-
-+ Parameters
-    + campaign_id: 10l176 - ID of the campaign
-
-+ Response 200 (application/json; charset=utf-8)
-    + Attributes
-        + conversion (array)
-            + (object)
-                + key: key_name_1
-                + values: value 1.1, value 1.2, value 1.3 (array) - Value list for key_name_1
-            + (object)
-                + key: key_name_2
-                + values: value 2.1, value 2.2, value 2.3 (array) - Value list for key_name_2
-        + item (array)
-            + (object)
-                + key: key_name_3
-                + values: value 3.1, value 3.2, value 3.3 (array) - Value list for key_name_3
-            + (object)
-                + key: key_name_4
-                + values: value 4.1, value 4.2, value 4.3 (array) - Value list for key_name_4
