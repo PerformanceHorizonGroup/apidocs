@@ -1,0 +1,22 @@
+image: "ruby:2.3"
+
+before_script:
+  - apt update -qq && apt install -y build-essential
+  - curl -sL https://deb.nodesource.com/setup_6.x | bash -;
+  - apt install -y nodejs
+  - npm install hercule
+  - gem install apiaryio
+
+stages:
+  -  build-pages
+
+pages:
+  stage: build-pages
+  script:
+    - mkdir -p .public/$CI_COMMIT_REF_NAME
+    - make && apiary preview --path="apiary.apib" --output=".public/$CI_COMMIT_REF_NAME/index.html"
+    - mv .public public
+
+  artifacts:
+    paths:
+      - public
