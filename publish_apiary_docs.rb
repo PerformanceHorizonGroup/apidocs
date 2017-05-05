@@ -13,8 +13,8 @@ cloned_repo = Git.open("#{Dir.pwd}/tmp")
 branches.each do |branch|
   if branch.remote.name == "origin"
     unless branch.name.include?('->')
-      `make -C #{Dir.pwd}/tmp`
       cloned_repo.checkout(branch.name)
+      `make -C #{Dir.pwd}/tmp`
       puts "Publishing apiary docs for branch #{branch.name}"
       `mkdir -p #{Dir.pwd}/.public/#{branch.name}`
       `apiary preview --path=\"#{Dir.pwd}/tmp/apiary.apib\" --output=\"#{Dir.pwd}/.public/#{branch.name}/index.html\"`
