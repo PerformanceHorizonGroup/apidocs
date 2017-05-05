@@ -3,6 +3,7 @@ image: "ruby:2.3"
 before_script:
   - apt update -qq && apt install -y build-essential
   - curl -sL https://deb.nodesource.com/setup_6.x | bash -;
+  - apt install -y rsync
   - apt install -y nodejs
   - npm install hercule
   - gem install apiaryio
