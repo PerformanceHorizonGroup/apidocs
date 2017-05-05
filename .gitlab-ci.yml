@@ -1,0 +1,20 @@
+image: "ruby:2.3"
+
+before_script:
+  - apt update -qq && apt install -y build-essential
+  - curl -sL https://deb.nodesource.com/setup_6.x | bash -;
+  - apt install -y nodejs
+  - npm install hercule
+  - gem install apiaryio
+  - gem install git
+
+stages:
+  -  build-pages
+
+pages:
+  stage: build-pages
+  script:
+    - ruby publish_apiary_docs.rb
+  artifacts:
+    paths:
+      - public
