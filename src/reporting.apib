@@ -6,21 +6,13 @@ View all keys that are whitelisted and that are permitted to be used as part of 
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + whitelist (array)
-            + (object)
-                + type: conversion - Conversion level Whitelist Keys
-                + keys (array)
-                    + (object)
-                        + key: key_name_1
-                    + (object)
-                        + key: key_name_2
-            + (object)
-                + type: item - Item level Whitelist Keys
-                + keys (array)
-                    + (object)
-                        + key: key_name_3
-                    + (object)
-                        + key: key_name_4
+        + whitelist (object)
+            + conversion (array)
+                + conversion_key_name_1
+                + conversion_key_name_2
+            + item (array)
+                + item_key_name_1
+                + item_key_name_2
 
 ## List all Reporting Meta Values for a Campaign [GET /campaign/{campaign_id}/reporting/meta/values]
 
