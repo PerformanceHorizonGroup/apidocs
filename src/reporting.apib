@@ -23,17 +23,14 @@ Get all values for conversions / conversion-items meta keys in the meta key whit
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + conversion (array)
-            + (object)
-                + key: key_name_1
-                + values: value 1.1, value 1.2, value 1.3 (array) - Value list for key_name_1
-            + (object)
-                + key: key_name_2
-                + values: value 2.1, value 2.2, value 2.3 (array) - Value list for key_name_2
-        + item (array)
-            + (object)
-                + key: key_name_3
-                + values: value 3.1, value 3.2, value 3.3 (array) - Value list for key_name_3
-            + (object)
-                + key: key_name_4
-                + values: value 4.1, value 4.2, value 4.3 (array) - Value list for key_name_4
+        + meta_values (object)
+            + conversion (object)
+                + conversion_key_name_1 (array)
+                    + value_1
+                    + value_2
+                    + value_3
+            + item (object)
+                + item_key_name_1 (array)
+                    + value_1
+                    + value_2
+                    + value_3
