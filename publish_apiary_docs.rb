@@ -1,3 +1,4 @@
+#encoding: utf-8
 require 'git'
 
 def replace_title(branch, document_path)

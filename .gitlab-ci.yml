@@ -2,6 +2,10 @@ image: "ruby:2.3"
 
 before_script:
   - apt update -qq && apt install -y build-essential
+  - apt-get install locales
+  - export LC_ALL=C.UTF-8
+  - export LANG=en_US.UTF-8
+  - export LANGUAGE=en_US.UTF-8
   - curl -sL https://deb.nodesource.com/setup_6.x | bash -;
   - apt install -y rsync
   - apt install -y nodejs
