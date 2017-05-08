@@ -1,7 +1,13 @@
 require 'git'
 
-`mkdir #{Dir.pwd}/.public`
+def replace_title(branch, document_path)
+	text = File.read(document_path) 
+	content = text.gsub(/search_regexp/, "<title> Apiary - #{branch.name} </title>")
+	File.open(document_path, "w") { |file| file << content }
+end
 
+
+`mkdir #{Dir.pwd}/.public`
 `mkdir #{Dir.pwd}/tmp`
 `rsync -avz --exclude 'tmp' . #{Dir.pwd}/tmp/`
 
@@ -29,9 +35,3 @@ end
 `rm -rf #{Dir.pwd}/tmp`
 `mv #{Dir.pwd}/.public #{Dir.pwd}/public`
 
-
-def replace_title(branch, document_path)
-	text = File.read(document_path) 
-	content = text.gsub(/search_regexp/, "<title> Apiary - #{branch.name} </title>")
-	File.open(document_path, "w") { |file| file << content }
-end
