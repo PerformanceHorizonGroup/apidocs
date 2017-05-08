@@ -2,7 +2,7 @@ require 'git'
 
 def replace_title(branch, document_path)
 	text = File.read(document_path) 
-	content = text.gsub(/search_regexp/, "<title> Apiary - #{branch.name} </title>")
+	content = text.gsub(/\<title\>apiary\<\/title\>/, "<title> Apiary - #{branch.name} </title>")
 	File.open(document_path, "w") { |file| file << content }
 end
 
