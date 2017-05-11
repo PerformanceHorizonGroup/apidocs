@@ -14,6 +14,12 @@ View all keys that are whitelisted and that are permitted to be used as part of 
                 + item_key_name_1
                 + item_key_name_2
 
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + message: Campaign does not exist
+            + type: 404
+
 ## List all Reporting Meta Values for a Campaign [GET /campaign/{campaign_id}/reporting/meta/values]
 
 Get all values for conversions / conversion-items meta keys in the meta key whitelist.
