@@ -49,13 +49,31 @@ render the docs. Please give the docs time to render, they require external asse
 
 #### MacOS
 ```
-make && apiary preview --path="apiary.apib"
+npm run preview
 ````
 
 #### Ubuntu
 ```
 ./ubuntu-build
 ````
+
+### Live Preview
+
+The Apiary Ruby Gem now supports live updates to the browser. To enable this run the following commands:
+
+```
+npm run watch
+
+# start preview server (manual reload to view changes)
+npm run preview
+
+# or, start preview server and watch for changes (automatically reload)
+npm run preview -- --watch 
+```
+
+This will start a HTTP server on port 8080 and the preview can be viewed by going to http://localhost:8080 in your browser. When the apiary.apib file is updated the changes will appear in your browser after a short delay without reloading the page.
+
+*NOTE:* As we use Hercule to combine the individual .apib files, `make` must be run before the preview will update. `npm run watch` takes care of this for us. 
 
 ### Contributing
 
