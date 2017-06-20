@@ -52,11 +52,12 @@
 + status (Alert Message Status) - Message status
 
 ## Alert Grouped Feed Message (object)
++ alert_message_id: `111111l8` (string) - Identifier of message
 + content: `Publisher Leadsbox has just created 1 TQ(s)` (string) - Content when display as single message
 + created_at: `2016-09-26 11:34:08` (string) - Latest message timestamp
 + group_content: `:count TQs have been submitted for your review` (string) - Content when display as group
 + group_link: `http://phgma.dev/v2/url/111111l8` (string) - Action url when display as single message
-+ grouping_key: `5campaign300659` (string) - Key to group messages
++ grouping_key: `5campaign300659` (string) - Key to group messages (Identifier of grouped message)
 + link: `http://phgma.dev/v2/url/111111l8` (string) - Action url when display as single message
-+ message_ids: `111111l8` (array[string]) - Identifiers of messages in group
 + status (Alert Message Status) - Message status
++ count: `4` (number) - Count of messages in group
