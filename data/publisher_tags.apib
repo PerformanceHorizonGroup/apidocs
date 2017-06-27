@@ -1,0 +1,66 @@
+## Publisher Tag (object)
+  + publisher_tag_id: 1l1000001 - ID of the Publisher Tag
+  + name: TOP5 2016 Q1 - Name of the Publisher Tag
+
+## Publisher Tag Create (object)
+  + name: 1l1000013 - Name of the new Publisher Tag
+
+## Publisher Tag Create Error (object)
+  + data - The data which was passed through
+    + name: New
+  + error
+    + type: validation fail - The type of error thrown
+    + message: Publisher tag 'New' already exists on campaign 1. - A plain-text message to describe the error
+
+## Publisher Tag Update Error (object)
+  + data - The data which was passed through
+    + publisher_tag_id: 1l1000004
+    + name: New
+  + error
+    + type: validation fail - The type of error thrown
+    + message: Publisher tag 'New' already exists on campaign 1. - A plain-text message to describe the error
+
+## Publisher Tag Delete (object)
+  + publisher_tag_id: 1l1000001 - ID of the Publisher Tag
+
+## Publisher Tag Delete Error (object)
+  + data - The data which was passed through
+    + publisher_tag_id: 1l1000004
+  + error
+    + type: validation fail - The type of error thrown
+    + message: Publisher tag with a publisher_tag_id of 1l1000004 cannot be deleted, as it does not exist. - A plain-text message to describe the error
+
+## Publisher Tag Association (object)
+  + publisher_tag_association_id: 1l1000001 - ID of the association
+  + publisher_tag_id: 1l1000013 - ID of the publisher tag
+  + publisher_id: 1 - ID of the publisher
+
+## Publisher Tag Association Create (object)
+  + publisher_tag_id: 1l1000013 - ID of the publisher tag
+  + publisher_id: 1 - ID of the publisher
+
+## Publisher Tag Association Create Error (object)
+  + data - The data which was passed through
+    + publisher_tag_id: 1l1000004
+    + publisher_id: 3
+  + error
+    + type: validation fail - The type of error thrown
+    + message: Publisher 3 is already associated with tag 1l1000004. - A plain-text message to describe the error
+
+## Publisher Tag Association Delete (object)
+  + publisher_tag_association_id: 1l1000001 - ID of the association
+
+## Publisher Tag Association Delete Error (object)
+  + data - The data which was passed through
+    + publisher_tag_association_id: 1l1000008
+  + error
+    + type: validation fail - The type of error thrown
+    + message: Publisher tag association id 1l1000008 does not exist on this campaign. - A plain-text message to describe the error
+
+## Publisher Search Result (object)
+  + publisher_id: 1l1000001 - Publisher id
+
+## Tag Recover Result (object)
+  + publisher (object)
+    + publisher_id: 1 - ID of the publisher
+    + publisher_tag_ids (array[string]) - Tag ids for this publisher
