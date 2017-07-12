@@ -1,0 +1,75 @@
+## Transaction Query (object)
++ transaction_query_id: 111111l10
++ transaction_query_type (Transaction Query Type)
++ camref: hrDu67
++ notes: Quam ex rerum nulla enim.
++ publisher_reference: rerum
++ publisher_id: 1l1007802
++ campaign_id: 10l176
++ conversion_date_time: `2017-01-01 00:00:00`
++ conversion_reference: `AUTO-5953bd8c5fe7b`
++ conversion_id: 111111l304972
++ conversion_value: 9729 (number)
++ conversion_currency (Currency)
++ created_at: `2017-01-01 00:00:00`
++ updated_at: `2017-02-01 00:00:00` (nullable)
++ current_state (Transaction Query State)
++ state_history (Transaction Query State History)
++ expected_commission: 907.43 (number)
++ campaign (object)
+    + campaign_id: 10l176
+    + title: Example Campaign
+    + advertiser_id: 10l110
+    + status (Status)
+    + vertical_id: 10 (number)
+    + default_override: 1
+    + reporting_timezone (Timezones)
+    + week_start: monday
+    + type: sale
+    + payment_date (string, optional, nullable)
+    + network_fee (string, optional, nullable)
+    + hidden_campaign (YesOrNo)
+    + created: `2017-01-01 00:00:00`
+    + created_by: 11l16829
+    + last_modified: `2017-01-01 00:00:00` (nullable)
++ publisher (object)
+    + publisher_id: 1l1007802
+    + name: Example Publisher
+    + network_status: a
+    + reporting_timezone (Timezones)
+    + week_start: saturday
+    + created: `2017-01-01 00:00:00`
+    + created_by: 11l16829
+    + signup_ip: 127.0.0.1
+    + network_id: 1l1000003
+    + agreed_to_latest_network_terms (YesOrNo)
+    + ref_terms_and_conditions_locale_id: 1l100284
+
+## Transaction Query Wrapper (object)
++ transaction_query (Transaction Query)
+
+## Transaction Query Type (enum)
++ untracked - Conversion has not been tracked
++ incorrect_commission - Conversion commission has been tracked incorrectly
++ declined - Conversion has been declined
+
+### Sample
++ incorrect_commission
+
+## Transaction Query State (enum)
++ pending - Pending action by the advertiser
++ approved - TQ has been approved by the advertiser
++ rejected - TQ has been rejected by the advertiser
+
+### Sample
++ pending
+
+## Transaction Query State History (object)
++ transaction_query_state_id: 111111l9
++ transaction_query_id: 111111l10
++ state (Transaction Query State)
++ user_id: 11l16829
++ notes: Quidem facilis iste sapiente reiciendis.
++ created_at: `2017-01-01 00:00:00`
++ conversion_item_id: 111111l1107235 (nullable)
++ conversion_expected_commission: 837.49 (number)
