@@ -1,0 +1,124 @@
+# Group Publisher Transaction Query
+
+Transaction Queries (TQs) allow Publishers to raise disputes about conversions with Advertisers.
+
+There are three types of TQs:
+- Untracked: A conversion has not been tracked.
+- Incorrect Commission: A conversion does not have the correct Publisher commission value.
+- Declined: The Advertiser has rejected a conversion.
+
+## Transaction Queries [/user/publisher/{publisher_id}/tq]
+
++ Parameters
+    + publisher_id: 1l1007802 (required) - ID of the publisher
+
+### List all Transaction Queries [GET /user/publisher/{publisher_id}/tq{?transaction_query_id,transaction_query_type,publisher_reference,conversion_reference,conversion_date_time,campaign_id,current_state,sort_column,order_by,date_range_start,date_range_end,date_range_column,text_date,tq_export}]
+
+Return the details of all TQs created by the Publisher account.
+
++ Parameters
+    + transaction_query_id: 1l1000532 (optional) - Filter by the ID of a transaction query
+    + transaction_query_type: untracked (Transaction Query Type,optional) - Filter by the type
+    + publisher_reference: A200FG1 (optional) - Filter by a publisher reference
+    + conversion_reference: AF222PO (optional) - Filter by a conversion reference
+    + conversion_date_time: `2017-01-01 00:00:00` (optional) - Filter by a conversion date
+    + campaign_id: 10l176 (optional) - Filter by the ID of a campaign
+    + current_state: pending (Transaction Query State,optional) - Filter by the current state
+    + date_range_column: created_at (optional) - Field to filter the date range on
+    + date_range_start: `2017-01-01 00:00:00` (optional) - Start of a date range
+    + date_range_end: `2017-12-30 00:00:00` (optional) - End of a date range
+    + text_date: last 10 days (optional) - Natural language representation of a date range
+    + `sort_column`: created_at (optional) - Field to sort the results by
+    + order_by: ASC (Sort Direction,optional) - Direction to sort the results by
+    + tq_export: true (optional) - Download the results as a CSV file
+
++ Request (application/json; charset=utf-8)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 5 (number)
+        + execution_time: `0.08001 seconds`
+        + filters (object)
+        + sort (object)
+            + column: created_at
+            + direction (Sort Direction)
+        + transaction_queries (array[Transaction Query Wrapper], fixed-type)
+
++ Response 401 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: Access Permission Denied
+            + message: `Permission Denied: User cannot perform tq_read action on publisher-1l1007802`
+
+### Create Transaction Queries [POST /user/publisher/{publisher_id}/tq/create]
+
+Create one or more TQs. The fields required depends on the type of TQ being created:
+
+- Untracked: conversion_reference, camref, conversion_value, expected_commission, conversion_date_time
+- Incorrect commission: conversion_reference, camref, expected_commission
+- Declined: conversion_reference, camref
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + transaction_queries (array)
+            + (object)
+                + transaction_query_type (Transaction Query Type)
+                + conversion_reference: AF222PO
+                + camref: hrDu67
+                + conversion_value: 67.12 (number,optional)
+                + expected_commission: 6.71 (number,optional)
+                + notes: Sample note (optional)
+                + publisher_reference: A200FG1 (optional)
+                + conversion_date_time: `2017-01-01 00:00` (optional)
+                + conversion_currency: GBP (optional)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + execution_time: `1.16076 seconds`
+        + Include Job Wrapper
+
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: Validation Fail
+            + message: transaction_queries not found
+            + fields (object)
+
++ Response 401 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: Access Permission Denied
+            + message: `Permission Denied: User cannot perform tq_read action on publisher-1l1007802`
+
+### Delete a Transaction Query [POST /user/publisher/{publisher_id}/tq/{transaction_query_id}/delete]
+
+Delete a single TQ. Once a TQ has been approved or rejected it cannot be deleted.
+
++ Parameters
+    + transaction_query_id: 1l1000532 - ID of the transaction query
+
++ Request (application/json; charset=utf-8)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + execution_time: `1.16076 seconds`
+        + transaction_query (object)
+            + deleted: true (boolean)
+
++ Response 401 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: Access Permission Denied
+            + message: `Permission Denied: User cannot perform tq_read action on publisher-1l1007802`
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: 404
+            + message: TQ could not be found; possibly because it does not exist. Please check your selection and try again.
+
++ Response 405 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: 405
+            + message: You cannot remove a TQ that has been changed to Approved or Rejected.
