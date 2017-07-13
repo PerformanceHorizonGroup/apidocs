@@ -1,0 +1,41 @@
+## Meta Report Status (enum)
++ created - Created
++ completed - Completed
++ running - Running
++ aborted - Aborted
+
+## Meta Report Filter (array)
++ (object)
+    + property: status (string)
+    + operator: = (string),
+    + value: approved (string)
++ (object)
+    + property: meta (string)
+    + value (array)
+        + (object)
+            + value (array)
+                + travelodge (string)
+                + marriott (string)
+            + operator: in (string)
+            + property: hotel_name (string)
+
+## Meta Report (object)
++ id: 11l011 (string)
++ campaign_id: 300685 (string)
++ name: Test Report (string)
++ status: (Meta Report Status)
++ job_id: 11l32133 (string),
++ created_at: 2017-07-13T10:20:50+00:00 (string),
++ created_by: 300740 (string),
++ updated_at: null (string),
++ completed_at: null (string),
++ filter: (Meta Report Filter)
+
+
+## Meta Report Create (object)
++ name: Test Report (required, string) - Name of the report
++ filter: (required, Meta Report Filter) - The filter options for the report
+
+## Meta Report Update (object)
++ name: Test Report (string) - Name of the report
++ filter: (Meta Report Filter) - The filter options for the report
