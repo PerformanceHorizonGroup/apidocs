@@ -139,29 +139,3 @@ Endpoint that controls the Meta Reports generated for the campaign.
         + error (object)
             + message: Invalid campaign id
             + type: 404
-
-### Update a Meta Report for a Campaign [PUT /campaign/{campaign_id}/reporting/meta/report/{report_id}]
-
-+ Parameters
-    + campaign_id: 10l176 - ID of the campaign
-    + report_id: 123 - ID of the report
-
-+ Request (application/json)
-    + Attributes (Meta Report Update)
-
-+ Response 200 (application/json; charset=utf-8)
-    + Attributes
-        + Include Response
-        + Include Meta Report Wrapper
-
-+ Response 400 (application/json; charset=utf-8)
-    + Attributes
-        + error (object)
-            + message: Report with ID 123 doesn't exist.
-            + type: 400
-
-+ Response 404 (application/json; charset=utf-8)
-    + Attributes
-        + error (object)
-            + message: Invalid campaign id
-            + type: 404
