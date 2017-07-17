@@ -9,15 +9,22 @@
     + property: status (string)
     + operator: = (string),
     + value: approved (string)
+
+## Meta Report Conversion Filter (array)
 + (object)
-    + property: meta (string)
+    + property: item_code (string)
+    + operator: = (string),
+    + value: `P-123` (string)
+
+## Meta Report Item Filter (array)
+
++ (object)
+    + property: hotel_name (string)
+    + operator: in (string),
     + value (array)
-        + (object)
-            + value (array)
-                + travelodge (string)
-                + marriott (string)
-            + operator: in (string)
-            + property: hotel_name (string)
+        + marriott
+        + travelodge
+        + premier inn
 
 ## Meta Report (object)
 + id: 11l011 (string)
@@ -32,6 +39,8 @@
 + updated_at: null (string),
 + completed_at: null (string),
 + filter: (Meta Report Filter)
++ filter_meta_conversion: (Meta Report Conversion Filter)
++ filter_meta_item: (Meta Report Item Filter)
 
 
 ## Meta Report Create (object)
@@ -39,6 +48,8 @@
 + start_date: `2016-01-01T00:00:00Z` (required, string) - Start Date of the report
 + end_date: `2017-01-01T00:00:00Z` (required, string) - End Date of the report
 + filter: (required, Meta Report Filter) - The filter options for the report
++ filter_meta_conversion: (required, Meta Report Conversion Filter) - The conversion filter options for the report
++ filter_meta_item: (required, Meta Report Item Filter) - The item filter options for the report
 
 ## Meta Report Update (object)
 + name: Test Report (string) - Name of the report
