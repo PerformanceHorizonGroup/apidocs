@@ -96,7 +96,7 @@
 ### List all filter sets [GET /report/campaign_group/{campaign_group_id}/filter_sets]
 
 + Parameters
-    + campaign_id: 7 (string, required) - Id of the campaign
+    + campaign_group_id: 7 (string, required) - Id of the campaign group
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (object)
@@ -108,7 +108,7 @@
 ### Get a filter set [GET]
 
 + Parameters
-    + campaign_id: 7 (string, required) - Id of the campaign
+    + campaign_group_id: 7 (string, required) - Id of the campaign group
     + filter_set_id: 38 (string, required) - Id of the filter set
 
 + Response 200 (application/json; charset=utf-8)
@@ -121,7 +121,7 @@
 ### Create a filter set [POST /report/campaign_group/{campaign_group_id}/filter_sets]
 
 + Parameters
-    + campaign_id: 7 (string, required) - Id of the campaign
+    + campaign_group_id: 7 (string, required) - Id of the campaign group
 
 + Request (application/json; charset=utf-8)
     + Attributes
@@ -146,7 +146,7 @@
 ### Update a filter set [PUT]
 
 + Parameters
-    + campaign_id: 7 (string, required) - Id of the campaign
+    + campaign_group_id: 7 (string, required) - Id of the campaign group
     + filter_set_id: 38 (string, required) - Id of the filter set
 
 + Request (application/json; charset=utf-8)
@@ -172,7 +172,7 @@
 ### Delete a filter set [DELETE]
 
 + Parameters
-    + campaign_id: 7 (string, required) - Id of the campaign
+    + campaign_group_id: 7 (string, required) - Id of the campaign group
     + filter_set_id: 38 (string, required) - Id of the filter set
 
 + Response 200 (application/json; charset=utf-8)
