@@ -17,7 +17,6 @@
     + value: `P-123` (string)
 
 ## Meta Report Item Filter (array)
-
 + (object)
     + property: hotel_name (string)
     + operator: in (string),
@@ -32,6 +31,7 @@
 + name: Test Report (string)
 + start_date: `2016-01-01 00:00:00` (string)
 + end_date: `2017-01-01 00:00:00` (string)
++ output_currency: (Currency)
 + status: (Meta Report Status)
 + job_id: 11l32133 (string),
 + created_at: `2017-07-13 10:20:50` (string),
@@ -47,6 +47,7 @@
 + name: Test Report (required, string) - Name of the report
 + start_date: `2016-01-01 00:00:00` (required, string) - Start Date of the report
 + end_date: `2017-01-01 00:00:00` (required, string) - End Date of the report
++ output_currency: (required, Currency) - Currency for aggregated results
 + filter: (required, Meta Report Filter) - The filter options for the report
 + filter_meta_conversion: (required, Meta Report Conversion Filter) - The conversion filter options for the report
 + filter_meta_item: (required, Meta Report Item Filter) - The item filter options for the report
