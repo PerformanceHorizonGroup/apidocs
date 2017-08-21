@@ -166,3 +166,19 @@ Fetches grouped messages for current user in feed format.
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + messages (array[Alert Grouped Feed Message])
+
+## Test [/alerts/test]
+
+Fires test alert with given notifier id
+
+### Fire test alert [POST]
+
+Test alert will be fired triggered notification will be send via notifier with given id
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + notifier_id: 10 (string, required) - ID of Notifier
+
++ Response 204 (application/json; charset=utf-8)
+
++ Response 400 (application/json; charset=utf-8)
