@@ -5,7 +5,7 @@ when most use cases demand an aggregation of data across a defined time period. 
 aggregation endpoint will instantly total all headline stats for a given pivot to offer near instant summation of the
 data. These endpoints support the `.csv` format.
 
-## Aggregate Advertiser [/reporting/report_advertiser/campaign/{campaign_id}/overview/{pivot}/range/{sort}{?start_date,end_date}]
+## Aggregate Advertiser [/reporting/report_advertiser/campaign/{campaign_id}/overview/{pivot}/range/{sort}{?start_date,end_date,convert_currency,short,timezone,complete_email,export_reference,limit,encoding,delimiter}]
 
 ### Aggregate Advertiser Overview [GET]
 
@@ -35,11 +35,22 @@ Return the aggregation stats for the requested `pivot` within the requested time
     + short: y (enum[string], optional) - If used in conjunction with `convert_currency` this will only show the currency conversion node
         + y - Only show converted currency node
         + n - Show all currency nodes including converted node
+    + timezone: Europe/London - Force a specified Timezone
+    + complete_email: `me@example.com` - When used in conjunction with `.csv` format and limit=0 send a link to the CSV when generation is complete
+    + limit: 0 - When using `.csv` format set to zero to attempt to download everything
+    + export_reference: `JanSales` - Add a prefix to the report filename when using `.csv` format
+    + encoding: UTF-8 (enum[string]) - Control the encoding when using `.csv` format
+        + UTF-8 - Default encoding
+        + UTF-16
+    + delimiter: comma (enum[string]) - Choose the delimiter for separating values when using `.csv` format
+        + comma
+        + tab
+        + pipe
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Advertiser Overview Country Wrapper)
 
-## Aggregate Publisher [/reporting/report_publisher/publisher/{publisher_id}/overview/{pivot}/range/{sort}{?start_date,end_date}]
+## Aggregate Publisher [/reporting/report_publisher/publisher/{publisher_id}/overview/{pivot}/range/{sort}{?start_date,end_date,convert_currency,short,timezone,complete_email,export_reference,limit,encoding,delimiter}]
 
 ### Aggregate Publisher Overview [GET]
 
@@ -64,6 +75,17 @@ Return the aggregation stats for the requested `pivot` within the requested time
     + short: y (enum[string], optional) - If used in conjunction with `convert_currency` this will only show the currency conversion node
         + y - Only show converted currency node
         + n - Show all currency nodes including converted node
+    + timezone: Europe/London - Force a specified Timezone
+    + complete_email: `me@example.com` - When used in conjunction with `.csv` format and limit=0 send a link to the CSV when generation is complete
+    + limit: 0 - When using `.csv` format set to zero to attempt to download everything
+    + export_reference: `JanSales` - Add a prefix to the report filename when using `.csv` format
+    + encoding: UTF-8 (enum[string]) - Control the encoding when using `.csv` format
+        + UTF-8 - Default encoding
+        + UTF-16
+    + delimiter: comma (enum[string]) - Choose the delimiter for separating values when using `.csv` format
+        + comma
+        + tab
+        + pipe
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Publisher Overview Country Wrapper)
