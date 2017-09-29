@@ -1,12 +1,5 @@
 # Group Publisher Transaction Query
 
-Transaction Queries (TQs) allow Publishers to raise disputes about conversions with Advertisers.
-
-There are three types of TQs:
-- Untracked: A conversion has not been tracked.
-- Incorrect Commission: A conversion does not have the correct Publisher commission value.
-- Declined: The Advertiser has rejected a conversion.
-
 ## Transaction Queries [/user/publisher/{publisher_id}/tq]
 
 + Parameters
@@ -122,3 +115,13 @@ Delete a single TQ. Once a TQ has been approved or rejected it cannot be deleted
         + error (object)
             + type: 405
             + message: You cannot remove a TQ that has been changed to Approved or Rejected.
+
+## Transaction Query Bulk Upload Template [/reference/campaign_tq_upload_template.csv]
+
+Download a template in CSV format that contains all the fields available for bulk uploading TQs.
+
+### Download the bulk upload template [GET]
+
++ Request (text/html; charset=utf-8)
+
++ Response 200 (text/html; charset=utf-8)

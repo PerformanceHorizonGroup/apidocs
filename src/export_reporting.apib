@@ -3,7 +3,7 @@
 It is possible to export any report into a CSV file. Depending on the size of the export, the response may be
 automatically converted into a Job.
 
-## Export Clicks [GET /reporting/export/export/click.csv{?start_date,end_date,campaign_id,publisher_id}]
+## Export Clicks [GET /reporting/export/export/click.csv{?start_date,end_date,campaign_id,publisher_id,timezone,complete_email,export_reference,limit,encoding,delimiter}]
 
 Request a CSV for a granular Click report for the defined Campaign or Publisher and within the requested time period.
 
@@ -12,13 +12,24 @@ Request a CSV for a granular Click report for the defined Campaign or Publisher 
     + publisher_id: 1l1007802 - ID of the publisher
     + start_date: `2016-02-30T05:15:32Z` (required)
     + end_date: `2016-03-10T19:02:35Z` (required)
+    + timezone: Europe/London (optional) - Force a specified Timezone
+    + complete_email: `me@example.com` (optional) - When used in conjunction with limit=0 send a link to the CSV when generation is complete
+    + limit: 0 (optional) - When set to zero, attempt to download everything
+    + export_reference: `JanSales` (optional) - Add a prefix to the report filename
+    + encoding: `UTF-8` (enum[string], optional)
+        + `UTF-8` - Default encoding
+        + `UTF-16`
+    + delimiter: comma (enum[string], optional) - Choose the delimiter for separating values
+        + comma
+        + tab
+        + pipe
 
 + Response 200 (application/octet-stream; charset=UTF-8)
 
         click_id,cookie_id,campaign_id,publisher_id,status,set_time,set_ip,last_used,last_ip,advertiser_reference,referer,creative_id,creative_type,specific_creative_id,country,publisher_name
         111111l2210,111111l2136,10l176,1l1007802,nibbled,"2016-03-02 10:11:36",127.0.0.1,"2016-06-17 19:13:09",127.0.0.1,,,0,0,0,GB,apipublisher123
 
-## Export Conversions [GET /reporting/export/export/conversion.csv{?start_date,end_date,campaign_id,publisher_id}]
+## Export Conversions [GET /reporting/export/export/conversion.csv{?start_date,end_date,campaign_id,publisher_id,date_type,currency,conversion_id,conversion_reference,ref_conversion_metric_id,timezone,complete_email,export_reference,limit,encoding,delimiter}]
 
 Request a CSV for a granular Conversion report for the defined Campaign or Publisher and within the requested time period.
 
@@ -27,13 +38,31 @@ Request a CSV for a granular Conversion report for the defined Campaign or Publi
     + publisher_id: 1l1007802 - ID of the publisher
     + start_date: `2016-02-30T05:15:32Z` (required)
     + end_date: `2016-03-10T19:02:35Z` (required)
+    + date_type: standard (enum[string], optional) - Alter the context of what the dates ranges apply to
+        + standard - The default selection, range is beased on conversion_time
+        + approved_at - Alternative date range, which is based on the approved time of conversion items
+    + currency: GBP (optional) - Filter on a specific currency
+    + `conversion_id`: `1l28718278` (optional) - Filter on a specific conversion_id
+    + `conversion_reference`: `ORDER872137` (optional) - Filter on a specific conversion_reference value
+    + `ref_conversion_metric_id`: 2 (optional) - Filter on a specific conversion metric, use an array for multiple
+    + timezone: Europe/London (optional) - Force a specified Timezone
+    + complete_email: `me@example.com` (optional) - When used in conjunction with limit=0 send a link to the CSV when generation is complete
+    + limit: 0 (optional) - When set to zero, attempt to download everything
+    + export_reference: `JanSales` (optional) - Add a prefix to the report filename
+    + encoding: `UTF-8` (enum[string], optional)
+        + `UTF-8` - Default encoding
+        + `UTF-16`
+    + delimiter: comma (enum[string], optional) - Choose the delimiter for separating values
+        + comma
+        + tab
+        + pipe
 
 + Response 200 (application/octet-stream; charset=UTF-8)
 
         conversion_id,campaign_id,publisher_id,conversion_date,conversion_date_time,click_time,click_date,click_date_time,currency,advertiser_reference,conversion_reference,referer_ip,source_referer,campaign_title,publisher_name,conversion_status,conversion_lag,value,commission,publisher_commission,creative_type,creative_id,specific_creative_id,customer_type,was_disputed,cookie_id,country,currency_original,currency_conversion_rate,customer_reference,camref
         111111l3919676,10l176,1l1007802,2016-03-02,"2016-03-02 10:22:02",10:11:36,2016-03-02,"2016-03-02 10:11:36",EUR,,AUTO-57643db548165,127.0.0.1,,"API Campaign Demo",apipublisher123,pending,626,90.92,1.0001,0.9092,0,0,0,,,111111l2136,GB,,,,1l3v9UA
 
-## Export Conversion Items [GET /reporting/export/export/conversion_item.csv{?start_date,end_date,campaign_id,publisher_id}]
+## Export Conversion Items [GET /reporting/export/export/conversion_item.csv{?start_date,end_date,campaign_id,publisher_id,date_type,currency,conversion_id,conversion_reference,ref_conversion_metric_id,timezone,complete_email,export_reference,limit,encoding,delimiter}]
 
 Request a CSV for a granular Conversion report which includes all individual items for the defined Campaign or Publisher and within the requested time period.
 
@@ -42,6 +71,24 @@ Request a CSV for a granular Conversion report which includes all individual ite
     + publisher_id: 1l1007802 - ID of the publisher
     + start_date: `2016-02-30T05:15:32Z` (required)
     + end_date: `2016-03-10T19:02:35Z` (required)
+    + date_type: standard (enum[string], optional) - Alter the context of what the dates ranges apply to
+        + standard - The default selection, range is beased on conversion_time
+        + approved_at - Alternative date range, which is based on the approved time of conversion items
+    + currency: GBP (optional) - Filter on a specific currency
+    + `conversion_id`: `1l28718278` (optional) - Filter on a specific conversion_id
+    + `conversion_reference`: `ORDER872137` (optional) - Filter on a specific conversion_reference value
+    + `ref_conversion_metric_id`: 2 (optional) - Filter on a specific conversion metric, use an array for multiple
+    + timezone: Europe/London (optional) - Force a specified Timezone
+    + complete_email: `me@example.com` (optional) - When used in conjunction with limit=0 send a link to the CSV when generation is complete
+    + limit: 0 (optional) - When set to zero, attempt to download everything
+    + export_reference: `JanSales` (optional) - Add a prefix to the report filename
+    + encoding: `UTF-8` (enum[string], optional)
+        + `UTF-8` - Default encoding
+        + `UTF-16`
+    + delimiter: comma (enum[string], optional) - Choose the delimiter for separating values
+        + comma
+        + tab
+        + pipe
 
 + Response 200 (application/octet-stream; charset=UTF-8)
 
