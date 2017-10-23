@@ -1,0 +1,97 @@
+# Group Campaign Reward
+
+Campaign reward is a points based incentive scheme. Each reward is bound to a campaign. Every conversion it that campaign will be matched against reward’s settings. Eventually it will be assigned to a conversion.
+
+## Campaign Reward [/campaign/{campaign_id}/reward]
+All requests in scope of Campaign rewards needs parameter `'campaign_id'` with proper value i.e. `'1111l123'`.
++ Parameters
+    + campaign_id: `1111l123` (required, string)
+    
+### List all Campaign Rewards [GET]
+
+To get list of all Campaign rewards, you need to send simple GET request using base url without any changes.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + rewards (array[Reward])
+
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Wrong param format or param not found` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+            
++ Response 403 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Identifier must be unique` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+            
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Specified non existing campaign or reward` (string)
+
+### Create a Campaign Reward [POST]
+
+
++ Request (application/json; charset=utf-8)
+    + Attributes (Unsaved Reward)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Reward)
+
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Wrong param format or param not found` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+            
++ Response 403 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Identifier must be unique` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+            
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Specified non existing campaign or reward` (string)
+
+### Delete a Campaign Reward [DELETE /campaign/{campaign_id}/reward/{reward_id}]
+
+To delete a specific campaign reward, you just need to send DELETE request using base URL with additional parameter: 
+1. `'reward_id' => '1511l321'`
+specified in url.
+
++ Parameters
+    + campaign_id: `1111l123` (required, string)
+    + reward_id: `1511l321` (string, required)
+    
++ Response 200 (application/json; charset=utf-8)
+    + Attributes 
+        + reward_id: `1111l123` (string)
+        + status: `deleted` (string)
+
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Wrong param format or param not found` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+            
++ Response 403 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Identifier must be unique` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+            
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Specified non existing campaign or reward` (string)
