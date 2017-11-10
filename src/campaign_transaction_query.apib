@@ -1,0 +1,231 @@
+# Group Campaign Transaction Query
+
+Transaction Queries (TQs) allow Publishers to raise disputes about conversions with Advertisers.
+
+There are three types of TQs:
+- Untracked: A conversion has not been tracked.
+- Incorrect Commission: A conversion does not have the correct Publisher commission value.
+- Declined: The Advertiser has rejected a conversion.
+
+## Transaction Queries [/campaign/{campaign_id}/tq]
+
+### List all Transaction Queries [GET /campaign/{campaign_id}/tq{?transaction_query_id,transaction_query_type,publisher_reference,conversion_reference,conversion_date_time,campaign_id,current_state,sort_column,order_by,date_range_start,date_range_end,date_range_column,text_date,tq_export}]
+
+Return the details of all TQs created on a campaign.
+
++ Parameters
+    + transaction_query_id: 1l1000532 (optional) - Filter by the ID of a transaction query
+    + transaction_query_type: untracked (Transaction Query Type,optional) - Filter by the type
+    + publisher_reference: A200FG1 (optional) - Filter by a publisher reference
+    + conversion_reference: AF222PO (optional) - Filter by a conversion reference
+    + conversion_date_time: `2017-01-01 00:00:00` (optional) - Filter by a conversion date
+    + campaign_id: 10l176 (optional) - Filter by the ID of a campaign
+    + current_state: pending (Transaction Query State,optional) - Filter by the current state
+    + date_range_column: created_at (optional) - Field to filter the date range on
+    + date_range_start: `2017-01-01 00:00:00` (optional) - Start of a date range
+    + date_range_end: `2017-12-30 00:00:00` (optional) - End of a date range
+    + text_date: last 10 days (optional) - Natural language representation of a date range
+    + `sort_column`: created_at (optional) - Field to sort the results by
+    + order_by: ASC (Sort Direction,optional) - Direction to sort the results by
+    + tq_export: true (optional) - Download the results as a CSV file
+
++ Request (application/json; charset=utf-8)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 5 (number)
+        + execution_time: `0.08001 seconds`
+        + filters (object) - The filters applied to the results
+        + sort (object)
+            + column: created_at - The column the results are sorted by
+            + direction (Sort Direction) - The direction the results are sorted in
+        + transaction_queries (array)
+            + (object)
+                + transaction_query (Transaction Query)
+                    + actions_available (array) - Actions that can be taken on this TQ
+                        + approve
+                        + reject
+
+### Approve a Transaction Query [POST /campaign/{campaign_id}/tq/{transaction_query_id}/approve]
+
+Approve a single TQ. Only TQs with a status of pending can be approved.
+
++ Parameters
+    + campaign_id: 10l176 - ID of a campaign
+    + transaction_query_id: 1l1000532 - ID of the transaction query
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + expected_commission (number,optional) - The commission that the conversion should have after being approved
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + execution_time: `0.08001 seconds`
+        + transaction_query (Transaction Query)
+            + actions_available (array) - Actions that can be taken on this TQ
+
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: 400
+            + message: Requested action around TQs that does not exists
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: 404
+            + message: The TQ ID supplied for this action does not match an existing TQ.
+
+### Reject a Transaction Query [POST /campaign/{campaign_id}/tq/{transaction_query_id}/reject]
+
+Reject a single TQ. Only TQs with a status of pending can be rejected.
+
++ Parameters
+    + campaign_id: 10l176 - ID of a campaign
+    + transaction_query_id: 1l1000532 - ID of the transaction query
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + reason: Example reason (optional) - The reason for rejecting the TQ
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + execution_time: `0.08001 seconds`
+        + transaction_query (Transaction Query)
+            + actions_available (array) - Actions that can be taken on this TQ
+                + pend
+
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: 400
+            + message: Requested action around TQs that does not exists
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: 404
+            + message: The TQ ID supplied for this action does not match an existing TQ.
+
+### Pend a Transaction Query [POST /campaign/{campaign_id}/tq/{transaction_query_id}/pend]
+
+Pend a single TQ. Only TQs with a status of rejected can be pended.
+
++ Parameters
+    + campaign_id: 10l176 - ID of a campaign
+    + transaction_query_id: 1l1000532 - ID of the transaction query
+
++ Request (application/json; charset=utf-8)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + execution_time: `0.08001 seconds`
+        + transaction_query (Transaction Query)
+            + actions_available (array) - Actions that can be taken on this TQ
+                + approve
+                + reject
+
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: 400
+            + message: Requested action around TQs that does not exists
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: 404
+            + message: The TQ ID supplied for this action does not match an existing TQ.
+
+### Bulk process Transaction Queries [POST /campaign/{campaign_id}/tq/{transaction_query_id}/process]
+
+Process multiple TQs in a single API call. The same rules as approving, rejecting and pending single TQs apply.
+The actions are processed asynchronously and the Job endpoint must be polled to find out when all have been completed.
+
++ Parameters
+    + campaign_id: 10l176 - ID of a campaign
+    + transaction_query_id: 1l1000532 - ID of the transaction query
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + transaction_queries (array)
+            + (object)
+                + transaction_query_id: 1l1000532 - ID of the transaction query
+                + new_state (Transaction Query State) - The state to transition the TQ to
+                + new_expected_commission: 13.45 (number,optional) - The expected commission when approving a TQ
+                + new_reason: Example reason (optional) - The reason for rejecting a TQ
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + execution_time: `0.08001 seconds`
+        + Include Job Wrapper
+
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: 400
+            + message: Requested action around TQs that does not exists
+
+## Transaction Query Reasons [/campaign/{campaign_id}/tq_reasons]
+
+TQ reasons are used to save and recall commonly used reasons for rejecting TQs. These are presented to the advertiser
+when rejecting TQs via the PH Web App.
+
++ Parameters
+    + campaign_id: 10l176 - ID of a campaign
+
+### List Reasons [GET]
+
+Return the details of all saved TQ reasons.
+
++ Request (application/json; charset=utf-8)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number)
+        + execution_time: `0.08001 seconds`
+        + transaction_query_reasons (array)
+            + (object)
+                + transaction_query_reason (object)
+                    + Include Transaction Query Reason
+
+### Create a Reason [POST]
+
+Create a new saved TQ reason.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + reason: Example reason (required) - The reason for rejecting a TQ
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + execution_time: `0.08001 seconds`
+        + transaction_query_reason (Transaction Query Reason)
+
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: Validation Fail
+            + message: Reason already exists
+            + fields (object)
+
+### Delete a Reason [POST /campaign/{campaign_id}/tq_reasons/{transaction_query_reason_id}/delete]
+
+Delete a saved TQ reason.
+
++ Parameters
+    + transaction_query_reason_id: 111111l3 - ID of the transaction query reason
+
++ Request (application/json; charset=utf-8)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + execution_time: `0.08001 seconds`
+        + transaction_query_reason (object)
+            + deleted: true
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: 404
+            + message: Transaction Query Reason not found
