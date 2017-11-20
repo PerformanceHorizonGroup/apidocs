@@ -18,7 +18,6 @@
   "homepage": "https://github.com/PerformanceHorizonGroup/apidocs#readme",
   "dependencies": {
     "gem": "^2.1.5",
-    "hercule": "^3.0.5",
-    "request": "2.81.0"
+    "hercule": "^3.0.5"
   }
 }
