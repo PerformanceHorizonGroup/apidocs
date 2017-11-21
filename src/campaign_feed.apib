@@ -19,7 +19,7 @@ Return the details of all Feeds attached to the Campaign.
     
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + feeds (array[Campaign Feed Wrapper], fixed)
+        + feeds (array[Campaign Feed Wrapper], fixed-type)
 
 ### Create a Campaign Feed [POST]
 
@@ -27,7 +27,7 @@ Create one or more Feeds against the Campaign entity. Each Feed is sent as an ar
 
 + Request (application/json; charset=utf-8)
     + Attributes
-        + feeds (array, fixed)
+        + feeds (array, required, fixed-type)
             + (object)
                 + Include Campaign Feed Base
                 + location: http://example.com/feed.xml (required)
@@ -35,7 +35,7 @@ Create one or more Feeds against the Campaign entity. Each Feed is sent as an ar
 
 + Response 201 (application/json; charset=utf-8)
     + Attributes
-        + feeds (array[Campaign Feed Wrapper], fixed)
+        + feeds (array[Campaign Feed Wrapper], fixed-type)
 
 ### Update a Campaign Feed [PUT]
 
@@ -44,7 +44,7 @@ array and must contain its associated `feed_id` or `location`. As `location` is 
 
 + Request (application/json; charset=utf-8)
     + Attributes
-        + feeds (array, fixed)
+        + feeds (array, required, fixed-type)
             + (object)
                 + One Of
                     + `feed_id`: 1111l13 - ID of the campaign feed
@@ -55,7 +55,7 @@ array and must contain its associated `feed_id` or `location`. As `location` is 
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + feeds (array, fixed)
+        + feeds (array, fixed-type)
             + (object) 
                 + feed (Campaign Feed) 
                     + action (enum)
