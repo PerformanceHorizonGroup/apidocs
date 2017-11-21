@@ -61,14 +61,18 @@
 + campaigns (array[Campaign Base])
 
 ## Campaign Feed Base (object)
-+ name: Sample Feed (required)
++ name: Sample Feed
++ location: http://example.com/feed.xml
 + active (YesOrNo)
-+ location (required)
-+ location_local
 + fetch_frequency: 3600 (number)
+
+## Campaign Feed (object)
++ feed_id: 1111l13 - ID of the campaign feed
++ Include Campaign Feed Base
 + filesize: 0 (number)
++ updated: 1378980455 (number) - UNIX timestamp
++ last_processed: 1378980455 (number) - UNIX timestamp
 + dynamic: 0 (number)
-+ action
 
 ## Campaign Wrapper (object)
 + campaign (Campaign)
