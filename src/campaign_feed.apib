@@ -10,19 +10,16 @@ Any text based file format is supported.
 + Parameters
     + campaign_id: 10l176 - ID of the campaign
 
-+ Attributes (object)
-    + feed_id: 1111l13 - ID of the campaign feed
-    + Include Campaign Feed Base
-    + updated: 1378980455 (number)
-    + last_processed: 1378980455 (number)
-
 ### List all Campaign Feeds [GET]
 
 Return the details of all Feeds attached to the Campaign.
 
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+    
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + feeds (array[Campaign Feed Wrapper])
+        + feeds (array[Campaign Feed Wrapper], fixed)
 
 ### Create a Campaign Feed [POST]
 
@@ -30,23 +27,37 @@ Create one or more Feeds against the Campaign entity. Each Feed is sent as an ar
 
 + Request (application/json; charset=utf-8)
     + Attributes
-        + feeds (array[Campaign Feed Base])
+        + feeds (array, fixed)
+            + (object)
+                + Include Campaign Feed Base
+                + location: http://example.com/feed.xml (required)
+                + dynamic: 0 (number)
 
-+ Response 200 (application/json; charset=utf-8)
++ Response 201 (application/json; charset=utf-8)
     + Attributes
-        + feeds (array[Campaign Feed Wrapper])
+        + feeds (array[Campaign Feed Wrapper], fixed)
 
 ### Update a Campaign Feed [PUT]
 
 Update one or more `feeds` against the Campaign entity. Each Feed is sent as an array within a top level `feeds`
-array and must contain its associated `feed_id`.
+array and must contain its associated `feed_id` or `location`. As `location` is a unique identifier, it's not possible to change the location of a feed once created. To update the location, first update the feed and set `active: n`, then create a new feed with the new location.
 
 + Request (application/json; charset=utf-8)
     + Attributes
-        + feeds (array)
-            + (Campaign Feed Base)
-                + feed_id: 300092 - ID of the campaign feed
+        + feeds (array, fixed)
+            + (object)
+                + One Of
+                    + `feed_id`: 1111l13 - ID of the campaign feed
+                    + `location` - URL of the feed
+                + name: Sample Feed
+                + active (YesOrNo)
+                + fetch_frequency: 3600 (number)
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + feeds (array[Campaign Feed Wrapper])
+        + feeds (array, fixed)
+            + (object) 
+                + feed (Campaign Feed) 
+                    + action (enum)
+                        + update
+                        + nochange

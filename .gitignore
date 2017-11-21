@@ -1,3 +1,5 @@
 node_modules
 /*.apib
 .idea/
+.DS_Store
+apiary.apib.map
