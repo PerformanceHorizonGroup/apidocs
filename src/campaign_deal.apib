@@ -32,6 +32,12 @@ Create a new Deal against the Campaign entity.
     + Attributes
         + campaign_deal (Campaign Deal Base, fixed-type)
 
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: Validation Fail
+            + fields (object)
+
 ## Campaign Deal [/campaign/{campaign_id}/deal/{deal_id}]
 
 + Parameters
@@ -46,6 +52,11 @@ Outputs the specified Deal.
     + Attributes
         + campaign_deal (Campaign Deal Base, fixed-type)
 
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: 404
+
 ### Update a Campaign [PATCH]
 
 Update the specified Deal.
@@ -58,6 +69,17 @@ Update the specified Deal.
     + Attributes
         + campaign_deal (Campaign Deal Base, fixed-type)
 
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: Validation Fail
+            + fields (object)
+            
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: 404
+
 ### Delete a Campaign [DELETE]
 
 Delete a Deal, which is the same as updating the Deal by setting `active` to `n`.
@@ -65,3 +87,8 @@ Delete a Deal, which is the same as updating the Deal by setting `active` to `n`
 + Request (application/json; charset=utf-8)
 
 + Response 204 (application/json; charset=utf-8)
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: 404
