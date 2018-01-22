@@ -14,25 +14,11 @@ To get list of all Campaign rewards, you need to send simple GET request using b
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + rewards (array[Reward])
-
-+ Response 400 (application/json; charset=utf-8)
-    + Attributes
-        + error
-            + message: `Wrong param format or param not found` (string)
-            + type: `Validation Fail`
-            + fields: [] (array)
-            
-+ Response 403 (application/json; charset=utf-8)
-    + Attributes
-        + error
-            + message: `Identifier must be unique` (string)
-            + type: `Validation Fail`
-            + fields: [] (array)
             
 + Response 404 (application/json; charset=utf-8)
     + Attributes
         + error
-            + message: `Specified non existing campaign or reward` (string)
+            + message: `Campaign not found for id 1111l123` (string)
 
 ### Create a Campaign Reward [POST]
 
@@ -42,25 +28,116 @@ To get list of all Campaign rewards, you need to send simple GET request using b
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (Reward)
-
+            
 + Response 400 (application/json; charset=utf-8)
     + Attributes
         + error
-            + message: `Wrong param format or param not found` (string)
+            + message: `You must complete this field` (string)
             + type: `Validation Fail`
             + fields: [] (array)
-            
-+ Response 403 (application/json; charset=utf-8)
+                        
++ Response 400 (application/json; charset=utf-8)
     + Attributes
         + error
-            + message: `Identifier must be unique` (string)
+            + message: `Invalid numerical value` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                        
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Invalid boolean` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                        
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Invalid country code` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                        
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Invalid date format` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                        
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Establishment code must have more than one character` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                        
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Establishment code must be 40 characters or less` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                        
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Establishment code must not contain symbols or spaces` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                        
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Invalid numerical value, must be greater than '0'` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                                    
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Name must have more than one character` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                                    
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Name must be 40 characters or less` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                                    
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Name must not contain symbols or spaces` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                                    
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Invalid value` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                                    
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Expected string` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                                                
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `XYZ is missing and is a required field` (string)
             + type: `Validation Fail`
             + fields: [] (array)
             
 + Response 404 (application/json; charset=utf-8)
     + Attributes
         + error
-            + message: `Specified non existing campaign or reward` (string)
+            + message: `Campaign not found for id 1111l123` (string)
 
 ### Delete a Campaign Reward [DELETE /campaign/{campaign_id}/reward/{reward_id}]
 
@@ -76,22 +153,8 @@ specified in url.
     + Attributes 
         + reward_id: `1111l123` (string)
         + status: `deleted` (string)
-
-+ Response 400 (application/json; charset=utf-8)
-    + Attributes
-        + error
-            + message: `Wrong param format or param not found` (string)
-            + type: `Validation Fail`
-            + fields: [] (array)
-            
-+ Response 403 (application/json; charset=utf-8)
-    + Attributes
-        + error
-            + message: `Identifier must be unique` (string)
-            + type: `Validation Fail`
-            + fields: [] (array)
             
 + Response 404 (application/json; charset=utf-8)
     + Attributes
         + error
-            + message: `Specified non existing campaign or reward` (string)
+            + message: `Reward '1511l321' not found for campaign '1111l123'` (string)
