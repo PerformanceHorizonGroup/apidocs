@@ -107,10 +107,11 @@ Create new Commission offers, you can nest multiple new Commissions within a `co
             + (Commission Base)
                 + commission_level (required)
                 + reference_id
+                + promotion (YesOrNo)
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + commission (array[Commission Wrapper])
+        + commission (array[Promotion Commission Wrapper])
 
 ### Update a Commission [PUT]
 
@@ -121,10 +122,11 @@ To modify Commission offers, add the relevant `commission_id` into each array wi
         + commissions (array)
             + (Commission Base)
                 + commission_id: 300092 - ID of the commission
+                + promotion (YesOrNo)
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + commission (array[Commission Wrapper])
+        + commission (array[Promotion Commission Wrapper])
 
 ### Retrieve all Commissions [GET]
 
@@ -137,6 +139,8 @@ Voucher overrides nested into each. This endpoint removes the need to query a sp
             + (object)
                 + commission (Commission)
                     + reference_type: campaign
+                    + promotion (YesOrNo)
             + (object)
                 + commission (Commission)
                     + reference_type: voucher
+                    + promotion (YesOrNo)
