@@ -7,3 +7,4 @@ tmp/
 *.map
 .DS_Store
 apiary.apib.map
+package-lock.json
