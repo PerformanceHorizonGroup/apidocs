@@ -2,7 +2,7 @@
 
 Campaign reward is a points based incentive scheme. Each reward is bound to a campaign. Every conversion it that campaign will be matched against reward’s settings. Eventually it will be assigned to a conversion.
 
-## Campaign Reward [/campaign/{campaign_id}/reward{?inactive}]
+## Managing Campaign Rewards [/campaign/{campaign_id}/reward{?inactive}]
 All requests in scope of Campaign rewards needs parameter `'campaign_id'` with proper value i.e. `'1111l123'`.
 + Parameters
     + campaign_id: `1111l123` (required, string)
@@ -10,7 +10,7 @@ All requests in scope of Campaign rewards needs parameter `'campaign_id'` with p
 
 ### List all Campaign Rewards [GET]
 
-To get list of all Campaign rewards, you need to send simple GET request using base url without any changes.
+List all rewards for a given campaign.
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
@@ -23,6 +23,7 @@ To get list of all Campaign rewards, you need to send simple GET request using b
 
 ### Create a Campaign Reward [POST]
 
+To create a reward for a given campaign.
 
 + Request (application/json; charset=utf-8)
     + Attributes (Unsaved Reward)
@@ -142,7 +143,8 @@ To get list of all Campaign rewards, you need to send simple GET request using b
 
 ### Delete a Campaign Reward [DELETE /campaign/{campaign_id}/reward/{reward_id}]
 
-To delete a specific campaign reward, you just need to send DELETE request using base URL with additional parameter: 
+Delete a reward for a given campaign
+
 1. `'reward_id' => '1511l321'`
 specified in url.
 
@@ -159,3 +161,21 @@ specified in url.
     + Attributes
         + error
             + message: `Reward '1511l321' not found for campaign '1111l123'` (string)
+
+
+## Listing rewards created for a Campaign [/campaign/{campaign_id}/rewards]
+
+The endpoints below list out the rewards that have been created against conversions.
+
+### Conversion Rewards [GET /campaign/{campaign_id}/rewards/conversions]
+
+List all rewards grouped by conversions for a given campaign
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + conversions (array[Conversion Reward])
+            
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Campaign not found for id 1111l123` (string)
