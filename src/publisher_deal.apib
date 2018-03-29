@@ -1,0 +1,22 @@
+# Group Publisher Deal
+
+Campaign owners can advertise Deals which represent time limited opportunities.
+
+## Publisher Deals [/user/publisher/{publisher_id}/deal{?pubref}]
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+    + pubref: u76213 (optional) - Pass a publisher reference which will be dynamically referenced in the tracking links
+
+### List all Deals on each participating Campaign [GET]
+
+View a summary of all Deals available on each participating Campaign.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + campaigns (array, fixed-type)
+            + (object, fixed-type)
+                + campaign
+                    + campaign_id: 10l176 - ID of the campaign
+                    + title: Dealsite - Campaign title
+                    + deals (array[Publisher Deal Wrapper], fixed-type)

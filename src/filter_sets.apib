@@ -1,0 +1,274 @@
+# Group Filter Sets
+
+## Reporting Advertiser Filter Sets [/report/campaign/{campaign_id}/filter_sets/{filter_set_id}]
+
+### List all filter sets [GET /report/campaign/{campaign_id}/filter_sets]
+
++ Parameters
+    + campaign_id: 7 (string, required) - Id of the campaign
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (object)
+        + count: 5 (number) - Number of Filter Sets recovered
+        + execution_time: `0.23640 seconds`
+        + filter_sets (array[Advertiser Filter Set]) - Recovered Filter Sets list
+        + errors (array) - Empty error list
+
+### Get a filter set [GET]
+
++ Parameters
+    + campaign_id: 7 (string, required) - Id of the campaign
+    + filter_set_id: 38 (string, required) - Id of the filter set
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of Filter Sets recovered
+        + execution_time: `0.23640 seconds`
+        + filter_sets (array[Advertiser Filter Set]) - List with the recovered Filter Set
+        + errors (array) - Empty error list
+
+### Create a filter set [POST /report/campaign/{campaign_id}/filter_sets]
+
++ Parameters
+    + campaign_id: 7 (string, required) - Id of the campaign
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + name: `My lovely filters set` (string, required)
+        + is_default: false (boolean, optional)
+        + data: (string, required) - Must be a valid JSON string
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of Filter Sets created
+        + execution_time: `0.23640 seconds`
+        + filter_sets (array[Advertiser Filter Set]) - Created Filter Sets list
+        + errors (array) - Empty error list
+
++ Validation Rules
+    + Filter Set names must be unique for the same scope (user and campaign).
+    + Filter Set names must be under 256 characters.
+    + Filter Set names must not be numeric. You can add numbers as part of a text string but not on their own.
+    + Filter Set data must be a valid JSON string.
+    + Filter Set data must be under 8192 characters.
+
+### Update a filter set [PUT]
+
++ Parameters
+    + campaign_id: 7 (string, required) - Id of the campaign
+    + filter_set_id: 38 (string, required) - Id of the filter set
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + name: `My new name` (string, optional)
+        + is_default: false (boolean, optional)
+        + data: (string, optional) - Must be a valid JSON string
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of Filter Sets updated
+        + execution_time: `0.23640 seconds`
+        + filter_sets (array[Advertiser Filter Set]) - Updated Filter Sets list
+        + errors (array) - Empty error list
+
++ Validation Rules
+    + Filter Set names must be unique for the same scope (user and campaign).
+    + Filter Set names must be under 256 characters.
+    + Filter Set names must not be numeric. You can add numbers as part of a text string but not on their own.
+    + Filter Set data must be a valid JSON string.
+    + Filter Set data must be under 8192 characters.
+
+### Delete a filter set [DELETE]
+
++ Parameters
+    + campaign_id: 7 (string, required) - Id of the campaign
+    + filter_set_id: 38 (string, required) - Id of the filter set
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of Filter Sets deleted
+        + execution_time: `0.23640 seconds`
+        + filter_sets (array[Advertiser Filter Set]) - Deleted Filter Sets list
+        + errors (array) - Empty error list
+
+## Reporting Campaign Group Filter Sets [/report/campaign_group/{campaign_group_id}/filter_sets/{filter_set_id}]
+
+### List all filter sets [GET /report/campaign_group/{campaign_group_id}/filter_sets]
+
++ Parameters
+    + campaign_group_id: 7 (string, required) - Id of the campaign group
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (object)
+        + count: 5 (number) - Number of Filter Sets recovered
+        + execution_time: `0.23640 seconds`
+        + filter_sets (array[Advertiser Filter Set]) - Recovered Filter Sets list
+        + errors (array) - Empty error list
+
+### Get a filter set [GET]
+
++ Parameters
+    + campaign_group_id: 7 (string, required) - Id of the campaign group
+    + filter_set_id: 38 (string, required) - Id of the filter set
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of Filter Sets recovered
+        + execution_time: `0.23640 seconds`
+        + filter_sets (array[Advertiser Filter Set]) - List with the recovered Filter Set
+        + errors (array) - Empty error list
+
+### Create a filter set [POST /report/campaign_group/{campaign_group_id}/filter_sets]
+
++ Parameters
+    + campaign_group_id: 7 (string, required) - Id of the campaign group
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + name: `My lovely filters set` (string, required)
+        + is_default: false (boolean, optional)
+        + data: (string, required) - Must be a valid JSON string
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of Filter Sets created
+        + execution_time: `0.23640 seconds`
+        + filter_sets (array[Advertiser Filter Set]) - Created Filter Sets list
+        + errors (array) - Empty error list
+
++ Validation Rules
+    + Filter Set names must be unique for the same scope (user and campaign).
+    + Filter Set names must be under 256 characters.
+    + Filter Set names must not be numeric. You can add numbers as part of a text string but not on their own.
+    + Filter Set data must be a valid JSON string.
+    + Filter Set data must be under 8192 characters.
+
+### Update a filter set [PUT]
+
++ Parameters
+    + campaign_group_id: 7 (string, required) - Id of the campaign group
+    + filter_set_id: 38 (string, required) - Id of the filter set
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + name: `My new name` (string, optional)
+        + is_default: false (boolean, optional)
+        + data: (string, optional) - Must be a valid JSON string
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of Filter Sets updated
+        + execution_time: `0.23640 seconds`
+        + filter_sets (array[Advertiser Filter Set]) - Updated Filter Sets list
+        + errors (array) - Empty error list
+
++ Validation Rules
+    + Filter Set names must be unique for the same scope (user and campaign).
+    + Filter Set names must be under 256 characters.
+    + Filter Set names must not be numeric. You can add numbers as part of a text string but not on their own.
+    + Filter Set data must be a valid JSON string.
+    + Filter Set data must be under 8192 characters.
+
+### Delete a filter set [DELETE]
+
++ Parameters
+    + campaign_group_id: 7 (string, required) - Id of the campaign group
+    + filter_set_id: 38 (string, required) - Id of the filter set
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of Filter Sets deleted
+        + execution_time: `0.23640 seconds`
+        + filter_sets (array[Advertiser Filter Set]) - Deleted Filter Sets list
+        + errors (array) - Empty error list
+
+## Reporting Publisher Filter Sets [/report/publisher/{publisher_id}/filter_sets/{filter_set_id}]
+
+### List all filter sets [GET /report/publisher/{publisher_id}/filter_sets]
+
++ Parameters
+    + publisher_id: 7 (string, required) - Id of the publisher
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (object)
+        + count: 5 (number) - Number of Filter Sets recovered
+        + execution_time: `0.23640 seconds`
+        + filter_sets (array[Publisher Filter Set]) - Recovered Filter Sets list
+        + errors (array) - Empty error list
+
+### Get a filter set [GET]
+
++ Parameters
+    + publisher_id: 7 (string, required) - Id of the publisher
+    + filter_set_id: 38 (string, required) - Id of the filter set
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of Filter Sets recovered
+        + execution_time: `0.23640 seconds`
+        + filter_sets (array[Publisher Filter Set]) - List with the recovered Filter Set
+        + errors (array) - Empty error list
+
+### Create a filter set [POST /report/publisher/{publisher_id}/filter_sets]
+
++ Parameters
+    + publisher_id: 7 (string, required) - Id of the publisher
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + name: `My lovely filters set` (string, required)
+        + is_default: false (boolean, optional)
+        + data: (string, required) - Must be a valid JSON string
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of Filter Sets created
+        + execution_time: `0.23640 seconds`
+        + filter_sets (array[Publisher Filter Set]) - Created Filter Sets list
+        + errors (array) - Empty error list
+
++ Validation Rules
+    + Filter Set names must be unique for the same scope (user and publisher).
+    + Filter Set names must be under 256 characters.
+    + Filter Set names must not be numeric. You can add numbers as part of a text string but not on their own.
+    + Filter Set data must be a valid JSON string.
+    + Filter Set data must be under 8192 characters.
+
+### Update a filter set [PUT]
+
++ Parameters
+    + publisher_id: 7 (string, required) - Id of the publisher
+    + filter_set_id: 38 (string, required) - Id of the filter set
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + name: `My new name` (string, optional)
+        + is_default: false (boolean, optional)
+        + data: (string, optional) - Must be a valid JSON string
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of Filter Sets updated
+        + execution_time: `0.23640 seconds`
+        + filter_sets (array[Publisher Filter Set]) - Updated Filter Sets list
+        + errors (array) - Empty error list
+
++ Validation Rules
+    + Filter Set names must be unique for the same scope (user and publisher).
+    + Filter Set names must be under 256 characters.
+    + Filter Set names must not be numeric. You can add numbers as part of a text string but not on their own.
+    + Filter Set data must be a valid JSON string.
+    + Filter Set data must be under 8192 characters.
+
+### Delete a filter set [DELETE]
+
++ Parameters
+    + publisher_id: 7 (string, required) - Id of the publisher
+    + filter_set_id: 38 (string, required) - Id of the filter set
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + count: 1 (number) - Number of Filter Sets deleted
+        + execution_time: `0.23640 seconds`
+        + filter_sets (array[Publisher Filter Set]) - Deleted Filter Sets list
+        + errors (array) - Empty error list

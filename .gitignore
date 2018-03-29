@@ -4,4 +4,7 @@ node_modules
 public/
 .public/
 tmp/
-/*.map
+*.map
+.DS_Store
+apiary.apib.map
+package-lock.json
