@@ -1,0 +1,42 @@
+## Campaign Deal Base (object)
++ campaign_deal_id: 111111l2
++ Include Campaign Deal
++ created_at: `2017-07-01T00:00:00+01:00`
++ updated_at: (nullable)
+
+## Campaign Deal (object)
++ title: 40% off everything (required)
++ description: There are a lot of awesome deals (required)
++ terms: No terms for this deal (optional) - Specific terms for the deal
++ coupon_code: DEAL45 (optional) - A specific coupon or voucher code associated with the deal
++ country_iso: (Country, optional) - Whether it applies to a specific country
++ category: Clothing (optional)
++ offer_type (Deal Offer Type, required) - The type of offer
++ `offer_value`: 40% off (required) - The unit to attribute to the `offer_type`
++ advertiser_reference: Promo012 (optional)
++ start_date_time: `2017-08-01T00:00:00+01:00` (optional) - Timezone specific timestamp to indicate the start of the deal
++ end_date_time: `2017-09-01T00:00:00+01:00` (optional) - Timezone specific timestamp to indicate the deal expiry time
++ destination: `https://dealz.bargain/promo` (optional) - A deeplink to the specific deal location
++ active: (YesOrNo)
+
+## Update Campaign Deal (object)
++ Include Campaign Deal
++ title: 40% off everything (optional)
++ description: There are a lot of awesome deals (optional)
++ offer_type (Deal Offer Type, optional) - The type of offer
++ `offer_value`: 40% off (optional) - The unit to attribute to the `offer_type`
+
+## Campaign Deal Wrapper (object)
++ campaign_deal (Campaign Deal)
+
+## Publisher Deal Base (object)
++ Include Campaign Deal Base
++ destination: `https://prf.hn/click/camref:111111l2/adref:Promo012/pubref:test+pubref/creativeref:111111l7/destination:https%3A%2F%2Fdealsite.promo%2Foffers`
+
+## Publisher Deal Wrapper (object)
++ deal (Publisher Deal Base)
+
+## Deal Offer Type (enum)
++ coupon - A coupon or voucher code offer
++ offer - A specific, limited time promotion
++ sale - An offer at a reduced price

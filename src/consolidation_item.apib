@@ -1,0 +1,17 @@
+# Group Consolidation Item
+
+Before an Advertiser can generate Invoices they must be able to see the currenty approved sales totals that are currently available for invoicing
+
+## Consolidation Items [/user/advertiser/{advertiser_id}/campaign/{campaign_id}/consolidation_item]
+
+ + Parameters
+    + advertiser_id: 10l110 - Id of the advertiser
+    + campaign_id: 10l176 - Id of the campaign
+
+### List all invoiceable currencies [GET]
+
+List all of the available, invoiceable, currencies for the given campaign
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + consolidation_items (array[Consolidation Item Wrapper])

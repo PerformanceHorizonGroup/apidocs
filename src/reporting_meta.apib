@@ -1,0 +1,175 @@
+# Group Reporting Meta
+
+Reporting Meta is functionality that allows Advertisers and Publishers to generate reports based on specific meta data.
+
+## Meta Whitelist [/campaign/{campaign_id}/reporting/meta/whitelist]
+
+An internally maintained list of meta data keys that are able to be used in the Reporting Meta functionality.
+
+### List all Meta Whitelist Keys for a Campaign [GET]
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + whitelist (object) - Key list for Conversion level
+            + conversion (array)
+                + conversion_key_name_1
+                + conversion_key_name_2
+            + item (array) - Key list for Item level
+                + item_key_name_1
+                + item_key_name_2
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + message: Campaign cannot be loaded
+            + type: 404
+
+## Meta Values [/campaign/{campaign_id}/reporting/meta/values]
+
+Endpoint that contains all unique values for each Meta Data key that exists within the Reporting Meta Whitelist.
+
+### List all Meta Values for a Campaign [GET]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + meta_values (object)
+            + conversion (object) - Value list for Conversion level
+                + conversion_key_name_1 (array)
+                    + value_1
+                    + value_2
+                    + value_3
+            + item (object) - Value list for Item level
+                + item_key_name_1 (array)
+                    + value_1
+                    + value_2
+                    + value_3
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + message: Invalid campaign id.
+            + type: 404
+
+## Meta Reports [/campaign/{campaign_id}/reporting/meta/reports]
+
+Endpoint that controls the Meta Reports generated for the campaign.
+
+
+### List all Meta Reports for a Campaign [GET]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + Include List Response
+        + reports (array[Meta Report Wrapper], fixed-type)
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + message: Invalid campaign id
+            + type: 404
+
+### List a single Meta Report for a Campaign [GET /campaign/{campaign_id}/reporting/meta/reports/{report_id}]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+    + report_id: 123 - ID of the report
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + Include Response
+        + report: (Meta Report)
+
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + message: Report with ID 987 doesn't exist.
+            + type: 400
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + message: Invalid campaign id
+            + type: 404
+
+### Create a Meta Report for a Campaign [POST]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+
++ Request (application/json)
+    + Attributes (Meta Report Create)
+
++ Response 201 (application/json; charset=utf-8)
+    + Attributes
+        + Include Response
+        + Include Meta Report Wrapper
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + message: Invalid campaign id
+            + type: 404
+
+### Delete a Meta Report for a Campaign [DELETE /campaign/{campaign_id}/reporting/meta/reports/{report_id}]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+    + report_id: 123 - ID of the report
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + Include Response
+        + delete_report (object)
+            + success: true (boolean)
+
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + message: Report with ID 123 doesn't exist.
+            + type: 400
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + message: Invalid campaign id
+            + type: 404
+
+### View results of a Meta Report for a Campaign [GET /campaign/{campaign_id}/reporting/meta/reports/{report_id}/results]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+    + report_id: 123 - ID of the report
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + Include Response
+        + report_result: (Meta Report Result)
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + message: Report with ID 987 doesn't exist.
+            + type: 400
+
+### Export results of a Meta Report for a Campaign [GET /campaign/{campaign_id}/reporting/meta/reports/{report_id}/results.csv]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+    + report_id: 123 - ID of the report
+
++ Response 200 (application/octet-stream; charset=UTF-8)
+
+meta_data,count,commission,partner_commission,order_value,ecpa,currency
+"{""hotel_name"":""marriott""}",3,268761.8898893,268761.8898893,3839455.5698471,11654146.437911,JPY
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + message: Report with ID 987 doesn't exist.
+            + type: 400
