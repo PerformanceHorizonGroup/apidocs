@@ -2,11 +2,12 @@
 
 Campaign reward is a points based incentive scheme. Each reward is bound to a campaign. Every conversion it that campaign will be matched against reward’s settings. Eventually it will be assigned to a conversion.
 
-## Campaign Reward [/campaign/{campaign_id}/reward]
+## Campaign Reward [/campaign/{campaign_id}/reward{?inactive}]
 All requests in scope of Campaign rewards needs parameter `'campaign_id'` with proper value i.e. `'1111l123'`.
 + Parameters
     + campaign_id: `1111l123` (required, string)
-    
+    + inactive: `true` (boolean, optional) - Include deleted rewards in response
+
 ### List all Campaign Rewards [GET]
 
 To get list of all Campaign rewards, you need to send simple GET request using base url without any changes.

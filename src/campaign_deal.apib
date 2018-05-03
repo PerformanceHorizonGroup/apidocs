@@ -1,0 +1,67 @@
+# Group Campaign Deal
+
+An Advertiser may want to offer a Deal specific deal to Publishers on a specific Campaign. These Deals represent a
+timed promotion which can be programmatically ingested into the Publishers platform and offered dynamically to their
+user base.
+
+## Campaign Deals [/campaign/{campaign_id}/deal]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+
+### List all Campaign Deals [GET]
+
+Return the details of all Deals attached to the Campaign.
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + campaign_deals (array[Campaign Deal Wrapper], fixed-type)
+
+### Create a Campaign Deal [POST]
+
+Create a new Deal against the Campaign entity.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + Include Campaign Deal
+
++ Response 201 (application/json; charset=utf-8)
+    + Attributes
+        + campaign_deal (Campaign Deal Base, fixed-type)
+
+## Campaign Deal [/campaign/{campaign_id}/deal/{deal_id}]
+
++ Parameters
+    + campaign_id: 10l176 - ID of the campaign
+    + deal_id: 111111l2 - ID of the deal
+
+### Retrieve a Campaign Deal [GET]
+
+Outputs the specified Deal.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + campaign_deal (Campaign Deal Base, fixed-type)
+
+### Update a Campaign [PATCH]
+
+Update the specified Deal.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + Include Update Campaign Deal
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + campaign_deal (Campaign Deal Base, fixed-type)
+
+### Delete a Campaign [DELETE]
+
+Delete a Deal, which is the same as updating the Deal by setting `active` to `n`.
+
++ Request (application/json; charset=utf-8)
+
++ Response 204 (application/json; charset=utf-8)
