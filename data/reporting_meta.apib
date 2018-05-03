@@ -1,0 +1,68 @@
+## Meta Report Status (enum)
++ created - Created
++ completed - Completed
++ running - Running
++ aborted - Aborted
+
+## Meta Report Filter (array)
++ (object)
+    + property: status (string)
+    + operator: = (string),
+    + value: approved (string)
+
+## Meta Report Conversion Filter (array)
++ (object)
+    + property: item_code (string)
+    + operator: = (string),
+    + value: `P-123` (string)
+
+## Meta Report Item Filter (array)
++ (object)
+    + property: hotel_name (string)
+    + operator: in (string),
+    + value (array)
+        + marriott
+        + travelodge
+        + premier inn
+
+## Meta Report Result (object)
++ `{"hotel_name":"marriott"}` (object)
+    + count: 3 (number)
+    + commission: 268761.8898893 (number)
+    + partner_commission: 268761.8898893 (number)
+    + order_value: 3839455.5698471 (number)
+    + ecpa: 11654146.437911 (number)
+    + currency: JPY (string)
+
+## Meta Report (object)
++ id: 11l011 (string)
++ campaign_id: 300685 (string)
++ name: Test Report (string)
++ start_date: `2016-01-01 00:00:00` (string)
++ end_date: `2017-01-01 00:00:00` (string)
++ output_currency: (Currency)
++ status: (Meta Report Status)
++ job_id: 11l32133 (string),
++ created_at: `2017-07-13 10:20:50` (string),
++ created_by: 300740 (string),
++ updated_at: null (string),
++ completed_at: null (string),
++ filter: (Meta Report Filter)
++ filter_meta_conversion: (Meta Report Conversion Filter)
++ filter_meta_item: (Meta Report Item Filter)
+
+
+## Meta Report Create (object)
++ name: Test Report (required, string) - Name of the report
++ start_date: `2016-01-01 00:00:00` (required, string) - Start Date of the report
++ end_date: `2017-01-01 00:00:00` (required, string) - End Date of the report
++ output_currency: (Currency) - Requested currency for aggregated results. Default value will be Campaign default currency
++ filter: (required, Meta Report Filter) - The filter options for the report
++ filter_meta_conversion: (required, Meta Report Conversion Filter) - The conversion filter options for the report
++ filter_meta_item: (required, Meta Report Item Filter) - The item filter options for the report
+
+## Meta Report Update (object)
++ name: Test Report (string) - Name of the report
++ start_date: `2016-01-01 00:00:00` (string) - Start Date of the report
++ end_date: `2017-01-01 00:00:00` (string) - End Date of the report
++ filter: (Meta Report Filter) - The filter options for the report

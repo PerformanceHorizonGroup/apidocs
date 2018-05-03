@@ -43,7 +43,7 @@ The API is compression enabled. To control whether the API response is compresse
 - Request: `Accept-Encoding: gzip`
 - Response: `Content-Encoding: gzip`
 
-## Pagination
+## Standard Pagination
 Certain endpoints will generate large result sets. To save bandwidth and long processing times, these endpoints will
 paginate the results to reduce the strain on both client and server.
 
@@ -88,6 +88,44 @@ performs all necessary calculations and outputs all relevant information with ab
         "last_page": "/user.json?limit=100&offset=1400",
         "next_page": "/user.json?limit=100&offset=100",
         "previous_page": null
+    }
+}
+```
+
+## Cursor Pagination
+For the granular conversion reporting endpoint, we have adopted cursor based pagination. Due to the scale of some clients,
+there is a large overhead involved in processing the offset and computing the total number of results.
+This overhead compounds as the data set size increases, and when the data set grows large enough it becomes impractical to
+perform the task in real time.
+
+To ensure these high volume endpoints can scale, cursor based pagination has been implemented, where each response
+will now return a `cursor_id` attribute along with the results. This indicates where the client is currently within the result set.
+When the client requests another page, and includes the `cursor_id` value, the server will be able to determine where
+the client is up to in the result set and send the appropriate items.
+
+This approach does not suffer from the same overhead drawbacks that limit/offset pagination
+does, and provides a consistent view of the result set across pages.
+
+### Paging
+To paginate through a result set, you can use a combination of 2 parameters:
+
+| Parameter            | Description                                             | Notes                                                   |
+|----------------------|---------------------------------------------------------|---------------------------------------------------------|
+| `cursor_id`          | Cursor value that defines client position in result set | Integer                                                 |
+| `limit`              | Limit the number of results returned                    | Integer, maximum limit is 300                           |
+
+For example, if an endpoint produces 5,000 results, only the first 300 will be returned (results `0` to `299`). Within the
+header attributes, a `cursor_id` will be included. Simply pass the `cursor_id` in conjunction with the desired `limit` to
+return the subsequent items from the result set.
+
+### Hypermedia
+The hypermedia object has been updated to automatically include the relevant `cursor_id` and limit for the next page.
+
+```
+"hypermedia": {
+    "pagination": {
+        first_page: "/reporting/report_publisher/publisher/10l1/conversion.json?start_date=2018-03-01+00%3A00%3A00&end_date=2018-04-01+00%3A00%3A00&limit=300",
+        next_page: "/reporting/report_publisher/publisher/10l1/conversion.json?start_date=2018-03-01+00%3A00%3A00&end_date=2018-04-01+00%3A00%3A00&limit=300&cursor_id=10325942995"
     }
 }
 ```
