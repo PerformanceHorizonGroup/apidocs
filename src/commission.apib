@@ -5,15 +5,10 @@ can be created to reward specific actions, products, and types of conversion. An
 be set up however each Commission offer must be unique. You cannot have 2 active Commissions for the same event.
 Commissions can be defined at four separate levels, these are:
 
-​
-1. Campaign level: these Commissions apply to all Publishers, it is regarded as the base level for all actions that
-match the Commission offer.
-
-​2. Group level: Commissions apply to all Publishers in a predefined Commission Group.
-
-​3. Publisher level: Commissions that apply to a specific Publisher.
-
-​4. Voucher Code level: Commissions apply to a specified Voucher Code.
+1. `Campaign` commissions apply to all Publishers, it is regarded as the base level for all actions that match the Commission offer.
+2. `Group` commissions apply to all Publishers in a predefined Commission Group.
+3. `Publisher` commissions that apply to a specific Publisher.
+4. `Voucher Code` commissions apply to a specified Voucher Code.
 
 ## Commission [/campaign/{campaign_id}/commission]
 
@@ -97,20 +92,24 @@ Only outputs Commission offers for the specified Voucher.
 
 ### Create a Commission [POST]
 
-Create new Commission offers, you can nest multiple new Commissions within a `commissions` array. The relevant
-`commission_level` must be passed to inform the endpoint which level the Commission belongs. If the level is not
+Create new Commission rules, you can nest multiple new Commission rules within a `commissions` array. The
+`reference_type` must be passed to inform the endpoint which level the Commission belongs. If the level is not
 `campaign` then the associated `reference_id` should be passed to define the entity at the chosen level.
 
 + Request (application/json; charset=utf-8)
     + Attributes
-        + commissions (array)
+        + commissions (array, fixed-type)
             + (Commission Base)
-                + commission_level (required)
-                + reference_id
+                + reference_type (enum)
+                    + campaign
+                    + participation
+                    + group
+                    + voucher
+                + reference_id: 10l176
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + commission (array[Commission Wrapper])
+        + commission (array[Commission Wrapper], fixed-type)
 
 ### Update a Commission [PUT]
 
@@ -118,13 +117,13 @@ To modify Commission offers, add the relevant `commission_id` into each array wi
 
 + Request (application/json; charset=utf-8)
     + Attributes
-        + commissions (array)
+        + commissions (array, fixed-type)
             + (Commission Base)
                 + commission_id: 300092 - ID of the commission
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + commission (array[Commission Wrapper])
+        + commission (array[Commission Wrapper], fixed-type)
 
 ### Retrieve all Commissions [GET]
 
@@ -133,10 +132,10 @@ Voucher overrides nested into each. This endpoint removes the need to query a sp
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + commissions (array)
+        + commissions (array, fixed-type)
             + (object)
                 + commission (Commission)
                     + reference_type: campaign
-            + (object)
+            + (object, fixed-type)
                 + commission (Commission)
                     + reference_type: voucher
