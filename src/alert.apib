@@ -186,3 +186,30 @@ Test alert will be fired triggered notification will be send via notifier with g
 + Response 204 (application/json; charset=utf-8)
 
 + Response 400 (application/json; charset=utf-8)
+
+
+## Alert Group Subscriptions [/alerts/group/subscriptions/{alert_group_user_type}]
+
+The user's alert group subscriptions for email and slack notififers.
+ 
+ + Attributes
+    + alert_group_user_type (enum)
+        + advertiser
+        + publisher
+ 
+### Retrieve subscriptions [GET]
+
+Retrieve all subscriptions for the current user.
+ 
+ + Response 200 (application/json; charset=utf-8)
+    + Attributes (Alert Group Subscription)
+
+### Update subscriptions [PUT]
+
+Update all subscriptions for the current user.
+
++ Request (application/json; charset=utf-8)
+    + Attributes (Alert Group Subscription)
+ 
+ + Response 200 (application/json; charset=utf-8)
+    + Attributes (Alert Group Subscription)
