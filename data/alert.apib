@@ -61,3 +61,29 @@
 + link: `http://phgma.dev/v2/url/111111l8` (string) - Action url when display as single message
 + status (Alert Message Status) - Message status
 + count: `4` (number) - Count of messages in group
+
+## alert_group_user_type (enum)
++ advertiser
++ publisher
+
+## notifiers (object)
++ email: `1` (number)
++ slack: `1` (number)
++ platform: `1` (number)
+
+## child_alert_group_subscription (object)
++ alert_alert_group_id: `6` (number)
++ description: `Campaign invitations` (string)
++ example: `eg. An invitation has been accepted.` (string)
++ notifiers (notifiers)
+ 
+## alert_group_subscription (object)
++ alert_alert_group_id: `5` (number)
++ description: `When there is a change of status on my campaigns` (string)
++ example: `eg. Publisher applies to join a campaign.` (string)
++ notifiers (notifiers)
++ children (array[child_alert_group_subscription])
+
+## Alert Group Subscription (object)
++ execution_time: `0.02128 seconds` (string)
++ alert_group_subscriptions (array[alert_group_subscription])
