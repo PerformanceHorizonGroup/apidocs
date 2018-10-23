@@ -1,0 +1,181 @@
+# Group Campaign Reward
+
+Campaign reward is a points based incentive scheme. Each reward is bound to a campaign. Every conversion it that campaign will be matched against reward’s settings. Eventually it will be assigned to a conversion.
+
+## Managing Campaign Rewards [/campaign/{campaign_id}/reward{?inactive}]
+All requests in scope of Campaign rewards needs parameter `'campaign_id'` with proper value i.e. `'1111l123'`.
++ Parameters
+    + campaign_id: `1111l123` (required, string)
+    + inactive: `true` (boolean, optional) - Include deleted rewards in response
+
+### List all Campaign Rewards [GET]
+
+List all rewards for a given campaign.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + rewards (array[Reward])
+            
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Campaign not found for id 1111l123` (string)
+
+### Create a Campaign Reward [POST]
+
+To create a reward for a given campaign.
+
++ Request (application/json; charset=utf-8)
+    + Attributes (Unsaved Reward)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (Reward)
+            
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `You must complete this field` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                        
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Invalid numerical value` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                        
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Invalid boolean` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                        
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Invalid country code` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                        
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Invalid date format` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                        
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Establishment code must have more than one character` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                        
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Establishment code must be 40 characters or less` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                        
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Establishment code must not contain symbols or spaces` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                        
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Invalid numerical value, must be greater than '0'` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                                    
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Name must have more than one character` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                                    
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Name must be 40 characters or less` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                                    
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Name must not contain symbols or spaces` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                                    
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Invalid value` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                                    
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Expected string` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+                                                
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `XYZ is missing and is a required field` (string)
+            + type: `Validation Fail`
+            + fields: [] (array)
+            
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Campaign not found for id 1111l123` (string)
+
+### Set Campaign Reward as inactive [POST /campaign/{campaign_id}/reward/{reward_id}/deactivate]
+
+Set a reward as inactive for a given campaign
+
+1. `'reward_id' => '1511l321'`
+specified in url.
+
++ Parameters
+    + campaign_id: `1111l123` (required, string)
+    + reward_id: `1511l321` (string, required)
+    
++ Response 200 (application/json; charset=utf-8)
+    + Attributes 
+        + reward_id: `1111l123` (string)
+        + status: `deleted` (string)
+            
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Reward '1511l321' not found for campaign '1111l123'` (string)
+
+
+## Listing rewards created for a Campaign [/campaign/{campaign_id}/rewards]
+
+The endpoints below list out all rewards that have been matched against conversions in a given campaign.
+
+### Conversion Rewards [GET /campaign/{campaign_id}/conversions/rewards]
+
+List all rewards matched against conversions in a given campaign grouped by conversions
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + conversions (array[Conversion Reward])
+            
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error
+            + message: `Campaign not found for id 1111l123` (string)

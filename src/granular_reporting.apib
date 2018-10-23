@@ -1,7 +1,10 @@
 # Group Granular Advertiser Reporting
 
-The granular reporting endpoints list all Clicks or Conversions related to a campaign individually. Due to the volume of data,
-these result sets are Paginated.
+The granular reporting endpoints list all Clicks or Conversions related to a campaign individually.
+
+Due to the volume of data, these result sets are Paginated by default.
+
+However, if the result set includes a `cursor_id` header attribute, then please refer to the alternative Cursor Pagination.
 
 ## Clicks [/reporting/report_advertiser/campaign/{campaign_id}/click{?start_date,end_date}]
 
@@ -65,7 +68,10 @@ Return the details of all Conversions attached to the Campaign within the reques
 # Group Granular Publisher Reporting
 
 The granular reporting endpoints list all Clicks or Conversions related to an individual publisher.
-Due to the volume of data, these result sets are Paginated.
+
+Due to the volume of data, these result sets are Paginated by default.
+
+However, if the result set includes a `cursor_id` header attribute, then please refer to the alternative Cursor Pagination.
 
 ## Clicks [/reporting/report_publisher/publisher/{publisher_id}/click{?start_date,end_date}]
 
