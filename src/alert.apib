@@ -29,7 +29,7 @@ The mechanism that a Notification is sent through, such as Email or Slack.
     + Attributes
         + notifiers(array[Notifier Wrapper])
 
-## Alert User Setting [/alerts/setting]
+## Alert User Settings [/alerts/setting]
 
 All User specific settings for Notifiers.
 
@@ -42,7 +42,7 @@ All User specific settings for Notifiers.
         + array - Array of values
     + field_value: #general (string, required) - Value for the setting, relative to the `type`
 
-### Get All Available Settings [GET]
+### Get All User Settings [GET]
 
 Get matrix of all user alert related settings
 + Request (application/json; charset=utf-8)
@@ -50,7 +50,7 @@ Get matrix of all user alert related settings
     + Attributes
         + settings(array[Alert User Extra Field Wrapper])
 
-### Set User Setting [POST]
+### Set User Settings [POST]
 
 Update user notifier settings
 + Request (application/json; charset=utf-8)
@@ -59,7 +59,83 @@ Update user notifier settings
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (array[Alert Setting Response Entry])
+
 + Response 400 (application/json; charset=utf-8)
+    + Body
+        {
+            "messages": {
+                "foobar": [
+                    "Invalid field"
+                ]
+            }
+        }
+
+### Get All User Config [GET /alerts/config]
+
+Get a user's settings as key/value pairs.
+
++ Response 200 (application/json; charset=utf-8)    
+    + Body
+        {
+            "alert_config": {
+                "digest_last_sent": null,
+                "email_address": "me@example.com",
+                "email_frequency": null,
+                "mobile_token": null,
+                "postback_fields": "{}",
+                "postback_method": "GET",
+                "postback_url": "https://postback.it",
+                "send_email_at_utc": "12:00",
+                "slack_apikey": "+48123456789",
+                "slack_channel": null,
+                "slack_channels": [],
+                "slack_client_id": "5559602201.77768433876",
+                "webhook_url": null
+            }
+        }  
+
+### Update User Config [POST /alerts/config]
+
+Update a user's settings via key/value pairs.
+
++ Request (application/json)
+    + Attributes
+        + alert_config (object, required, fixed-type)
+            + digest_last_sent (string) - read only
+            + email_address: me@example.com
+            + email_frequency (enum)
+                + daily
+                + weekly
+                + monthly
+            + mobile_token (array)
+            + postback_fields (string) - stringified JSON object
+            + postback_method (string)
+            + postback_url (string)
+            + slack_apikey (string)
+            + slack_channel (string)
+            + slack_channels (array)
+            + slack_client_id (string)
+            + webhook_url (string)
+
++ Response 200 (application/json; charset=utf-8)    
+    + Body
+        {
+            "alert_config": {
+                "digest_last_sent": null,
+                "email_address": "me@example.com",
+                "email_frequency": null,
+                "mobile_token": null,
+                "postback_fields": "{}",
+                "postback_method": "GET",
+                "postback_url": "https://postback.it",
+                "send_email_at_utc": "12:00",
+                "slack_apikey": "+48123456789",
+                "slack_channel": null,
+                "slack_channels": [],
+                "slack_client_id": "5559602201.77768433876",
+                "webhook_url": null
+            }
+        }  
 
 ## Notifications [/alerts/notification]
 
