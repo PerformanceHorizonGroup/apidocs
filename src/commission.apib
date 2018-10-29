@@ -29,6 +29,7 @@ Commissions can be defined at four separate levels, these are:
     + override: 10
     + override_type: override
     + active (YesOrNo)
+    + promotion (YesOrNo) - Promotional flag
     + default_commission: false
 
 ### List all Campaign level Commissions [GET /campaign/{campaign_id}/campaign/{campaign_id}/commission]
@@ -106,10 +107,11 @@ Create new Commission rules, you can nest multiple new Commission rules within a
                     + group
                     + voucher
                 + reference_id: 10l176
+                + promotion (YesOrNo)
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + commission (array[Commission Wrapper], fixed-type)
+        + commission (array[Promotion Commission Wrapper], fixed-type))
 
 ### Update a Commission [PUT]
 
@@ -120,10 +122,11 @@ To modify Commission offers, add the relevant `commission_id` into each array wi
         + commissions (array, fixed-type)
             + (Commission Base)
                 + commission_id: 300092 - ID of the commission
+                + promotion (YesOrNo)
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
-        + commission (array[Commission Wrapper], fixed-type)
+        + commission (array[Promotion Commission Wrapper], fixed-type)
 
 ### Retrieve all Commissions [GET]
 
@@ -136,6 +139,8 @@ Voucher overrides nested into each. This endpoint removes the need to query a sp
             + (object)
                 + commission (Commission)
                     + reference_type: campaign
+                    + promotion (YesOrNo)
             + (object, fixed-type)
                 + commission (Commission)
                     + reference_type: voucher
+                    + promotion (YesOrNo)
