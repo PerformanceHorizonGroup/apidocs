@@ -75,67 +75,17 @@ Update user notifier settings
 Get a user's settings as key/value pairs.
 
 + Response 200 (application/json; charset=utf-8)    
-    + Body
-        {
-            "alert_config": {
-                "digest_last_sent": null,
-                "email_address": "me@example.com",
-                "email_frequency": null,
-                "mobile_token": null,
-                "postback_fields": "{}",
-                "postback_method": "GET",
-                "postback_url": "https://postback.it",
-                "send_email_at_utc": "12:00",
-                "slack_apikey": "+48123456789",
-                "slack_channel": null,
-                "slack_channels": [],
-                "slack_client_id": "5559602201.77768433876",
-                "webhook_url": null
-            }
-        }  
+    + Attributes (Alert Config Wrapper)
 
-### Update User Config [POST /alerts/config]
+### Update User Config [PUT /alerts/config]
 
 Update a user's settings via key/value pairs.
 
 + Request (application/json)
-    + Attributes
-        + alert_config (object, required, fixed-type)
-            + digest_last_sent (string) - read only
-            + email_address: me@example.com
-            + email_frequency (enum)
-                + daily
-                + weekly
-                + monthly
-            + mobile_token (array)
-            + postback_fields (string) - stringified JSON object
-            + postback_method (string)
-            + postback_url (string)
-            + slack_apikey (string)
-            + slack_channel (string)
-            + slack_channels (array)
-            + slack_client_id (string)
-            + webhook_url (string)
+    + Attributes (Alert Config Wrapper)
 
 + Response 200 (application/json; charset=utf-8)    
-    + Body
-        {
-            "alert_config": {
-                "digest_last_sent": null,
-                "email_address": "me@example.com",
-                "email_frequency": null,
-                "mobile_token": null,
-                "postback_fields": "{}",
-                "postback_method": "GET",
-                "postback_url": "https://postback.it",
-                "send_email_at_utc": "12:00",
-                "slack_apikey": "+48123456789",
-                "slack_channel": null,
-                "slack_channels": [],
-                "slack_client_id": "5559602201.77768433876",
-                "webhook_url": null
-            }
-        }  
+    + Attributes (Alert Config Wrapper)
 
 ## Notifications [/alerts/notification]
 
