@@ -1,4 +1,4 @@
-# Performance Horizon API Docs
+# Partnerize API Docs
 
 [![Build Status](https://travis-ci.org/PerformanceHorizonGroup/apidocs.svg?branch=master)](https://travis-ci.org/PerformanceHorizonGroup/apidocs)
 
