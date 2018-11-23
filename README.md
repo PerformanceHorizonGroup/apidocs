@@ -1,8 +1,8 @@
-# Performance Horizon API Docs
+# Partnerize API Docs
 
 [![Build Status](https://travis-ci.org/PerformanceHorizonGroup/apidocs.svg?branch=master)](https://travis-ci.org/PerformanceHorizonGroup/apidocs)
 
-The PH api documentation is written in [api blueprint](https://apiblueprint.org/).
+The Partnerize API documentation is written in [api blueprint](https://apiblueprint.org/).
 
 Read and interact with our docs at [apiary.io](http://docs.performancehorizon.apiary.io/).
 
