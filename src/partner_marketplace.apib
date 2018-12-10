@@ -1,8 +1,18 @@
-# Partner Marketplace
+# Group Partner Marketplace
 
 The Partner Marketplace allows advertisers to find potential publishers to invite to their networks/campaigns.
 
-## Publisher Discovery [/v2/networks/{network_id}/marketplace/discovery/publishers]
+## Publisher Discovery [/v2/networks/{network_id}/marketplace/discovery/publishers{?limit,offset}]
 
 + Parameters
     + network_id: 1l1007802 - ID of the network
+    + limit: 100 (number, optional)
+    + offset: 0 (number, optional)
+
+
+### List all Invitable Publishers [GET]
+
+List all Publishers who may invited to the network.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (marketplace_partner_discovery)

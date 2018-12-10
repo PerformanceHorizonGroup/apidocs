@@ -1,0 +1,52 @@
+## `marketplace_country` (object)
+
+- `iso`: `UK` (string)
+- `name`: `United Kingdom` (string)
+
+## `marketplace_vertical` (object)
+
+- `id`: `131` (string)
+- `name`: `boats` (string)
+
+## `marketplace_promotional_method` (object)
+
+- `id`: `16` (string)
+- `name`: `Blogger` (string)
+
+## `marketplace_website` (object)
+
+- `url`: `http://someurl.com` (string)
+- `description`: `some web site` (string)
+
+## `marketplace_publisher` (object)
+
+- `id`: `111111l1` (string)
+- `name`: `Publisher A` (string)
+- `company_name`: `Acme LTD` (string)
+- `email`: `user@acme.com` (string)
+- `network_count`: `5` (number)
+- `country` (marketplace_country)
+- `vertical` (marketplace_vertical)
+- `promotional_method` (marketplace_promotional_method)
+- `websites` (array[marketplace_website])
+
+## `marketplace_pagination` (object)
+
+- `total_page_count`: `15` (number)
+- `first_page`: `/v2/marketplace/discovery/publishers?limit=100&offset=0` (string)
+- `last_page`: `/v2/marketplace/discovery/publishers?limit=100&offset=1400` (string)
+- `next_page`: `/v2/marketplace/discovery/publishers?limit=100&offset=100` (string)
+- `previous_page` (nullable, string) 
+
+## `marketplace_hypermedia` (object)
+
+- `pagination` (marketplace_pagination)
+
+## `marketplace_partner_discovery` (object)
+
+- `execution_time`: `0.98709 seconds` (string)
+- `count`: `731` (number)
+- `offset`: `0` (number)
+- `limit`: `100` (number)
+- `publishers` (array[marketplace_publisher])
+- `hypermedia` (marketplace_hypermedia)
