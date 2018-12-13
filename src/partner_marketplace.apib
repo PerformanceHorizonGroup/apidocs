@@ -30,14 +30,16 @@ List all Publishers who are illigible to join the network.
 Invite Publishers to Campaigns on the network.
 
 + Request (application/json; charset=utf-8)
-    + Attributes (marketplace_invitations_create_request)
+    + Attributes 
+        + publisher_invitations (array, fixed-type, required)
+            + (marketplace_invitations_create_request)
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes
         + execution_time: `0.98709 seconds` (string)
         + success_count: 6 (number)
         + failure_count: 0 (number)
-
+  
 + Response 400 (application/json; charset=utf-8)
     + Attributes
         + execution_time: `0.98709 seconds` (string)
@@ -45,25 +47,18 @@ Invite Publishers to Campaigns on the network.
         + failure_count: 1 (number)
         + failures (array, fixed-type)
             + (object)
+                + index: 0 (number) - array index in the request 
                 + data (object)
-                    + publishers (array)
+                    + publisher_id (string)
                         + Sample: 100l1258
-                    + campaigns (array)
+                    + campaign_id (string)
                         + Sample: 1011l423
                 + errors (array, fixed-type)
                     + (object)
                         + type: validation_error (string)
                         + code: non_unique (string)
                         + message (string) 
-                            + Sample: `Invitation for publisher_id (publisher_id), campaign_id (campaign_id) and network_id (network_id) already exists.`
-
-
-+ Response 403 (application/json; charset=utf-8)
-    + Attributes
-        + error (object)
-            + type: unauthorised (string)
-            + message (string)
-                + Sample: `Campaign not found for id '100l2555'`
+                            + Sample: `Invitation for publisher_id '100l1258' and campaign_id '1011l423' already exists.`
  
 + Response 404 (application/json; charset=utf-8)
     + Attributes
@@ -71,4 +66,3 @@ Invite Publishers to Campaigns on the network.
             + type: entity_not_found (string)
             + message (string)
                 + Sample: `Network not found for id '1l1007555'`
-                    
