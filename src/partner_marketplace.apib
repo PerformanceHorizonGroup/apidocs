@@ -17,20 +17,30 @@ List all Publishers who are illigible to join the network.
 + Response 200 (application/json; charset=utf-8)
     + Attributes (marketplace_partner_discovery, fixed-type)
 
+## Campaign Discovery [/v2/networks/{network_id}/marketplace/discovery/campaigns]
 
++ Parameters
+    + network_id: 1l1007802 - ID of the network
+
+### List all applicable Campaigns [GET]
+
+List all campaigns for the network that the current logged in user has control over.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (marketplace_campaign_discovery, fixed-type)
 
 ## Publisher Invitations [/v2/networks/{network_id}/marketplace/discovery/invitations]
 
 + Parameters
     + network_id: 1l1007802 - ID of the network
-   
+
 
 ### Create Invitations  [POST]
 
 Invite Publishers to Campaigns on the network.
 
 + Request (application/json; charset=utf-8)
-    + Attributes 
+    + Attributes
         + publisher_invitations (array, fixed-type, required)
             + (marketplace_invitations_create_request)
 
@@ -39,7 +49,7 @@ Invite Publishers to Campaigns on the network.
         + execution_time: `0.98709 seconds` (string)
         + success_count: 6 (number)
         + failure_count: 0 (number)
-  
+
 + Response 400 (application/json; charset=utf-8)
     + Attributes
         + execution_time: `0.98709 seconds` (string)
@@ -47,7 +57,7 @@ Invite Publishers to Campaigns on the network.
         + failure_count: 1 (number)
         + failures (array, fixed-type)
             + (object)
-                + index: 0 (number) - array index in the request 
+                + index: 0 (number) - array index in the request
                 + data (object)
                     + publisher_id (string)
                         + Sample: 100l1258
@@ -57,9 +67,9 @@ Invite Publishers to Campaigns on the network.
                     + (object)
                         + type: validation_error (string)
                         + code: non_unique (string)
-                        + message (string) 
+                        + message (string)
                             + Sample: `Invitation for publisher_id '100l1258' and campaign_id '1011l423' already exists.`
- 
+
 + Response 404 (application/json; charset=utf-8)
     + Attributes
         + error (object)

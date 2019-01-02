@@ -18,6 +18,11 @@
 - `url`: `http://someurl.com` (string)
 - `description`: `some web site` (string)
 
+## `marketplace_campaign_advertiser` (object)
+
+- `id`: `20` (string)
+- `name`: `Advertiser 1` (string)
+
 ## `marketplace_publisher` (object)
 
 - `id`: `111111l1` (string)
@@ -31,13 +36,19 @@
 - `promotional_method` (marketplace_promotional_method)
 - `websites` (array[marketplace_website])
 
+## `marketplace_campaign` (object)
+
+- `id`: `111111l1` (string)
+- `name`: `Campaign A` (string)
+- `advertiser` (marketplace_campaign_advertiser)
+
 ## `marketplace_pagination` (object)
 
 - `total_page_count`: `15` (number)
 - `first_page`: `/v2/marketplace/discovery/publishers?limit=100&offset=0` (string)
 - `last_page`: `/v2/marketplace/discovery/publishers?limit=100&offset=1400` (string)
 - `next_page`: `/v2/marketplace/discovery/publishers?limit=100&offset=100` (string)
-- `previous_page` (nullable, string) 
+- `previous_page` (nullable, string)
 
 ## `marketplace_hypermedia` (object)
 
@@ -53,5 +64,11 @@
 - `hypermedia` (marketplace_hypermedia)
 
 ## `marketplace_invitations_create_request` (object)
-- publisher_id: `100l124` (string, required)       
+- publisher_id: `100l124` (string, required)
 - campaign_id: `1011l423` (string, required)
+
+## `marketplace_campaign_discovery` (object)
+
+- `execution_time`: `0.98709 seconds` (string)
+- `count`: `1` (number)
+- `campaigns` (array[marketplace_campaign])
