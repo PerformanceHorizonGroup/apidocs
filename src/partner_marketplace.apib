@@ -88,3 +88,31 @@ See all invites available to a partner
 
 + Parameters
     + publisher_id: 1l1007802 - ID of the publisher
+
+## List invitation terms [POST /v2/publishers/{publisher_id}/invitations/advertisers/terms]
+
+Returns all applicable terms for the invitations provided.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + invitation_id: 111111l8, 111111l9 (required, array[string])
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (marketplace_partner_terms_list, fixed-type)
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: 404 (string)
+            + message (string)
+                + Sample: `Network not found for id '1l1007555'`
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: entity_not_found (string)
+            + message (string)
+                + Sample: `Network not found for id '1l1007555'`
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
