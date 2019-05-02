@@ -23,6 +23,24 @@
 - `id`: `20` (string)
 - `name`: `Advertiser 1` (string)
 
+## `marketplace_recommended_campaign` (object)
+
+- `id`: `20` (string)
+- `name`: `Recommended campaign 1` (string)
+
+## `marketplace_partner_stats` (object)
+
+- `average_conversion` (object)
+  - `publisher` : null
+  - `others` : null
+- `average_order_value` (object)
+  - `publisher` : null
+  - `others` : null
+- `conversions_by_vertical` (array)
+    - (object)
+        - `vertical` (marketplace_vertical)
+        - `conversions`: 62
+
 ## `marketplace_publisher` (object)
 
 - `id`: `111111l1` (string)
@@ -63,6 +81,23 @@
 - `limit`: `100` (number)
 - `publishers` (array[marketplace_publisher])
 - `hypermedia` (marketplace_hypermedia)
+
+## `marketplace_partner_discovery_single` (object)
+
+- `execution_time`: `0.98709 seconds` (string)
+- `id`: `111111l1` (string)
+- `name`: `Publisher A` (string)
+- `company_name`: `Acme LTD` (string)
+- `email`: `user@acme.com` (string)
+- `network_count`: `5` (number)
+- `invited`: `2019-01-01 01:12:25` (nullable, string)
+- `recommended` : false (boolean)
+- `country` (marketplace_country)
+- `vertical` (marketplace_vertical)
+- `promotional_method` (marketplace_promotional_method)
+- `websites` (array[marketplace_website])
+- `recommended_campaigns` (array[marketplace_recommended_campaign])
+- `stats` (array[marketplace_partner_stats])
 
 ## `marketplace_invitations_create_request` (object)
 - publisher_id: `100l124` (string, required)

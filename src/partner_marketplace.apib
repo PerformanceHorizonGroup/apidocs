@@ -17,6 +17,18 @@ List all Publishers who are eligible to join the network.
 + Response 200 (application/json; charset=utf-8)
     + Attributes (marketplace_partner_discovery, fixed-type)
 
+### View an individual Publisher [GET /v2/networks/{network_id}/marketplace/discovery/publishers/{publisher_id}]
+
+List the details of an individual Publisher.
+
++ Parameters
+    + network_id: 1l1007802 - ID of the network
+    + publisher_id: 300746 - ID of the publisher
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (marketplace_partner_discovery_single, fixed-type)
+
+
 ## Campaign Discovery [/v2/networks/{network_id}/marketplace/discovery/campaigns]
 
 + Parameters
