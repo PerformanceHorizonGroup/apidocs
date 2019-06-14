@@ -170,3 +170,30 @@ Allows a partner to accept one of many of their invites.
                         + code: invalid_value (string)
                         + message (string)
                             + Sample: `Invitation with invitation_id '111111l8' is not valid for publisher_id '1l1007802'`
+
+
+## Advertiser discovery [/v2/networks/{network_id}/marketplace/settings/advertisers]
+
++ Parameters
+    + network_id: 111111l8 (required, string)
+
+### List advertisers [GET]
+
+Returns all advertisers that have opted in for a given network
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (marketplace_advertiser_list, fixed-type)
+
+### Get an individual advertiser [GET /v2/networks/{network_id}/marketplace/settings/advertisers/{advertiser_id}]
+
+Returns a particular advertiser within the network
+
++ Request (application/json; charset=utf-8)
+    + Parameters
+        + network_id: 111111l8, 111111l9 (required, string)
+        + advertiser_id: 111111l8, 111111l9 (required, string)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + execution_time: `0.98709 seconds` (string)
+        + advertiser (marketplace_advertiser)
