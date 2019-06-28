@@ -22,7 +22,7 @@
 + notification (Notifications)
 
 ## Alert User Extra Field Wrapper(object)
-+ alert_user_extra_field (Alert User Setting)
++ alert_user_extra_field (Alert User Settings)
 
 ## Alert User Extra Field Value (object)
 + field_name (enum)
@@ -36,7 +36,7 @@
 + alert_user_extra_field_id: 1 (string, required) - Alert user extra field id
 + field_name: slack channel (string, required) - Field name
 + alert_user_extra_info_id: 1 (string, required) - Alert user extra info id
-+ field_value: "#general" (string, required) Field value
++ field_value: #general (string, required) Field value
 
 ## Alert Message Status (enum)
 + unread - Newly created message
@@ -87,3 +87,22 @@
 ## Alert Group Subscription (object)
 + execution_time: `0.02128 seconds` (string)
 + alert_group_subscriptions (array[alert_group_subscription])
+
+## Alert Config (object)
++ digest_last_sent (string) - read only
++ email_address: me@example.com (string)
++ email_frequency (enum)
+    + daily
+    + weekly 
+    + monthly
++ mobile_token (string)
++ postback_fields: {} (string) - stringified JSON object
++ postback_method: GET (string),
++ postback_url: https://capture.it (string),
++ send_email_at_utc: 12:00 (string),
++ slack_apikey: +48123456789 (string),
++ slack_channel (string)
++ slack_channels (array)
++ slack_client_id: 5559602201.77768433876 (string)
++ webhook_url (string)
+
