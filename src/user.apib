@@ -33,6 +33,7 @@ The reason for this is so that a new User can be created against the requested N
 + Response 200 (application/json; charset=utf-8)
     + Attributes (User Wrapper)
 
+
 ### Update a User [POST /user/{user_id}]
 
 Update the specified user.
@@ -46,6 +47,22 @@ Update the specified user.
 
 + Response 200 (application/json; charset=utf-8)
     + Attributes (User Wrapper)
+
+
+### Create a User Publisher [POST]
+
+Create a User and a Publisher account in a single request. Similar to the Create User action, this action doesn't require the Basic Auth password, only the application_key of the network you wish to sign up to.
+
++ Request (application/json; charset=utf-8)
+    + Attributes (User Base)
+        + user_name: newuser123 (required) - Unique user account name
+        + password: samplepass (required) - Password of the user
+        + publisher: (Publisher Base)
+            + entity_terms_id: 252 (required) - The terms and conditions ID (ref_terms_and_conditions_locale_id) for the specified entity. See Terms and Conditions for more information
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (User Publisher Wrapper)
+
 
 ## Account [/user/account]
 
