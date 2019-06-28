@@ -1,0 +1,212 @@
+# Group Partner Marketplace
+
+The Partner Marketplace allows advertisers to find potential publishers to invite to their networks/campaigns.
+
+## Publisher Discovery [/v2/networks/{network_id}/marketplace/discovery/publishers{?limit,offset}]
+
++ Parameters
+    + network_id: 1l1007802 - ID of the network
+    + limit: 100 (number, optional)
+    + offset: 0 (number, optional)
+
+
+### List all Invitable Publishers [GET]
+
+List all Publishers who are eligible to join the network.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (marketplace_partner_discovery, fixed-type)
+
+### View an individual Publisher [GET /v2/networks/{network_id}/marketplace/discovery/publishers/{publisher_id}]
+
+List the details of an individual Publisher.
+
++ Parameters
+    + network_id: 1l1007802 - ID of the network
+    + publisher_id: 300746 - ID of the publisher
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (marketplace_partner_discovery_single, fixed-type)
+
+
+## Campaign Discovery [/v2/networks/{network_id}/marketplace/discovery/campaigns]
+
++ Parameters
+    + network_id: 1l1007802 - ID of the network
+
+### List all applicable Campaigns [GET]
+
+List all campaigns for the network that the current logged in user has control over.
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (marketplace_campaign_discovery, fixed-type)
+
+## Publisher Invitations [/v2/networks/{network_id}/marketplace/discovery/invitations]
+
++ Parameters
+    + network_id: 1l1007802 - ID of the network
+
+
+### Create Invitations  [POST]
+
+Invite Publishers to Campaigns on the network.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + publisher_invitations (array, fixed-type, required)
+            + (marketplace_invitations_create_request)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + execution_time: `0.98709 seconds` (string)
+        + success_count: 6 (number)
+        + failure_count: 0 (number)
+
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + execution_time: `0.98709 seconds` (string)
+        + success_count: 0 (number)
+        + failure_count: 1 (number)
+        + failures (array, fixed-type)
+            + (object)
+                + index: 0 (number) - array index in the request
+                + data (object)
+                    + publisher_id (string)
+                        + Sample: 100l1258
+                    + campaign_id (string)
+                        + Sample: 1011l423
+                + errors (array, fixed-type)
+                    + (object)
+                        + type: validation_error (string)
+                        + code: non_unique (string)
+                        + message (string)
+                            + Sample: `Invitation for publisher_id '100l1258' and campaign_id '1011l423' already exists.`
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: entity_not_found (string)
+            + message (string)
+                + Sample: `Network not found for id '1l1007555'`
+
+
+
+### List invitations [GET /v2/publishers/{publisher_id}/invitations/advertisers/]
+
+See all invites available to a partner
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (marketplace_invitation_list, fixed-type)
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+
+### List invitation terms [POST /v2/publishers/{publisher_id}/invitations/advertisers/terms]
+
+Returns all applicable terms for the invitations provided.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + invitation_id: 111111l8, 111111l9 (required, array[string])
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (marketplace_partner_terms_list, fixed-type)
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: 404 (string)
+            + message (string)
+                + Sample: `Network not found for id '1l1007555'`
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: entity_not_found (string)
+            + message (string)
+                + Sample: `Network not found for id '1l1007555'`
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+
+### Accept invitations [POST /v2/publishers/{publisher_id}/invitations/accept]
+
+Allows a partner to accept one of many of their invites.
+
++ Request (application/json; charset=utf-8)
+    + Attributes
+        + invitation_id: 111111l8, 111111l9 (required, array[string])
+
++ Parameters
+    + publisher_id: 1l1007802 - ID of the publisher
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + execution_time: `0.98709 seconds` (string)
+        + success_count: 6 (number)
+        + failure_count: 0 (number)
+
++ Response 404 (application/json; charset=utf-8)
+    + Attributes
+        + error (object)
+            + type: entity_not_found (string)
+            + message (string)
+                + Sample: `Publisher not found for id '1l1007802'`
+
++ Response 400 (application/json; charset=utf-8)
+    + Attributes
+        + execution_time: `0.98709 seconds` (string)
+        + success_count: 0 (number)
+        + failure_count: 1 (number)
+        + failures (array, fixed-type)
+            + (object)
+                + index: 0 (number) - array index in the request
+                + data (object)
+                    + 111111l7
+                + errors (array, fixed-type)
+                    + (object)
+                        + property: null
+                        + type: validation_error (string)
+                        + code: invalid_value (string)
+                        + message (string)
+                            + Sample: `Invitation with invitation_id '111111l8' is not valid for publisher_id '1l1007802'`
+
+
+## Advertiser settings [/v2/networks/{network_id}/marketplace/settings/advertisers]
+
++ Parameters
+    + network_id: 111111l8 (required, string)
+
+### List a networks advertiser settings [GET]
+
+Returns all advertiser settings for a given Network
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (marketplace_advertiser_settings_list, fixed-type)
+
+### Get an individual advertisers settings [GET /v2/networks/{network_id}/marketplace/settings/advertisers/{advertiser_id}]
+
+Returns a particular advertisers settings within the network
+
++ Request (application/json; charset=utf-8)
+    + Parameters
+        + network_id: 111111l8, 111111l9 (required, string)
+        + advertiser_id: 111111l8, 111111l9 (required, string)
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes
+        + execution_time: `0.98709 seconds` (string)
+        + advertiser (marketplace_advertiser_settings)
+
+
+## Advertiser discovery [/v2/publishers/{publisher_id}/marketplace/discovery/advertisers]
+
++ Parameters
+    + publisher_id: 111111l8 (required, string)
+
+### List all available Advertisers [GET]
+
+Returns all available advertisers for a particular publisher
+
++ Response 200 (application/json; charset=utf-8)
+    + Attributes (marketplace_advertiser_list, fixed-type)

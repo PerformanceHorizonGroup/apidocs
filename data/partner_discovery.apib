@@ -1,0 +1,207 @@
+## `marketplace_country` (object)
+
+- `iso`: `UK` (string)
+- `name`: `United Kingdom` (string)
+
+## `marketplace_vertical` (object)
+
+- `id`: `131` (string)
+- `name`: `boats` (string)
+
+## `marketplace_promotional_method` (object)
+
+- `id`: `16` (string)
+- `name`: `Blogger` (string)
+
+## `marketplace_website` (object)
+
+- `url`: `http://someurl.com` (string)
+- `description`: `some web site` (string)
+
+## `marketplace_campaign_advertiser` (object)
+
+- `id`: `20` (string)
+- `name`: `Advertiser 1` (string)
+
+## `marketplace_recommended_campaign` (object)
+
+- `id`: `20` (string)
+- `name`: `Recommended campaign 1` (string)
+
+## `marketplace_partner_stats` (object)
+
+- `average_conversion` (object)
+  - `publisher` : null
+  - `others` : null
+- `average_order_value` (object)
+  - `publisher` : null
+  - `others` : null
+- `conversions_by_vertical` (array)
+    - (object)
+        - `vertical` (marketplace_vertical)
+        - `conversions`: 62
+
+## `marketplace_publisher` (object)
+
+- `id`: `111111l1` (string)
+- `name`: `Publisher A` (string)
+- `company_name`: `Acme LTD` (string)
+- `email`: `user@acme.com` (string)
+- `network_count`: `5` (number)
+- `invited`: `2019-01-01 01:12:25` (nullable, string)
+- `recommended` : false (boolean)
+- `country` (marketplace_country)
+- `vertical` (marketplace_vertical)
+- `promotional_method` (marketplace_promotional_method)
+- `websites` (array[marketplace_website])
+
+## `marketplace_campaign` (object)
+
+- `id`: `111111l1` (string)
+- `name`: `Campaign A` (string)
+- `advertiser` (marketplace_campaign_advertiser)
+
+## `marketplace_pagination` (object)
+
+- `total_page_count`: `15` (number)
+- `first_page`: `/v2/marketplace/discovery/publishers?limit=100&offset=0` (string)
+- `last_page`: `/v2/marketplace/discovery/publishers?limit=100&offset=1400` (string)
+- `next_page`: `/v2/marketplace/discovery/publishers?limit=100&offset=100` (string)
+- `previous_page` (nullable, string)
+
+## `marketplace_hypermedia` (object)
+
+- `pagination` (marketplace_pagination)
+
+## `marketplace_partner_discovery` (object)
+
+- `execution_time`: `0.98709 seconds` (string)
+- `count`: `731` (number)
+- `offset`: `0` (number)
+- `limit`: `100` (number)
+- `publishers` (array[marketplace_publisher])
+- `hypermedia` (marketplace_hypermedia)
+
+## `marketplace_partner_discovery_single` (object)
+
+- `execution_time`: `0.98709 seconds` (string)
+- `id`: `111111l1` (string)
+- `name`: `Publisher A` (string)
+- `company_name`: `Acme LTD` (string)
+- `email`: `user@acme.com` (string)
+- `network_count`: `5` (number)
+- `invited`: `2019-01-01 01:12:25` (nullable, string)
+- `recommended` : false (boolean)
+- `country` (marketplace_country)
+- `vertical` (marketplace_vertical)
+- `promotional_method` (marketplace_promotional_method)
+- `websites` (array[marketplace_website])
+- `contact_name` : `Shelly Constance` (string)
+- `contact_email` : `shelly@constance.com` (string)
+- `description` : `I am very good` (string)
+- `created_at` : `2010-07-01 12:10:10` (string)
+- `recommended_campaigns` (array[marketplace_recommended_campaign])
+- `stats` (array[marketplace_partner_stats])
+
+## `marketplace_invitations_create_request` (object)
+- publisher_id: `100l124` (string, required)
+- campaign_id: `1011l423` (string, required)
+
+## `marketplace_campaign_discovery` (object)
+
+- `execution_time`: `0.98709 seconds` (string)
+- `count`: `1` (number)
+- `campaigns` (array[marketplace_campaign])
+
+## `marketplace_network` (object)
+
+- `id`: `111111l300118` (string)
+- `name`: `Super nework` (string)
+
+## `marketplace_advertiser_address` (object)
+
+- `line1`: `123 Super street` (string)
+- `line2`:  (string)
+- `line3`: `Super city` (string)
+- `line4`:  (string)
+- `postcode`: `SU5 PER` (string)
+- `country`: `Chile` (string)
+
+## `marketplace_currency`
+
+- `iso`: `CLP` (string)
+- `name`: `Chilean peso` (string)
+- `symbol`:  `$` (string)
+
+## `marketplace_invitation_advertiser` (object)
+
+- `id`: `301284` (string)
+- `name`: `Super advertiser` (string)
+- `network` (marketplace_network)
+- `address` (marketplace_advertiser_address)
+- `invitations` (array[marketplace_invitation])
+
+## `marketplace_invitation_campaign`
+
+- `id`: `300866` (string)
+- `default_destination`: `https://mysuperdefaultdestination.com` (string)
+- `title`: `My that is a super campaign` (string)
+- `currency` (marketplace_currency)
+- `vertical` (marketplace_vertical)
+
+## `marketplace_invitation`
+
+- `id`: `11111|1` (string)
+- `campaign` (marketplace_invitation_campaign)
+
+## `marketplace_partner_terms`
+
+- `title`: `Network terms` (string)
+- `content`: `<p>Quos natus minima provident laborum perferendis aut. Illo ea possimus odio voluptatem qui vero vel.</p>` (string)
+
+## `marketplace_invitation_list` (object)
+
+- `execution_time`: `0.98709 seconds` (string)
+- `count`: `1` (number)
+- `advertisers` (array[marketplace_invitation_advertiser])
+
+## `marketplace_partner_terms_list` (object)
+
+- `execution_time`: `0.98709 seconds` (string)
+- `count`: `1` (number)
+- `terms` (array[marketplace_partner_terms])
+
+## `marketplace_advertiser_settings_campaign` (object)
+
+- `id`: `11111|1` (string)
+- `name`: `Campaign A` (string)
+- `shown`: `true` (boolean)
+
+## `marketplace_advertiser_settings` (object)
+
+- `id`: `11111|1` (string)
+- `name`: `Advertiser A` (string)
+- `participating`: `true` (boolean)
+- `description`: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed iaculis, odio non tempus consectetur.`
+- `campaigns` (array[marketplace_advertiser_settings_campaign])
+
+## `marketplace_advertiser_settings_list` (object)
+
+- `execution_time`: `0.98709 seconds` (string)
+- `count`: `2` (number)
+- `advertisers` (array[marketplace_advertiser_settings])
+
+## `marketplace_advertiser` (object)
+
+- `id`: `11111|1` (string)
+- `name`: `Advertiser A` (string)
+- `description`: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed iaculis, odio non tempus consectetur.`
+- `network` (marketplace_network)
+- `address` (marketplace_advertiser_address)
+- `campaigns` (array[marketplace_invitation_campaign])
+
+## `marketplace_advertiser_list` (object)
+
+- `execution_time`: `0.98709 seconds` (string)
+- `count`: `2` (number)
+- `advertisers` (array[marketplace_advertiser])
