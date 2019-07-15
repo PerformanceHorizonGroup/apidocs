@@ -20,16 +20,17 @@ cloned_repo = Git.open("#{Dir.pwd}/tmp")
 branches.each do |branch|
   if branch.remote.name == "origin"
     unless branch.name.include?('->')
-			unless branch.name.include?('patch-1')
-	      cloned_repo.checkout(branch.name)
-	      `make -C #{Dir.pwd}/tmp`
-	      puts "Publishing apiary docs for branch #{branch.name}"
-	      `mkdir -p #{Dir.pwd}/.public/#{branch.name}`
+      cloned_repo.checkout(branch.name)
+			`git checkout master -- Makefile`
+      `make -C #{Dir.pwd}/tmp`
+      puts "Publishing apiary docs for branch #{branch.name}"
+      `mkdir -p #{Dir.pwd}/.public/#{branch.name}`
 
-	      document_output_path = "#{Dir.pwd}/.public/#{branch.name}/index.html"
-	      `apiary preview --path=\"#{Dir.pwd}/tmp/apiary.apib\" --output=\"#{document_output_path}\"`
-	      replace_title(branch, document_output_path)
-			end
+      document_output_path = "#{Dir.pwd}/.public/#{branch.name}/index.html"
+      `apiary preview --path=\"#{Dir.pwd}/tmp/apiary.apib\" --output=\"#{document_output_path}\"`
+      replace_title(branch, document_output_path)
+			`git checkout -- Makefile`
+
     end
   end
 end
