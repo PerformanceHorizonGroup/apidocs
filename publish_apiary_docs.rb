@@ -22,6 +22,7 @@ branches.each do |branch|
     unless branch.name.include?('->')
 			unless branch.name.include?('patch-1')
 	      cloned_repo.checkout(branch.name)
+				`npm install`
 	      `make -C #{Dir.pwd}/tmp`
 	      puts "Publishing apiary docs for branch #{branch.name}"
 	      `mkdir -p #{Dir.pwd}/.public/#{branch.name}`
