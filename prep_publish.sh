@@ -14,6 +14,6 @@ apt-get install -y nodejs
 # Other tools
 apt-get install -y rsync
 npm install hercule
-npm install speccy
+npm install speccy@0.5.2
 gem install apiaryio
 gem install git
