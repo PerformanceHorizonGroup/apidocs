@@ -1,5 +1,5 @@
 all:
-	hercule src/apiary.apib -o apiary.apib
+	./node_modules/.bin/hercule src/apiary.apib -o apiary.apib
 
 publish:
 	@apiary publish --api-name=performancehorizon

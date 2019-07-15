@@ -13,6 +13,6 @@ apt-get install -y nodejs
 
 # Other tools
 apt-get install -y rsync
-npm install -g hercule
+npm install --no-save hercule
 gem install apiaryio
 gem install git
