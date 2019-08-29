@@ -27,9 +27,10 @@
     "gem": "^2.1.5",
     "hoek": "^5.0.4",
     "lodash": ">=4.17.13",
-    "mixin-deep": "1.3.1",
+    "mixin-deep": ">=1.3.2",
     "sshpk": "1.13.2",
-    "stringstream": ">=0.0.6"
+    "stringstream": ">=0.0.6",
+    "set-value": ">=2.0.1"
   },
   "devDependencies": {
     "hercule": "^3.0.5",
